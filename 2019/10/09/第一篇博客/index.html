@@ -433,7 +433,7 @@ function doDecrypt (pwd, onError) {
 	}
 }
 </script>
-<div id="enc_content" style="display:none">U2FsdGVkX1+lMfgRzYh5LQifVIcI/WvChbb/489RpjZx4gDgGJMbAXYnVkc/wDkQ3zNVwcoAVj74H9t5X9K/rketcv64OW2ZtYR7DqUJ6n6oob1/ijYOD/J04KPvw2h2ChQDjmF6NINoP+btBz/i5Se/NhRFoCOTtmZgHEHYll8suYNl5nZSTK+S4buuinbs</div>
+<div id="enc_content" style="display:none">U2FsdGVkX1/BN52fpVLDunpyiIGW+2oQhCzNeYIFwxDkO+IppybotEcaWeblMkRIkHjFqxLvt+EGAnSjnk1OR2+f4Hiidu0oK1zcXcmLAs+b1fR21QBPub1iQ7e9EUqsgJtTi/6nVwbiSTRCrZrKku01qxjCu+frjDN+F7f1JiUtyx0rH4FvCHdx51pkiBVl</div>
 <div id="enc_passwd"> <input id="enc_pwd_input" placeholder="请输入密码后阅读" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
 <script>
 var onError = function(error) {
@@ -571,12 +571,10 @@ doDecrypt(passwd, onError);
       
       
       
-      
         <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-spinner fa-spin fa-fw"></i>
-          </div>
+          <div id="gitalk-container"></div>
         </section>
+      
       
     </section>
   </article>
@@ -1179,37 +1177,24 @@ setInterval("createtime()",250);
 
 
 
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  
-    
-      <script src="/js/volantis.js"></script>
-    
-  
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var notify = 'true' == true;
-  var verify = 'true' == true;
-  var valine = new Valine();
-  valine.init({
-    el: '#valine_container',
-    notify: notify,
-    verify: verify,
-    guest_info: guest_info,
-    
-    appId: "ftftogMwpSwb9Xtxmx120eaE-gzGzoHsz",
-    appKey: "5xMtHeQyQSdUcsoux8ytOsXu",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'mp',
-    lang:'zh-cn',
-    highlight:'true'
-  })
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
   </script>
+
+
 
 
 

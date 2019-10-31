@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>第一篇博客 | TG&#39;S BLOG</title>
+  <title>微信公众号之接入微信公众号服务器开发（二） | TG&#39;S BLOG</title>
   
   
-  <meta name="description" content="温馨提示：该篇文章需要密码才能看到内容，请联系博主获取文章密码">
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
   
 
   
@@ -323,15 +323,15 @@
   <section class='meta'>
     
     
-      <a title='第一篇博客' href='/2019/10/09/第一篇博客/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/TRHX/ImageHosting/ITRHX-PIC/thumbnail/hexo.png'></a>
+      <a title='微信公众号之接入微信公众号服务器开发（二）' href='/2019/10/31/微信公众号之接入微信公众号服务器开发（二）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/about/wechat.png'></a>
     
     <div class="meta" id="header-meta">
       
         
   
     <h1 class="title">
-      <a href="/2019/10/09/第一篇博客/">
-        第一篇博客
+      <a href="/2019/10/31/微信公众号之接入微信公众号服务器开发（二）/">
+        微信公众号之接入微信公众号服务器开发（二）
       </a>
     </h1>
   
@@ -362,7 +362,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-10-09</p>
+    <p>2019-10-31</p>
   </a>
 </div>
 
@@ -370,6 +370,14 @@
         
           
             
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Flask开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Flask开发</p>
+    </a>
+  </div>
+
 
           
         
@@ -406,57 +414,58 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('别搞了，你破解不了的');
-	const txt = document.getElementById('enc_content').innerHTML;
-	// alert(txt,"1")
-	// alert(pwd,"2")
-	// alert(onError,"3")
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-		if(plaintext == ""){
-			document.getElementById("enc_pwd_input").value="";
-			document.getElementById("enc_error").innerHTML = "密码错误!";
-			return
-		}
-		// alert(plaintext)
-	} catch(err) {
-		if(onError) {
-			// alert(onError,"4")
-			// alert(err,"5")
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">U2FsdGVkX1/JxhDTj27nC3zQ9vpx0I7afjeCp46t7fMKUWhxpCYShqaPAVz3dtywDLArE4mrR3Aa8baB4njwSiPj+3rq+zilRANxj0r9DHjD/KWKsSnjhPlMfrCHHF8xOZpju2qxjwteR1+69R1xHfpgrCEGHe1LRXDHnJ7nbI41cBa0H9dwOklgoXn54v+Q</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" placeholder="请输入文章密码" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "密码错误!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <h1 id="一丶叙述"><a href="#一丶叙述" class="headerlink" title="一丶叙述"></a>一丶叙述</h1><h2 id="开发说明"><a href="#开发说明" class="headerlink" title="开发说明"></a>开发说明</h2><ol>
+<li>Python代码实现（以Flask框架为例）</li>
+<li>将使用公众号消息会话</li>
+<li>客户端—-＞微信服务器—-＞nginx服务器—-＞开发者服务器</li>
+<li>在微信服务器与开发者服务器之间搭建了nginx服务器默认为80端口(也是微信支持的端口)，跟开发者服务器属于同一个主机</li>
+<li>在nginx服务器上配置了多个端口，方便多人进行测试，转发规则：location/wechat8007</li>
+<li>在微信公众号测试平台接口配置url为host/wechat8007时，当微信服务器发送消息给host/wechat8007时，host为nginx服务器时，就会按照/wechat8007转发规则匹配，一旦匹配成功后，由nginx服务器转发给开发者服务器上127.0.0.1:8007进程的用户，这样可以实现多个账号共享一个80端口，并可以收到微信服务器对应用户的消息</li>
+<li>注：在写的flask程序中视图网址也必须是/wechat8007，因为nginx在向后台转发的时候，它只是按照/wechat8007规则知道转发给谁，它会把微信用户的请求原封不动的往后去发，因为微信服务器在向我们发送请求路径就是/wechat:8007,意味着nginx再转发给我们的时候，在我们写的flask程序收到的请求里面，你会发现对应的请求路径也是/wechat8007，所以我们flask程序中的route路径也必须是/wechat8007</li>
+<li>如果是在公司做开发的话，不涉及到多个账户使用一个80端口，所以直接把程序在开发者服务器上以80端口运行，然后在微信公众测试平台配置url为配置程序地址即可</li>
+<li>博主之所以这样做，那是因为我还没有购买服务器（●︿●）</li>
+</ol>
+<h2 id="接入微信公众平台"><a href="#接入微信公众平台" class="headerlink" title="接入微信公众平台"></a>接入微信公众平台</h2><p>接入微信公众平台开发，开发者需要按照如下步骤完成：</p>
+<ol>
+<li>填写服务器配置</li>
+<li>验证服务器地址的有效性</li>
+<li>依据接口文档实现业务逻辑</li>
+</ol>
+<h2 id="填写服务器配置"><a href="#填写服务器配置" class="headerlink" title="填写服务器配置"></a>填写服务器配置</h2><p>登录微信公众平台官网后，在公众平台后台管理页面 - 开发者中心页，点击“修改配置”按钮，填写服务器地址（URL）、Token和EncodingAESKey，其中URL是开发者用来接收微信消息和事件的接口URL。Token可由开发者可以任意填写，用作生成签名（该Token会和接口URL中包含的Token进行比对，从而验证安全性）。EncodingAESKey由开发者手动填写或随机生成，将用作消息体加解密密钥。</p>
+<p>同时，开发者可选择消息加解密方式：明文模式、兼容模式和安全模式。模式的选择与服务器配置在提交后都会立即生效，请开发者谨慎填写及选择。加解密方式的默认状态为明文模式，选择兼容模式和安全模式需要提前配置好相关加解密代码，详情请参考消息体签名及加解密部分的文档。</p>
+<h3 id="1-进入微信公众平台后，找到开发栏，进入基本配置"><a href="#1-进入微信公众平台后，找到开发栏，进入基本配置" class="headerlink" title="1.进入微信公众平台后，找到开发栏，进入基本配置"></a>1.进入微信公众平台后，找到开发栏，进入基本配置</h3><p><img src="https://img-blog.csdnimg.cn/20181228142954745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt><br><fancybox><img src="https://img-blog.csdnimg.cn/20181228143920280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h3 id="2-利用测试平台"><a href="#2-利用测试平台" class="headerlink" title="2.利用测试平台"></a>2.利用测试平台</h3><p>测试平台登录地址：<a href="https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login" target="_blank" rel="noopener">https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login</a><br><fancybox><img src="https://img-blog.csdnimg.cn/2018122817020287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox><br>在手机微信上进行扫码登录即可<br><fancybox><img src="https://img-blog.csdnimg.cn/20181228171021423.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<h1 id="二丶验证服务器地址的有效性"><a href="#二丶验证服务器地址的有效性" class="headerlink" title="二丶验证服务器地址的有效性"></a>二丶验证服务器地址的有效性</h1><p>开发者提交信息后，微信服务器将发送GET请求到填写的服务器地址URL上，GET请求携带四个参数：<br><fancybox><img src="https://img-blog.csdnimg.cn/20181228174733106.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>开发者通过检验signature对请求进行校验。若确认此次GET请求来自微信服务器，请原样返回echostr参数内容，则接入生效，成为开发者成功，否则接入失败。</p>
+<p>校验流程：</p>
+<ol>
+<li>将token、timestamp、nonce三个参数进行字典序排序</li>
+<li>将三个参数字符串拼接成一个字符串进行sha1加密</li>
+<li>开发者获得加密后的字符串可与signature对比，标识该请求来源于微信</li>
+</ol>
+<h3 id="1-根据上面微信公众平台提供的开发文档进行代码编写"><a href="#1-根据上面微信公众平台提供的开发文档进行代码编写" class="headerlink" title="1.根据上面微信公众平台提供的开发文档进行代码编写"></a>1.根据上面微信公众平台提供的开发文档进行代码编写</h3><p>代码实现如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, abort</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 常量</span></span><br><span class="line"><span class="comment"># 微信的token令牌</span></span><br><span class="line">WECHAT_TOKEN = <span class="string">"cdtaogang"</span></span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.route("/wechat8007")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wechat</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""对接微信公众号服务器"""</span></span><br><span class="line">    <span class="comment"># 接收微信服务器发送的参数</span></span><br><span class="line">    signature = request.args.get(<span class="string">"signature"</span>)</span><br><span class="line">    timestamp = request.args.get(<span class="string">"timestamp"</span>)</span><br><span class="line">    nonce = request.args.get(<span class="string">"nonce"</span>)</span><br><span class="line">    echostr = request.args.get(<span class="string">"echostr"</span>)</span><br><span class="line">    <span class="comment"># 校验参数</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> all([signature, timestamp, nonce, echostr]):</span><br><span class="line">        abort(<span class="number">400</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 按照微信的流程进行计算签名</span></span><br><span class="line">    li = [WECHAT_TOKEN, timestamp, nonce]</span><br><span class="line">    <span class="comment"># 排序</span></span><br><span class="line">    li.sort()</span><br><span class="line">    <span class="comment"># 拼接字符串</span></span><br><span class="line">    tmp_str = <span class="string">''</span>.join(li)</span><br><span class="line">    <span class="comment"># 进行sha1加密, 得到正确的签名值</span></span><br><span class="line">    sign = hashlib.sha1(tmp_str).hexdigest()</span><br><span class="line">    <span class="comment"># 将自己计算的签名值与请求的签名参数进行对比，如果相同，则证明请求来自微信服务器</span></span><br><span class="line">    <span class="keyword">if</span> sign != signature:</span><br><span class="line">        <span class="comment"># 表示请求不是微信发的</span></span><br><span class="line">        abort(<span class="number">403</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> echostr</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(port=<span class="number">8007</span>, debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-测试连接开发者服务器"><a href="#2-测试连接开发者服务器" class="headerlink" title="2.测试连接开发者服务器"></a>2.测试连接开发者服务器</h3><ul>
+<li><b>step1 使用ssh命令测试连接服务器</b></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228182101658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><b>step2 使用scp命令将程序文件推送到服务器</b></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228182759767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><b>step3 在开发者服务器上运行wechat程序</b></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228183116979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><b>step4 回到微信公众测试平台配置接口</b></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228183513192.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox><br><b>注意：当没有在服务器运行wechat程序时，进行提交会显示失败</b></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228183757670.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox><br><b>此时，回头看服务器程序运行日志，微信给我发了一个以get方式请求过来的数据</b></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228184238535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox><br><b>大功告成！说明该服务器具有有效性….</b><br><br></p>
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/85321424" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/85321424</a></p>
+
       </div>
       
         <br>
@@ -467,7 +476,7 @@ doDecrypt(passwd, onError);
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-31T12:03:00+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-31T20:40:07+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>更新于 2019年10月31日</p>
@@ -478,6 +487,9 @@ doDecrypt(passwd, onError);
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信公众号/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信公众号</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信开发</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div>
+
 
         
       
@@ -489,7 +501,7 @@ doDecrypt(passwd, onError);
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/10/09/第一篇博客/&title=第一篇博客 | TG'S BLOG&summary="
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/10/31/微信公众号之接入微信公众号服务器开发（二）/&title=微信公众号之接入微信公众号服务器开发（二） | TG'S BLOG&summary="
           
           >
           
@@ -501,7 +513,7 @@ doDecrypt(passwd, onError);
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/10/09/第一篇博客/&title=第一篇博客 | TG'S BLOG&summary="
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/10/31/微信公众号之接入微信公众号服务器开发（二）/&title=微信公众号之接入微信公众号服务器开发（二） | TG'S BLOG&summary="
           
           >
           
@@ -511,7 +523,7 @@ doDecrypt(passwd, onError);
       
     
       
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqUlEQVR42u3awY6rMAwF0P7/T8/bVnoivbYx05EOq4pSyGERp9d5veLj5+34/8z7+atfnY/3689PfG0ceHh4eIOhnx98Jp0HejXE5DWd8R/ugIeHh7fGS243mfp7Ly5/TZfn8fDw8L6Yd3Wmes+kbODh4eH9Ld58MZ0vyn+hMODh4eHFvHxpey4MeXyQwx7KWvDw8PBiXt5F+p7PK/09PDw8vHFXvTfh5u2uamutPFo8PDy8BV4vTp0Eu9XYN7/m8ko8PDy8BV7SaqpO5UngW40YkpCiEObi4eHhjXm9MlBtpPUG1HuVeHh4eM/w5svf6rDyspRHG3h4eHjP8+aNsXy6r25BGPX68PDw8G7iJZtKe/FE3tBKwNXn4uHh4W3w8gl3EgT0Xlm1DODh4eH9Lq8aB0wwi5EHHh4e3lqamgz93i1WvRZaczMBHh4e3q28ZDrOh5ssi/M7TJ6Lh4eHt82bbLG6N4RNXmihqODh4eGt8art/GqU0Lt+vpUBDw8Pb4M3iQPy0La30SoZT/meeHh4eGPeeQqeZMP5dN8rIdECHQ8PD+9BXnXhO6lI1eihULrw8PDwFni9jVNJOZlECb0A9/K5eHh4eAu86laqvDD0WmX5sr73EvHw8PDu5eWxbB7a5s2t6tOTJ+Lh4eFt8PKpvLf5qVoqqnf7UB7w8PDw1ni9xWu5KTUuRWU8Hh4e3hovH1Ch+RSHHfPjhn8JeHh4eAHvp3gkpLzAVAtJ+Vs8PDy8Bd68qT/ZTLDx+YaOHx4eHl7A24shzgvo6gaFPKrAw8PDe4aXhBR5wjFa4I5jCDw8PLxv400KQB5zzLcj4OHh4X0nL48tysMKltTRqPDw8PDWeJOW1V3Fo7dM//BbPDw8vAXe/A//fMNBsjFrMeDAw8PDS3n/ADpEc6gIKojgAAAAAElFTkSuQmCC'>
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD6klEQVR42u3aS24bQQwFQN//0sk2gKPxeyQVO0BpZRgzre7qBcXPx0f8+fXH5/P/22c+P5+8+2o/r1Z49e7BBwcOHDhwxEd9XnrD8QyRrPl84OedJGfEgQMHDhy3HK8iziag5sEvD4rJVa2+FwcOHDhwfCvHLOl6fj5f4fnAOHDgwIHjf+HIw+QXyVJZo5uFZBw4cODA8V0cmzJcHlDbNC8q58VlxONaKQ4cOHDgmMS7j5zjJ//9lvkOHDhw4MARB6dZQGoD26zI2CaNxelw4MCBA8eaIw9Im/Rp8ysgv5Jk5CI6Fw4cOHDgWHC0RbR2gGAfpK+CaJTa4cCBAweOU47ZqNmm4dQWHzepXdTowoEDBw4cRxz7XswsWLYJ3lUx8eU+ceDAgQPHEcdzye826LZNozYwr3aIAwcOHDjWHFfjCFer5YlZnijOLgYHDhw4cGw48s0ladtsKKF9ZoZVz1DgwIEDB44RR14+S0bi8jGFvEWUcLcNsy9OgQMHDhw4RhzJOFpb1Hv3yEKetuWpHQ4cOHDguOJICm3JMW7Ts7bFNQvzXxQHceDAgQPHmqMNTnmLaF+Fi0YQyqYUDhw4cOB4N0deXNt82ezAt6NyRZUUBw4cOHAsONowlg/Sbda/amIVPwVw4MCBA8cpx75EmAfjpMWVo++vGQcOHDhwXHEkoasdZchbTZv121Jj0TDDgQMHDhwLjjwNmx0pScNux+POfnfgwIEDB44FR3uk2QDEFdkVKw4cOHDgeAdHvpVZKpWXI2+bW/m14cCBAweO93G0h5ltJUm6kv3kI3TJ9+LAgQMHjiuO5PBt82Z27Cua/PAv2044cODAgWPEkQeqWQCeNYH2iVl7Fhw4cODAccuxL5/VX1y2l2aDce3QAw4cOHDguOVoN9GmbZt0azYekTz/l1wWBw4cOHAsOPKi26YktykRRtXN+KhJQogDBw4cOK448pZP29Rpg9zmAmZwH8lt4MCBAweOmGOTJrUbzZPD9mKS4Bq1wXDgwIEDx4KjhdgUENsnZ+nWKgzjwIEDB44jjlnbJm8X5aBJgK9Le/m7OHDgwIFjzbGvKe5HCvKBiQ1icQocOHDgwLHguEqc9klUO3yQp3N5EwsHDhw4cOw59iMObcK2GX1ofxAk67eXjQMHDhw4Eo4kjLVHXU1YlGvmZcT65nHgwIEDx4IjD1TtMMQwtj+WAmelzOh5HDhw4MDxzzmuxumSb8/Xn43T4cCBAweOn8CRBNq8JJcMz+WJ5Sy0R/ODOHDgwIGj5GiHD9oRhHekdrP20lnbCQcOHDhwrAca2tZO/tZmMG4TwmeFRRw4cODA8eKt3y9iFUdp9Kl0AAAAAElFTkSuQmCC'>
         
           <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
         
@@ -521,7 +533,7 @@ doDecrypt(passwd, onError);
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/10/09/第一篇博客/&title=第一篇博客 | TG'S BLOG&summary="
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/10/31/微信公众号之接入微信公众号服务器开发（二）/&title=微信公众号之接入微信公众号服务器开发（二） | TG'S BLOG&summary="
           
           >
           
@@ -545,25 +557,25 @@ doDecrypt(passwd, onError);
       
           <div class="prev-next">
               
-                  <section class="prev">
-                      <span class="art-item-left">
-                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/10/11/第一个Python程序(全面)/" rel="prev" title="第一个Python程序(全面)">
-                                
-                                    第一个Python程序(全面)
-                                
+                              <a href="/2019/10/31/微信公众号之接入微信公众号服务器开发（一）/" rel="prev" title="微信公众号之接入微信公众号服务器开发（一）">
+                                  
+                                      微信公众号之接入微信公众号服务器开发（一）
+                                  
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Sublime/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Sublime</a> <a class="tag" href="/tags/Vim/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Vim</a>
+                                  <a class="tag" href="/tags/微信公众号/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信公众号</a> <a class="tag" href="/tags/微信开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信开发</a> <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a>
                               </h6>
                           
                       </span>
                   </section>
-              
               
           </div>
       
@@ -601,7 +613,7 @@ doDecrypt(passwd, onError);
 
   <script>
     window.subData = {
-      title: '第一篇博客',
+      title: '微信公众号之接入微信公众号服务器开发（二）',
       tools: true
     }
   </script>
@@ -613,89 +625,6 @@ doDecrypt(passwd, onError);
     
     
       
-      
-        
-          
-          
-            
-              <section class='widget author'>
-  <div class='content pure'>
-    
-      <div class='avatar'>
-        <img class='avatar' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6/images/avatar_2.png'/>
-      </div>
-    
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="http://wpa.qq.com/msgrd?v=3&uin=1126331350&site=qq&menu=yes"
-              class="social fab fa-qq flat-btn flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
-              class="social fab fa-weixin flat-btn flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=cdtaogang@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://github.com/Hellotaogang"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://blog.csdn.net/qq_41782425"
-              class="social fab fa-cuttlefish flat-btn flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-            
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      
         
           
           
@@ -704,311 +633,22 @@ doDecrypt(passwd, onError);
           
             
               
-
-            
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            
-              <section class='widget grid'>
-  
-<header class='pure'>
-  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
-  
-</header>
-
-  <div class='content pure'>
-    <ul class="grid navgation">
-      
-        <li><a class="flat-box" title="/" href="/"
-          
-          
-          id="home">
-          
-            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
-          
-          近期文章
-        </a></li>
-      
-        <li><a class="flat-box" title="/archives/" href="/archives/"
-          
-            rel="nofollow"
-          
-          
-          id="archives">
-          
-            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
-          
-          文章归档
-        </a></li>
-      
-        <li><a class="flat-box" title="/###/" href="/###/"
-          
-          
-          id="###">
-          
-            <i class="fas fa-code-branch fa-fw" aria-hidden="true"></i>
-          
-          开源项目
-        </a></li>
-      
-        <li><a class="flat-box" title="/###/" href="/###/"
-          
-            rel="nofollow"
-          
-          
-          id="###">
-          
-            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
-          
-          我的友链
-        </a></li>
-      
-        <li><a class="flat-box" title="https://xaoxuu.com/wiki/material-x/" href="https://xaoxuu.com/wiki/material-x/"
-          
-            rel="nofollow"
-          
-          
-          id="https:xaoxuu.comwikimaterial-x">
-          
-            <i class="fas fa-book fa-fw" aria-hidden="true"></i>
-          
-          主题文档
-        </a></li>
-      
-        <li><a class="flat-box" title="/about/" href="/about/"
-          
-            rel="nofollow"
-          
-          
-          id="about">
-          
-            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
-          
-          关于博主
-        </a></li>
-      
-    </ul>
-  </div>
-</section>
-
-            
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            
-              
-  <section class='widget category'>
+  <section class='widget toc-wrapper'>
     
 <header class='pure'>
-  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
   
-    <a class="rightBtn"
-    
-      rel="nofollow"
-    
-    
-    href="/blog/categories/"
-    title="blog/categories/">
-    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
   
 </header>
 
     <div class='content pure'>
-      <ul class="entry">
-        
-          <li><a class="flat-box" title="/categories/Flask开发/" href="/categories/Flask开发/"><div class='name'>Flask开发</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"><div class='name'>Python</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box" title="/categories/总结/" href="/categories/总结/"><div class='name'>总结</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶叙述"><span class="toc-text">一丶叙述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#开发说明"><span class="toc-text">开发说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接入微信公众平台"><span class="toc-text">接入微信公众平台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#填写服务器配置"><span class="toc-text">填写服务器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-进入微信公众平台后，找到开发栏，进入基本配置"><span class="toc-text">1.进入微信公众平台后，找到开发栏，进入基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-利用测试平台"><span class="toc-text">2.利用测试平台</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶验证服务器地址的有效性"><span class="toc-text">二丶验证服务器地址的有效性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-根据上面微信公众平台提供的开发文档进行代码编写"><span class="toc-text">1.根据上面微信公众平台提供的开发文档进行代码编写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-测试连接开发者服务器"><span class="toc-text">2.测试连接开发者服务器</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
 
             
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            
-              
-  <section class='widget tagcloud'>
-    
-<header class='pure'>
-  <div><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
-  
-    <a class="rightBtn"
-    
-      rel="nofollow"
-    
-    
-    href="/blog/tags/"
-    title="blog/tags/">
-    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
-  
-</header>
-
-    <div class='content pure'>
-      <a href="/tags/Flask/" style="font-size: 19px; color: #777">Flask</a> <a href="/tags/Python/" style="font-size: 24px; color: #555">Python</a> <a href="/tags/Sublime/" style="font-size: 14px; color: #999">Sublime</a> <a href="/tags/Vim/" style="font-size: 14px; color: #999">Vim</a> <a href="/tags/微信公众号/" style="font-size: 19px; color: #777">微信公众号</a> <a href="/tags/微信开发/" style="font-size: 19px; color: #777">微信开发</a> <a href="/tags/测试流程/" style="font-size: 14px; color: #999">测试流程</a> <a href="/tags/用例方法/" style="font-size: 14px; color: #999">用例方法</a> <a href="/tags/用例步骤/" style="font-size: 14px; color: #999">用例步骤</a> <a href="/tags/用例特性/" style="font-size: 14px; color: #999">用例特性</a> <a href="/tags/用例要素/" style="font-size: 14px; color: #999">用例要素</a>
-    </div>
-  </section>
-
-
-            
-          
-        
-          
-          
-        
-          
-          
-        
-      
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-            
-              <section class='widget list'>
-  
-<header class='pure'>
-  <div><i class="fas fa-thumbs-up fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;强烈推荐</div>
-  
-</header>
-
-  <div class='content pure'>
-    <ul class="entry">
-      
-        <li><a class="flat-box" title="https://blog.csdn.net/qq_36759224/article/category/9335019" href="https://blog.csdn.net/qq_36759224/article/category/9335019"
-          
-          
-          >
-          <div class='name'>
-            
-              <i class=" fa-fw" aria-hidden="true"></i>
-            
-            &nbsp;&nbsp;博客搭建(Github Pages + Hexo)
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="https://blog.csdn.net/qq_36759224/article/category/9335025" href="https://blog.csdn.net/qq_36759224/article/category/9335025"
-          
-          
-          >
-          <div class='name'>
-            
-              <i class=" fa-fw" aria-hidden="true"></i>
-            
-            &nbsp;&nbsp;博客优化(Material-X)
-          </div>
-          
-        </a></li>
-      
-    </ul>
-  </div>
-</section>
-
-            
-          
-        
-      
-        
-          
-          
-        
-          
           
         
           

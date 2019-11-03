@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>微信公众号开发之接收与发送消息 | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='微信公众号开发之接收与发送消息' href='/2019/11/03/微信公众号开发之接收与发送消息/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.1/images/wechat.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/03/微信公众号开发之接收与发送消息/">
+        微信公众号开发之接收与发送消息
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="https://hellotaogang.github.io/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-03</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/WeChat开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>WeChat开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h1 id="一丶概论"><a href="#一丶概论" class="headerlink" title="一丶概论"></a>一丶概论</h1><ul>
+<li><strong>公众号接收与发送消息</strong></li>
+</ul>
+<p>验证URL有效性成功后即接入生效，成为开发者。如果公众号类型为服务号（订阅号只能使用普通消息接口），可以在公众平台网站中申请认证，认证成功的服务号将获得众多接口权限，以满足开发者需求。</p>
+<p>此后用户每次向公众号发送消息、或者产生自定义菜单点击事件时，开发者填写的服务器配置URL将得到微信服务器推送过来的消息和事件，然后开发者可以依据自身业务逻辑进行响应，例如回复消息等。</p>
+<p><strong>用户向公众号发送消息时，公众号方收到的消息发送者是一个OpenID，是使用用户微信号加密后的结果，每个用户对每个公众号有一个唯一的OpenID。</strong></p>
+<h2 id="1-接收普通消息"><a href="#1-接收普通消息" class="headerlink" title="1.接收普通消息"></a>1.接收普通消息</h2><p><strong>当普通微信用户向公众账号发消息时，微信服务器将POST消息的XML数据包到开发者填写的URL上。</strong></p>
+<p>微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次。假如服务器无法保证在五秒内处理并回复，可以直接回复空串，微信服务器不会对此作任何处理，并且不会发起重试。</p>
+<p>各消息类型的推送使用XML数据包结构，如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[gh_866835093fea]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[ogdotwSc_MmEEsJs9-ABZ1QL_4r4]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>1478317060<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[text]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Content</span>&gt;</span>&lt;![CDATA[你好]]&gt;<span class="tag">&lt;/<span class="name">Content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MsgId</span>&gt;</span>6349323426230210995<span class="tag">&lt;/<span class="name">MsgId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>&lt;![CDATA 与 ]]&gt; 括起来的数据不会被xml解析器解析 </p>
+<h2 id="2-普通消息类别"><a href="#2-普通消息类别" class="headerlink" title="2.普通消息类别"></a>2.普通消息类别</h2><ol>
+<li>文本消息</li>
+<li>图片消息</li>
+<li>语音消息</li>
+<li>视频消息</li>
+<li>小视频消息</li>
+<li>地理位置消息</li>
+<li>链接消息</li>
+</ol>
+<p><strong>文本消息</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[fromUser]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>1348831860<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[text]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Content</span>&gt;</span>&lt;![CDATA[this is a test]]&gt;<span class="tag">&lt;/<span class="name">Content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MsgId</span>&gt;</span>1234567890123456<span class="tag">&lt;/<span class="name">MsgId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20181228192104582.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<h2 id="3-回复的消息类型"><a href="#3-回复的消息类型" class="headerlink" title="3. 回复的消息类型"></a>3. 回复的消息类型</h2><ol>
+<li>文本消息</li>
+<li>图片消息</li>
+<li>语音消息</li>
+<li>视频消息</li>
+<li>音乐消息</li>
+<li>图文消息</li>
+</ol>
+<p><strong>回复文本消息</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[fromUser]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>12345678<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[text]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Content</span>&gt;</span>&lt;![CDATA[你好]]&gt;<span class="tag">&lt;/<span class="name">Content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong>开发文档可以到 <a href="https://mp.weixin.qq.com/wiki/home/index.html" target="_blank" rel="noopener">https://mp.weixin.qq.com/wiki/home/index.html</a>  进行阅读查看</p>
+<h1 id="二丶代码实现"><a href="#二丶代码实现" class="headerlink" title="二丶代码实现"></a>二丶代码实现</h1><p>需求：我们现在来实现一个针对文本消息的收发程序。实现的业务逻辑，关注者发什么内容，我们就传回给什么内容。</p>
+<p>说明：微信服务器推送消息还是往/wechat/8007，所以在之前代码上进行修改即可</p>
+<h2 id="1-开发步骤"><a href="#1-开发步骤" class="headerlink" title="1.开发步骤"></a>1.开发步骤</h2><ul>
+<li>step1 如何区分微信服务器发过来的是第一次的验证操作还是消息操作</li>
+<li>验证操作为GET请求，消息操作为POST请求</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route("/wechat8007", methods=["GET", "POST"])</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>step2 参数变更，echostr参数只是在第一次验证的时候需要，无论是POST请求还是GET请求这三种参数都必要要，因为需要验证是不是微信服务器发送过来的数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">signature = request.args.get(<span class="string">"signature"</span>)</span><br><span class="line">timestamp = request.args.get(<span class="string">"timestamp"</span>)</span><br><span class="line">nonce = request.args.get(<span class="string">"nonce"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>step3 对微信服务器发送的请求进行验证判断，如果是GET请求，那么代表是第一次的验证操作，那么就需要获取echostr字段的内容，如果内容为空则抛出404，存在则返回echostr</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> request.method == <span class="string">"GET"</span>:</span><br><span class="line">    <span class="comment"># 表示是第一次接入微信服务器的验证</span></span><br><span class="line">    echostr = request.args.get(<span class="string">"echostr"</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> echostr:</span><br><span class="line">        abort(<span class="number">404</span>)</span><br><span class="line">    <span class="keyword">return</span> echostr</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>step4 如果为POST请求，那么代表为微信服务器转发消息过来，获取请求中的data xml数据 ，数据为空抛出400</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> request.method == <span class="string">"POST"</span>:</span><br><span class="line">    <span class="comment"># 表示微信服务器转发消息过来</span></span><br><span class="line">    xml_str = request.data</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> xml_str:</span><br><span class="line">        abort(<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>step5 将对获取的数据进行解析，通过xmltodict模块中的parse方法将字符串类型的xml数据，转换成字典类型的xml格式数据，因为xml数据最外层有一个<xml></xml>标签，通过get方式获取标签里的内容，再通过get获取内容中的MsgType消息类型字段的值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对xml字符串进行解析</span></span><br><span class="line">xml_dict = xmltodict.parse(xml_str)</span><br><span class="line">xml_dict = xml_dict.get(<span class="string">"xml"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 提取消息类型</span></span><br><span class="line">msg_type = xml_dict.get(<span class="string">"MsgType"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>step6 对消息类型进行判断，如果为text文本消息，则返回文本消息，不是文本消息还是返回文本消息，这里可以拓展为(image，voice，video等等可以查看开发文档)，这里为了演示，就简单写写</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> msg_type == <span class="string">"text"</span>:</span><br><span class="line">    <span class="comment"># 表示发送的是文本消息</span></span><br><span class="line">    <span class="comment"># 构造返回值，经由微信服务器回复给用户的消息内容</span></span><br><span class="line">    resp_dict = &#123;</span><br><span class="line">        <span class="string">"xml"</span>: &#123;</span><br><span class="line">            <span class="string">"ToUserName"</span>: xml_dict.get(<span class="string">"FromUserName"</span>),</span><br><span class="line">            <span class="string">"FromUserName"</span>: xml_dict.get(<span class="string">"ToUserName"</span>),</span><br><span class="line">            <span class="string">"CreateTime"</span>: int(time.time()),</span><br><span class="line">            <span class="string">"MsgType"</span>: <span class="string">"text"</span>,</span><br><span class="line">            <span class="string">"Content"</span>: <span class="string">"taogang say:"</span> + xml_dict.get(<span class="string">"Content"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    resp_dict = &#123;</span><br><span class="line">        <span class="string">"xml"</span>: &#123;</span><br><span class="line">            <span class="string">"ToUserName"</span>: xml_dict.get(<span class="string">"FromUserName"</span>),</span><br><span class="line">            <span class="string">"FromUserName"</span>: xml_dict.get(<span class="string">"ToUserName"</span>),</span><br><span class="line">            <span class="string">"CreateTime"</span>: int(time.time()),</span><br><span class="line">            <span class="string">"MsgType"</span>: <span class="string">"text"</span>,</span><br><span class="line">            <span class="string">"Content"</span>: <span class="string">"Dear I Love you so much"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>step7 最后将我们构造的响应返回值通过unparse方法转换成xml格式的字符串，返回给微信服务器</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将字典转换为xml字符串</span></span><br><span class="line">resp_xml_str = xmltodict.unparse(resp_dict)</span><br><span class="line"><span class="comment"># 返回消息数据给微信服务器</span></span><br><span class="line"><span class="keyword">return</span> resp_xml_str</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-部署测试"><a href="#2-部署测试" class="headerlink" title="2.部署测试"></a>2.部署测试</h2><ul>
+<li>step1 将代码推送到服务器上</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228212836627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>step2 在服务器上进入虚拟环境，运行此程序</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228213121693.png" alt></fancybox></p>
+<ul>
+<li>step3 进入微信公众平台，用手机扫描测试号二维码，进行关注测试</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228213429788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox><br>扫码后进行关注</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228213746467.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p>关注后进入此公众号，公众号则发送我们在<strong>开发步骤step 6</strong>，Dear I Love you so much 消息内容</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228214352664.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p>回到服务器程序运行日志上，显示为POST请求，说明程序逻辑完全没问题</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228214604559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>公众号测试平台用户列表将我的微信添加上去了</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228214900349.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>step4 测试，在关注的此公众中，进行消息(文本，表情，语言，图片，视频）发送，当消息类型为文本时，即返回此消息内容，如果不是都是返回文本类型，内容为Dear I Love you so much</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228215333589.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228215638812.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p>此时的服务器代码运行日志</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228220035159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h2 id="3-完整代码"><a href="#3-完整代码" class="headerlink" title="3.完整代码"></a>3.完整代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, abort, render_template</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> xmltodict, time</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 常量</span></span><br><span class="line"><span class="comment"># 微信的token令牌</span></span><br><span class="line">WECHAT_TOKEN = <span class="string">"cdtaogang"</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.route("/wechat8007", methods=["GET", "POST"])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wechat</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""对接微信公众号服务器"""</span></span><br><span class="line">    <span class="comment"># 接收微信服务器发送的参数</span></span><br><span class="line">    signature = request.args.get(<span class="string">"signature"</span>)</span><br><span class="line">    timestamp = request.args.get(<span class="string">"timestamp"</span>)</span><br><span class="line">    nonce = request.args.get(<span class="string">"nonce"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> all([signature, timestamp, nonce]):</span><br><span class="line">        abort(<span class="number">400</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 按照微信的流程进行计算签名</span></span><br><span class="line">    li = [WECHAT_TOKEN, timestamp, nonce]</span><br><span class="line">    <span class="comment"># 排序</span></span><br><span class="line">    li.sort()</span><br><span class="line">    <span class="comment"># 拼接字符串</span></span><br><span class="line">    tmp_str = <span class="string">''</span>.join(li)</span><br><span class="line">    <span class="comment"># 进行sha1加密, 得到正确的签名值</span></span><br><span class="line">    sign = hashlib.sha1(tmp_str).hexdigest()</span><br><span class="line">    <span class="comment"># 将自己计算的签名值与请求的签名参数进行对比，如果相同，则证明请求来自微信服务器</span></span><br><span class="line">    <span class="keyword">if</span> sign != signature:</span><br><span class="line">        <span class="comment"># 表示请求不是微信发的</span></span><br><span class="line">        abort(<span class="number">403</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 表示是微信发送的请求</span></span><br><span class="line">        <span class="keyword">if</span> request.method == <span class="string">"GET"</span>:</span><br><span class="line">            <span class="comment"># 表示是第一次接入微信服务器的验证</span></span><br><span class="line">            echostr = request.args.get(<span class="string">"echostr"</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> echostr:</span><br><span class="line">                abort(<span class="number">404</span>)</span><br><span class="line">            <span class="keyword">return</span> echostr</span><br><span class="line">        <span class="keyword">elif</span> request.method == <span class="string">"POST"</span>:</span><br><span class="line">            <span class="comment"># 表示微信服务器转发消息过来</span></span><br><span class="line">            xml_str = request.data</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> xml_str:</span><br><span class="line">                abort(<span class="number">400</span>)</span><br><span class="line"> </span><br><span class="line">            <span class="comment"># 对xml字符串进行解析</span></span><br><span class="line">            xml_dict = xmltodict.parse(xml_str)</span><br><span class="line">            xml_dict = xml_dict.get(<span class="string">"xml"</span>)</span><br><span class="line"> </span><br><span class="line">            <span class="comment"># 提取消息类型</span></span><br><span class="line">            msg_type = xml_dict.get(<span class="string">"MsgType"</span>)</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> msg_type == <span class="string">"text"</span>:</span><br><span class="line">                <span class="comment"># 表示发送的是文本消息</span></span><br><span class="line">                <span class="comment"># 构造返回值，经由微信服务器回复给用户的消息内容</span></span><br><span class="line">                resp_dict = &#123;</span><br><span class="line">                    <span class="string">"xml"</span>: &#123;</span><br><span class="line">                        <span class="string">"ToUserName"</span>: xml_dict.get(<span class="string">"FromUserName"</span>),</span><br><span class="line">                        <span class="string">"FromUserName"</span>: xml_dict.get(<span class="string">"ToUserName"</span>),</span><br><span class="line">                        <span class="string">"CreateTime"</span>: int(time.time()),</span><br><span class="line">                        <span class="string">"MsgType"</span>: <span class="string">"text"</span>,</span><br><span class="line">                        <span class="string">"Content"</span>: <span class="string">"taogang say:"</span> + xml_dict.get(<span class="string">"Content"</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                resp_dict = &#123;</span><br><span class="line">                    <span class="string">"xml"</span>: &#123;</span><br><span class="line">                        <span class="string">"ToUserName"</span>: xml_dict.get(<span class="string">"FromUserName"</span>),</span><br><span class="line">                        <span class="string">"FromUserName"</span>: xml_dict.get(<span class="string">"ToUserName"</span>),</span><br><span class="line">                        <span class="string">"CreateTime"</span>: int(time.time()),</span><br><span class="line">                        <span class="string">"MsgType"</span>: <span class="string">"text"</span>,</span><br><span class="line">                        <span class="string">"Content"</span>: <span class="string">"Dear I Love you so much"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="comment"># 将字典转换为xml字符串</span></span><br><span class="line">            resp_xml_str = xmltodict.unparse(resp_dict)</span><br><span class="line">            <span class="comment"># 返回消息数据给微信服务器</span></span><br><span class="line">            <span class="keyword">return</span> resp_xml_str</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(port=<span class="number">8007</span>, debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/85330265" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/85330265</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-03T14:26:46+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月3日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信公众号/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信公众号</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/03/微信公众号开发之接收与发送消息/&title=微信公众号开发之接收与发送消息 | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/03/微信公众号开发之接收与发送消息/&title=微信公众号开发之接收与发送消息 | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIklEQVR42u3aS3LCQAwFQO5/aXIACniShhQW7VUqjO3pYSH0ud3i6/5wPX76uPLZmtd3Pa6sPvnYhY2NjX0R9v3llWzx2cpT30ZyHLkFGxsbeys7eVwvXL1eUz3Q5F2vLdjY2NjYr7eSbDRPb6oBEhsbGxu7GoSqgIQUJRLBoWNjY2P/GjtPA/IkIfm0WiTKA+qxWho2Njb217N7W/nOvz/S38bGxsb+Yva9eE0ShrwgNd/DmydgY2NjL2J/YmQnIU3ibdIqiEpL2NjY2IvYySPyhmuvrJ8P5eTlp0JFDRsbG/uy7GqjNKH+T8s2aU5ESQg2Njb2Inb55o9tunf0hdQFGxsbexH7bAEo2W7OqzZ3qyETGxsbewe72qad/5KvMpJ9lhXY2NjY69h5KMoPIllffWPvmLCxsbF/gT0PHr2A1CsY9cLh01oaNjY29sXZc2RSbMrf0luTBzBsbGzsfexegb4azKoFoF5yUliJjY2NvYg9KfTkreK8nZAc06mDw8bGxt7EzjedN3rzhKT6xl5p6c3gDjY2NvZl2b1hnSQi5IFnMjCUvz3qimBjY2NfkJ2HsV7xKG8S9Jq+80YyNjY29tXZSSknH52ZHEEvRDVbv9jY2Njr2JMxnVMFoPz4JgnPLa+KYWNjY69gJ9uatBCqg0F5mHzTusDGxsZexJ4MzUwA+b15q6C5B2xsbOyLs08Vlc5u7myRq/kNY2NjY1+K3Wu45gGvF7SaIzhJxoGNjY29iF390d8LVJPSTz6mU245Y2NjY69j58Gj2jY4VfeaNJWxsbGxd7OTJKFakyknBsUUJU9dsLGxsX+BnY/dTErz1f9PDjF6PjY2NvZS9iTAVBOSasi8Fa83T8bGxsZewb4Xr+pdvWbD5HCjpgU2Njb2InY1GCQbOjX0U31LXgjDxsbG3seeB61qQpIXgPKxnnLgxMbGxl7H7m2oGhurpfw85ag2pLGxsbGxkzQgDz/VnkZexsLGxsbGTlq2k0PJG7p5chLhsbGxsdexJ2lAXu7Jm7h5kajaGMbGxsbex64OMn5igKYXiibpCjY2NvYK9h9do6biTu1MowAAAABJRU5ErkJggg=='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/03/微信公众号开发之接收与发送消息/&title=微信公众号开发之接收与发送消息 | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/03/微信公众号开发之微信网页授权获取用户个人信息/" rel="prev" title="微信公众号开发之微信网页授权获取用户个人信息">
+                                
+                                    微信公众号开发之微信网页授权获取用户个人信息
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/微信公众号/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信公众号</a> <a class="tag" href="/tags/微信开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/10/31/微信公众号之接入微信公众号服务器开发（二）/" rel="prev" title="微信公众号之接入微信公众号服务器开发（二）">
+                                  
+                                      微信公众号之接入微信公众号服务器开发（二）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/微信公众号/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信公众号</a> <a class="tag" href="/tags/微信开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '微信公众号开发之接收与发送消息',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶概论"><span class="toc-text">一丶概论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-接收普通消息"><span class="toc-text">1.接收普通消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-普通消息类别"><span class="toc-text">2.普通消息类别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-回复的消息类型"><span class="toc-text">3. 回复的消息类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶代码实现"><span class="toc-text">二丶代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-开发步骤"><span class="toc-text">1.开发步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-部署测试"><span class="toc-text">2.部署测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-完整代码"><span class="toc-text">3.完整代码</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>微信公众号之接入微信公众号服务器开发（一） | TG&#39;S BLOG</title>
+  <title>Flask项目之手机端租房网站的实战开发（三） | TG&#39;S BLOG</title>
   
   
   <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
@@ -323,15 +323,15 @@
   <section class='meta'>
     
     
-      <a title='微信公众号之接入微信公众号服务器开发（一）' href='/2019/10/31/微信公众号之接入微信公众号服务器开发（一）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.1/images/wechat.png'></a>
+      <a title='Flask项目之手机端租房网站的实战开发（三）' href='/2019/11/03/Flask项目之手机端租房网站的实战开发（三）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/images/flask.png'></a>
     
     <div class="meta" id="header-meta">
       
         
   
     <h1 class="title">
-      <a href="/2019/10/31/微信公众号之接入微信公众号服务器开发（一）/">
-        微信公众号之接入微信公众号服务器开发（一）
+      <a href="/2019/11/03/Flask项目之手机端租房网站的实战开发（三）/">
+        Flask项目之手机端租房网站的实战开发（三）
       </a>
     </h1>
   
@@ -362,7 +362,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-10-31</p>
+    <p>2019-11-03</p>
   </a>
 </div>
 
@@ -372,9 +372,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/categories/WeChat开发/' rel="nofollow">
+    <a href='/categories/Flask开发/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>WeChat开发</p>
+      <p>Flask开发</p>
     </a>
   </div>
 
@@ -414,91 +414,117 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h1 id="一丶概述"><a href="#一丶概述" class="headerlink" title="一丶概述"></a>一丶概述</h1><h2 id="公众号与公众平台"><a href="#公众号与公众平台" class="headerlink" title="公众号与公众平台"></a>公众号与公众平台</h2><h3 id="1-微信账号类型"><a href="#1-微信账号类型" class="headerlink" title="1.微信账号类型"></a>1.微信账号类型</h3><ul>
-<li>个人号</li>
-<li>公众号<br>&ensp;– 订阅号<br>&ensp;– 服务号</li>
-<li>企业号</li>
-</ul>
-<h3 id="2-公众号"><a href="#2-公众号" class="headerlink" title="2.公众号"></a>2.公众号</h3><p><b>微信公众号</b>主要面向名人、政府、媒体、企业等机构推出的合作推广业务。在这里可以通过微信渠道将品牌推广给上亿的微信用户，减少宣传成本，提高品牌知名度，打造更具影响力的品牌形象。</p>
-<h3 id="3-公众平台"><a href="#3-公众平台" class="headerlink" title="3.公众平台"></a>3.公众平台</h3><p>微信公众平台是运营者通过公众号为微信用户提供资讯和服务的平台，而公众平台开发接口则是提供服务的基础，开发者在公众平台网站中创建公众号、获取接口权限后，可以通过阅读公众平台开发接口文档来帮助开发。</p>
-<p>微信公众平台可以用来注册、管理公众号和企业号。</p>
-<p><b>登录网址：</b><a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">https://mp.weixin.qq.com/</a></p>
-<p>进入上面网址，可进行登录及注册<br><fancybox><br><img src="https://img-blog.csdnimg.cn/20181228120221641.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt><br></fancybox><br><b>注册流程：</b></p>
+        <h1 id="一丶关于在项目中循环导入的问题"><a href="#一丶关于在项目中循环导入的问题" class="headerlink" title="一丶关于在项目中循环导入的问题"></a>一丶关于在项目中循环导入的问题</h1><p>1.在上一篇中创建api_1_0蓝图下的demo.py视图函数文件中，肯定会用到导入数据库db的，那么就会出现flask项目循环导包的问题，当启动项目时，会提示cannot import name db，这个提示就是代表循环导入包的问题</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103094333118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.针对flask项目出现此问题的解决方法</p>
 <ul>
-<li>step1 基本信息</li>
+<li><strong>step1</strong> 分析导包流程，首先在manage.py启动文件中，程序从上往下执行，一开始就从ihome包下导入数据库连接对象db，然后进入到ihome\init.py文件中，同理执行到从ihome导入蓝图目录api_1_0时，即进入api_1_0\init.py文件中，执行到导入相对路径下demo文件时，回到demo.py文件中，在该文件中从ihome包下导入db时，就会发现此时在ihome\init.py文件中，并还没有执行到创建数据库db对象，所以程序执行到这一步时，就会提示以上错误</li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228124707431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103095226172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li>step2 选择类型</li>
+<li><strong>step2</strong> 解决方法，选择推迟导入，修改代码在什么时候需导入api_1_0时，我们就在什么后导入即可，发现在create_app方法中在注册蓝图的时候才需要导入api_1_0，所以将导入代码，放到此处即可</li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228125535973.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox><br><fancybox><img src="https://img-blog.csdnimg.cn/2018122812593597.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox><br><a href="https://img-blog.csdnimg.cn/20181228130654654.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" target="_blank" rel="noopener"></a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注册蓝图</span></span><br><span class="line"><span class="keyword">from</span> ihome <span class="keyword">import</span> api_1_0</span><br><span class="line">app.register_blueprint(api_1_0.api, url_prefix=<span class="string">"/api/v1.0"</span>)</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>step3 信息登记</li>
+<li><strong>step3</strong> 再次启动项目，就不会提示cannot import name db 了，成功解决flask项目中循环导入包的问题</li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228130425982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103100935291.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt><fancybox></fancybox></fancybox></p>
+<p>3.一个完整的项目工程还需要在核心目录下创建项目所需的目录，用来分别存放包和库的，所以需在ihome目录下创建utils目录用来存放项目所需的工具包以及工具函数等，然后再创建一个libs目录用来存放第三方的库，不是通过pip install 安装的库，而是源码安装的库，这样才是完整的实战工程项目</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019010310244261.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="二丶日志功能实现"><a href="#二丶日志功能实现" class="headerlink" title="二丶日志功能实现"></a>二丶日志功能实现</h1><p>1.一个正常的网站包括软件等，都会有日志来记录历史操作信息等，在公司中一般会将存放日志目录与工程目录隔离开，这里为了方便演示，即将日志目录和工程目录放到一起，在项目根目录创建logs目录，用来存放日志文件</p>
+<p>2.因为flask框架没有去提供日志这一块的库以及工具，所以我们就是用python记录日志标准库logging来进行日志记录保存</p>
 <ul>
-<li>step4 公众号信息</li>
+<li><strong>step1</strong> 在ihome/init文件中导入logging库</li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228130920989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>step5 完成注册后，进行登录，首先需使用手机进行扫码</li>
+<li><strong>step2</strong> 并配置日志信息以及设置日志等级</li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228132726779.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/201901031046120.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li>在手机端显示此界面，确认无误后，确定即可</li>
+<li><strong>step3</strong> 配置后日志信息后，需要在api_1_0/demo视图函数中进行记录日志，有两种方法，第一种是直接在demo文件中使用logging标准库模块，第二种是使用flask 框架中的全局上下文current_app对象，为什么能使用current_app对象，因为这个对象把logging模块中的logger塞到了这个对象中了</li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228132912503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103110900127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li>通过身份验证后，即可在网页端对创建的公众号进行简单配置，如下图</li>
+<li><strong>step4</strong> 启动项目，在浏览器输入<a href="http://127.0.0.1:5000/api/v1.0/index测试日志是否成记录并写入到logs目录下的log文件中" target="_blank" rel="noopener">http://127.0.0.1:5000/api/v1.0/index测试日志是否成记录并写入到logs目录下的log文件中</a></li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228133603911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt><fancybox></fancybox></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103111349442.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>成功在logs目录下创建log日志文件，并将日志信息写入到该文件中 </p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103111620941.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>注： 在开发环境develop中配置了DEBUG=True调试模式下，会导致我们配置的日志等级，不生效，flask会强制忽略到我们配置的日志信息</strong></p>
+<h1 id="三丶项目数据库设计"><a href="#三丶项目数据库设计" class="headerlink" title="三丶项目数据库设计"></a>三丶项目数据库设计</h1><h3 id="1-分析项目所需要的表"><a href="#1-分析项目所需要的表" class="headerlink" title="1.分析项目所需要的表"></a>1.分析项目所需要的表</h3><ul>
+<li><p><strong>step1</strong> 用户表User，先从注册界面来说，需要哪些字段(user_id，作为主键，手机号mobile，用户名name，密码password，存放头像的路径avatar_url，用户真实姓名real_name，真实身份证号real_id_card，验证码图片存到redis数据库即可)</p>
+</li>
+<li><p><strong>step2</strong> 房子表House，字段(house_id，作为主键，user_id，与用户表主键id保持一致，作为外键关联哪个用户的房子，一个用户有多套房子一对多关系，房子标题title，房子所在区域area_name，通过创建的Area表所以这里将area_name改为area_id通过外键来查询即可)<br>思考：当查询房屋表中某个区域的数据时，select distinct area_name from house并去重，当数据很少的时候可以这样进行查询，随着时间推移导致数据达到几千万时，那么通过这样的方式查询数据，时间就会很长，不利于用户体验，所以这里需再创建一个区域表Area来解决查询时间过长的问题</p>
+</li>
+<li><p><strong>step3</strong> 区域表Area，字段(area_id，作为主键，name区域名，price价格，image_url1,image_url2…)，Area表对于House表也是一对多关系，一个区域多个房子<br>思考：在第四步我们将图片链接地址存到Area表中，那么今后如果用户上传图片扩大为10张，那么就需要改表结构，这样不是明智的选择，所以另建一个House_Image表来存储用户上传的房屋图片</p>
+</li>
+<li><p><strong>step4</strong> 房屋图片表House_Image，字段(image_id，作为主键，url图片地址，house_id外键)，房子House表对于图片地址House_Image表一对多关系，一个房子有多张图片<br>思考：分析需求，发现只有房屋详情时才会查询多张图片，而在查询列表和主页图片时，只需要一张，那么我们在房子表House中需添加一个index_image_url字段，这样做的目的是减少关联查询，在数据库中以空间换时间的理念来减少查询时间</p>
+</li>
+<li><p><strong>step5</strong> 房屋配套设施表Facility，字段(facility_id，作为主键，name设施名字)<br>思考：设施表Facility与房屋表House是多对多关系，一个设施如冰箱可以在多个不同房子中拥有，一个房子同时也可以拥有多个设备设施如电视，空调，wifi等，那么存储多对多关系的表数据，就需要创建一个中间表</p>
+</li>
+<li><p><strong>step6</strong> 创建中间表House_Facility表，字段(id，作为主键，外键house_id和facility_id)</p>
+</li>
+<li><p><strong>step7</strong> 客户订单表Order，字段(order_id，作为主键，外键user_id哪个用户和house_id哪个房子，create_time订单创建时间，start_date入住日期，end_date离开日期，price房屋单价，amount合计金额，days入住天数，status订单状态，comment评价)</p>
+</li>
+</ul>
+<p><strong><font color="red">思考1</font></strong>：之所以要在Order订单表中创建price字段是考虑到比如房东在第二天需要将房屋价格上涨或者下降，保证用户是按实时价格进行计算的，加入amount不仅是为了前端，重要的是为了后期运营人员进行统计方便，节省统计的开销<br>问题：关于房东拒绝订单是否填写拒绝原因，设定是必须填写拒绝原因，那么是需要在Order 表中添加一个字段么？<br>分析：因为一旦填写拒绝原因那么就不存在comment评价了，所以这拒绝原因和评价两个关系为互斥关系，所以我们这里不添加拒绝原因字段，当有了评论信息那么肯定就不会出现拒绝原因，可以通过订单状态status来判断是评价还是拒绝原因<br><strong><font color="red">思考2</font></strong>： 当在房源搜索房屋的时候，会出现按照最新上线，入住最多，价格高低排序，当按照入住最多排序时，那么就是相当于按照订单量最多的房屋进行排序，那么就需要在Order表中按照订单量来进行排序，首先就需要根据入住时间和区域来来进入过滤查询，还要将查询的结果安装订单量进行排序，这样查询代价就比较大了，那么同理还是使用以空间换时间的概念，在House表中添加order_count来订单量，当没下一单就在对应的order_count的值加1，回过来通过直接查询House表中的order_count字段按大小排序就能查询到订单最多的房屋了</p>
+<h3 id="2-在models-py中创建数据库抽象模型类"><a href="#2-在models-py中创建数据库抽象模型类" class="headerlink" title="2.在models.py中创建数据库抽象模型类"></a>2.在models.py中创建数据库抽象模型类</h3><ul>
+<li><strong>step1</strong> 定义BaseModel模型基类，用于为每个模型添加创建时间和更新时间</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103142544796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li>一些简单的功能添加以及配置(需要啥配置啥即可，简单操作这里不做详细说明了)</li>
+<li><strong>step2</strong> 定义User用户表</li>
 </ul>
-<p><fancybox><img src="https://img-blog.csdnimg.cn/20181228133844976.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
-<h3 id="4-公众号与个人号的区别"><a href="#4-公众号与个人号的区别" class="headerlink" title="4.公众号与个人号的区别"></a>4.公众号与个人号的区别</h3><p>微信公众号和个人号是完全不同的。</p>
-<p>微信对个人号的定位是普通用户之间的交流和通讯，微信并不鼓励和支持使用个人号进行营销推广(微信曾经大规模封杀好友过多的营销个人号）。</p>
-<p>而公众号则完全是为品牌推广、信息推送等服务而定制的。使用公众号，可以向关注者（即粉丝)群发图文消息，粉丝在对话界面看到消息后，可以点击跳转到一个图文页面。公众号还提供关键词自动回复等基础功能，以此可以随时、自动的和粉丝进行互动。</p>
-<p>除了这些基础功能之外，更大的区别是，微信针对公众号开放了很多程序接口。在这些接口的基础上，可以向粉丝提供更多的服务。此外，认证的服务号还可以申请微信支付。粉丝可以使用微信支付向进行付款（订购服务或购买商品）。所有这些，都是个人号不具备的。</p>
-<p>微信公众号的注册几乎是没有门槛的。不过针对不同类型的公众号，微信提供的功能不同，资质要求也不一样。</p>
-<h1 id="二丶微信开发原理"><a href="#二丶微信开发原理" class="headerlink" title="二丶微信开发原理"></a>二丶微信开发原理</h1><p><b>公众号主要通过</b></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103141219350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li>公众号消息会话</li>
-<li>公众号内网页</li>
+<li><strong>step3</strong> 定义Area城区表</li>
 </ul>
-<p><b>来为用户提供服务的。</b></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103141348841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li><b>公众号消息会话</b></li>
+<li><strong>step4</strong> 定义House房屋表</li>
 </ul>
-<p>公众号是以微信用户的一个联系人形式存在的，消息会话是公众号与用户交互的基础。</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103142335909.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li><b>公众号内网页</b></li>
+<li><strong>step5</strong> 定义Facility设施表</li>
 </ul>
-<p>许多复杂的业务场景，需要通过网页形式来提供服务。</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103144041300.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <ul>
-<li><b>使用微信服务器提供的功能无法满足我们的需求</b></li>
+<li><strong>step6</strong> 定义HouseImage房屋图片表</li>
 </ul>
-<p><b>设想两个场景：</b></p>
-<p>1.公众号的消息自动回复想做的智能一些，类似于iphone的Siri，例如粉丝发送“今天的北京天气”到公众号，回复粉丝信息时要按照特定时间特定城市给予反馈;</p>
-<p>2.公众号内嵌的网页需要获取浏览用户的微信头像、昵称、当前定位等信息</p>
-<h2 id="模型分类"><a href="#模型分类" class="headerlink" title="模型分类"></a>模型分类</h2><h3 id="1-无扩展应用模型"><a href="#1-无扩展应用模型" class="headerlink" title="1.无扩展应用模型"></a>1.无扩展应用模型</h3><p><b>1.公众号消息会话</b><br><img src="https://img-blog.csdnimg.cn/20181228134457290.png" alt><br><b>2.公众号内网页</b><br><img src="https://img-blog.csdnimg.cn/20181228134525581.png" alt></p>
-<h3 id="2-有扩展应用模型"><a href="#2-有扩展应用模型" class="headerlink" title="2.有扩展应用模型"></a>2.有扩展应用模型</h3><p><b>1.公众号消息会话</b><br><img src="https://img-blog.csdnimg.cn/20181228134804787.png" alt><br><b>2.公众号内网页</b><br><img src="https://img-blog.csdnimg.cn/20181228134857512.png" alt></p>
-<h2 id="公众号接口"><a href="#公众号接口" class="headerlink" title="公众号接口"></a>公众号接口</h2><h3 id="1-公众号消息会话"><a href="#1-公众号消息会话" class="headerlink" title="1.公众号消息会话"></a>1.公众号消息会话</h3><p>目前公众号内主要有这样几类消息服务的类型，分别用于不同的场景。</p>
-<p><b>群发消息</b></p>
-<p>公众号可以以一定频次（订阅号为每天1次，服务号为每月4次），向用户群发消息，包括文字消息、图文消息、图片、视频、语音等。</p>
-<p><strong>被动回复消息</strong></p>
-<p>在用户给公众号发消息后，微信服务器会将消息发到开发者预先在开发者中心设置的服务器地址（开发者需要进行消息真实性验证），公众号可以在5秒内做出回复，可以回复一个消息，也可以回复命令告诉微信服务器这条消息暂不回复。被动回复消息可以设置加密（在公众平台官网的开发者中心处设置，设置后，按照消息加解密文档来进行处理。其他3种消息的调用因为是API调用而不是对请求的返回，所以不需要加解密）。</p>
-<p><strong>客服消息</strong></p>
-<p>在用户给公众号发消息后的48小时内，公众号可以给用户发送不限数量的消息，主要用于客服场景。用户的行为会触发事件推送，某些事件推送是支持公众号据此发送客服消息的，详见微信推送消息与事件说明文档。</p>
-<p><strong>模板消息</strong></p>
-<p>在需要对用户发送服务通知（如刷卡提醒、服务预约成功通知等）时，公众号可以用特定内容模板，主动向用户发送消息。</p>
-<h3 id="2-公众号内网页"><a href="#2-公众号内网页" class="headerlink" title="2.公众号内网页"></a>2.公众号内网页</h3><p>对于公众号内网页，提供以下场景接口：</p>
-<p>网页授权获取用户基本信息</p>
-<p>通过该接口，可以获取用户的基本信息</p>
-<p>微信JS-SDK</p>
-<p>是开发者在网页上通过JavaScript代码使用微信原生功能的工具包，开发者可以使用它在网页上录制和播放微信语音、监听微信分享、上传手机本地图片、拍照等许多能力。</p>
-<h3 id="3-微信开发者文档"><a href="#3-微信开发者文档" class="headerlink" title="3.微信开发者文档"></a>3.微信开发者文档</h3><p>文档链接地址：<a href="https://mp.weixin.qq.com/wiki/home/index.html" target="_blank" rel="noopener">https://mp.weixin.qq.com/wiki/home/index.html</a><br><fancybox><br><img src="https://img-blog.csdnimg.cn/20181228135813950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt><br></fancybox><br><br></p>
-<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/85319116" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/85319116</a></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103144232890.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step7</strong> 定义Order订单表</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019010314435715.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="四丶数据库迁移"><a href="#四丶数据库迁移" class="headerlink" title="四丶数据库迁移"></a>四丶数据库迁移</h1><ul>
+<li><strong>step1</strong> 初始化数据库对象db</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103155155636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 执行迁移文件，结果提示No change in…..</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103155706868.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>解决：因为models.py文件对于其他文件来说，并不知道它的存在，所以只需要在视图文件demo中导入models即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ihome <span class="keyword">import</span> db, models</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 再次执行迁移 ，则显示迁移成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103160145627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 执行升级，将数据写入到mysql中的ihome_python数据库中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103160804362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step5</strong> 以上步骤完成后，进入mysql，使用ihome_python数据库，查询数据库表成功生成 </li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190103161251719.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/85676643" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/85676643</a></p>
 
       </div>
       
@@ -510,7 +536,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-03T14:27:40+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-03T15:02:07+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>更新于 2019年11月3日</p>
@@ -522,7 +548,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信公众号/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信公众号</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信开发</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask网站实战开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask网站实战开发</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/手机端租房网站开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>手机端租房网站开发</p></a></div>
 
 
         
@@ -535,7 +561,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/10/31/微信公众号之接入微信公众号服务器开发（一）/&title=微信公众号之接入微信公众号服务器开发（一） | TG'S BLOG&summary="
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/03/Flask项目之手机端租房网站的实战开发（三）/&title=Flask项目之手机端租房网站的实战开发（三） | TG'S BLOG&summary="
           
           >
           
@@ -547,7 +573,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/10/31/微信公众号之接入微信公众号服务器开发（一）/&title=微信公众号之接入微信公众号服务器开发（一） | TG'S BLOG&summary="
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/03/Flask项目之手机端租房网站的实战开发（三）/&title=Flask项目之手机端租房网站的实战开发（三） | TG'S BLOG&summary="
           
           >
           
@@ -557,7 +583,7 @@
       
     
       
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD6ElEQVR42u3aQZLiQAwEQP7/aea6EYyhSmrPckifCMLY7vRBSF2PR3w8/zlev09+e/X59Uiu/3r+1TePOw4cOHDgwBEv9erhksd9BsfVme01c+h8jThw4MCB4yzHrEDm5+f3akv+pujiwIEDB45v49g0XVfnt21bch0cOHDgwPHNHHmZ/NAslTO6WUnGgQMHDhz/i6Mdw70vnMn3s3vl9LfPSnHgwIEDx6TeDQd/3/b5lnwHDhw4cOCIi9MsxNYWttmQsW0ai9XhwIEDB441R16QNu3T5l9A3m4lkYtoXThw4MCBY8HRDtHy8Fw7gMujePtSevk8OHDgwIHjKEfSks2KcfJA+YBv1tpFG104cODAgeMQx2YvZlMs2wbv1DDx8jlx4MCBA8chjvcjv7NFt900agvz6glx4MCBA8eaIwkoJHGEfNhXD+ziBc8GlDhw4MCB4w6OTRpitl00Cy7MQnt1nAIHDhw4cCw42rBCWyyT0MOMPl988QJw4MCBA8eaI2/Y8kvfHVnI27a8tcOBAwcOHGc58qarXVL0HsoNp/zI28t6SooDBw4cOMp9ltkWzmwB+aixHWLOBos4cODAgeM+jlNhgnZcuN9YyseOOHDgwIHjbo421pAE6TbXP7WJVfwVwIEDBw4cRzlOjQjbYjwbL+7jdzhw4MCB4w6OWSO3Sk8cun47asy3o3DgwIEDx4Yjb8Pa4pqHDM7G447978CBAwcOHAuOdkmzAMQpslOsOHDgwIHjDo78UU7dLI/cbTa38teGAwcOHDju43i/adS2fC1uHpXLnzPf4sKBAwcOHKc4koKXF8I2rDCLWWzGjtG2Ew4cOHDgGHHkhaptzDabQPvGrF0LDhw4cOA4y7Efn9U3HrWF+X1noQccOHDgwHGKI+rzRgV1E1nIG8U2eBGNBXHgwIEDx1GOfHntqK6Fa6+WfHNJjAMHDhw41hx5SZuVvdmosW3bNkPDRzuhxIEDBw4cbzny8dwjOJ7lkTdd+SZWG7/78L8DBw4cOHCMODaFM2/A8lHjjPJAGcaBAwcOHIc4Zts2+SPmoO2wcnb3y9/iwIEDB441x36muI8U7AMTs4bzQ6wBBw4cOHCMOE41Tvsmqg0f5O1cEcjAgQMHDhxrjrYU5cWvDTTkW0dtMCL5XKPgwIEDB47R5tNsMXmzN1tkW0Tr948DBw4cOA5x5IVqXzhnBX4/yozOx4EDBw4cf87RhtU2dS2P683idDhw4MCB4xs4TpXepIi2jeVsAhrlB3HgwIEDR8nRhg/ygnd4B6zcUmpfAA4cOHDg2HPs92JmUYPZkdDkJXw4vsSBAwcOHL//6gd44z4Q19yTwAAAAABJRU5ErkJggg=='>
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD6ElEQVR42u3awY7iQAwEUP7/p5nzaiahym4QK72cRhCSzstKXlf78YiP5+j4/dv8+ve/Tc68v+PqwIEDBw4ci0e9Pye5cnLfq1+1q0qwXjwFDhw4cOA4xHH/MHlJu79Zcq8Nblt0ceDAgQPH93DsW7uru+fl/P6BceDAgQPH/8WxWegsncubQBw4cODA8Q0cSQy3j/xm0V77kj6UleLAgQMHjnS36NEu4vv/fst8Bw4cOHDgiJulNtRLWqy80G5Cw+fiwIEDBw4ce452mGC2iM3/AvIGr40vL8/EgQMHDhxrjk0Al3dDG4L887e8GBw4cODAMeLYP1674ZR/m6959hTFlAcOHDhw4BjVmiS2a8vhrFSfWlXbEOLAgQMHjg3Hfg6iLWB5gZxtfa1iQRw4cODAcZTjPgpMvt0MSeRx5OaTY8koDhw4cOBYh2sJ4mw3Z/Z4m6eImjccOHDgwLHgaEvp+xqwGWV+5aJ5w4EDBw4cJceppbdbTW2jmBfLdowPBw4cOHB8hiO5ZR4RzuDyliwPGQsUHDhw4MAx4sgHzpIzk/KcFNq2gWw3rl78i8CBAwcOHAuODcSs8ct/mwxbnGopceDAgQPHKY5NGZsV483QQ048HMXAgQMHDhyHOGZFNL/9/vp5A9lev56MwIEDBw4cs5ITfNtuTbV/5wHipuX755o4cODAgePMvepC2IaAbSs4ax1PNZA4cODAgWPPsVnWPkBs47/9+l+sBAcOHDhwLDiScYS2vLW1bAOaR4TRNhUOHDhw4FhzzNq22UjBuzeZNn3Z5VgDDhw4cOAoOZLy2W5H5bizIYmELHkxl7twOHDgwIFjwTFLEzdlb3/+jPXAphQOHDhw4Ig58p9tFpE3by86ztFQRfEKceDAgQPHIY5NlX7GR14+2zPb4DKa78CBAwcOHEc5NrdPStqpOK8tz8WUBw4cOHDgKDnagYDNSNyp5HLfql1+iwMHDhw4DnHMxgvydm4TAs7GGvJyW++J4cCBAweOkiOKz8oFtdtRsxcwa/Yue1kcOHDgwLHg2Iy1zYK5fZjYtpRRAIoDBw4cONYcbQHbjB3MHiAPB/O7vDgTBw4cOHAsOJ7l0Y415C3WBndTmKOOFgcOHDhwTHaRhqMJm1GGnHhWsNtXggMHDhw4TnG0xbUdessLalsC8+CyeP84cODAgeMQR16o8sZp1SaNGrZ9+IgDBw4cOD7P0caFswiv/aQd8jtWaHHgwIEDxxsKbbvBkzdvs0CwLcN/hIM4cODAgWPNMRt3awcF2kG35Py8zB/edsKBAwcOHOuBhrYcbobk8pI8CyhX8SUOHDhw4Ph7PT9bJOxv+1eViAAAAABJRU5ErkJggg=='>
         
           <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
         
@@ -567,7 +593,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/10/31/微信公众号之接入微信公众号服务器开发（一）/&title=微信公众号之接入微信公众号服务器开发（一） | TG'S BLOG&summary="
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/03/Flask项目之手机端租房网站的实战开发（三）/&title=Flask项目之手机端租房网站的实战开发（三） | TG'S BLOG&summary="
           
           >
           
@@ -595,16 +621,16 @@
                       <span class="art-item-left">
                           <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                           <h4>
-                              <a href="/2019/10/31/微信公众号之接入微信公众号服务器开发（二）/" rel="prev" title="微信公众号之接入微信公众号服务器开发（二）">
+                              <a href="/2019/11/03/Flask项目之手机端租房网站的实战开发（四）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（四）">
                                 
-                                    微信公众号之接入微信公众号服务器开发（二）
+                                    Flask项目之手机端租房网站的实战开发（四）
                                 
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/微信公众号/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信公众号</a> <a class="tag" href="/tags/微信开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信开发</a>
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
                               </h6>
                           
                       </span>
@@ -615,16 +641,16 @@
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/10/18/测试笔记/" rel="prev" title="软件测试用例设计总结">
+                              <a href="/2019/11/03/Flask项目之手机端租房网站的实战开发（二）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（二）">
                                   
-                                      软件测试用例设计总结
+                                      Flask项目之手机端租房网站的实战开发（二）
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/测试流程/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 测试流程</a> <a class="tag" href="/tags/用例特性/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 用例特性</a> <a class="tag" href="/tags/用例要素/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 用例要素</a> <a class="tag" href="/tags/用例步骤/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 用例步骤</a> <a class="tag" href="/tags/用例方法/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 用例方法</a>
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
                               </h6>
                           
                       </span>
@@ -666,7 +692,7 @@
 
   <script>
     window.subData = {
-      title: '微信公众号之接入微信公众号服务器开发（一）',
+      title: 'Flask项目之手机端租房网站的实战开发（三）',
       tools: true
     }
   </script>
@@ -696,7 +722,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶概述"><span class="toc-text">一丶概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#公众号与公众平台"><span class="toc-text">公众号与公众平台</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-微信账号类型"><span class="toc-text">1.微信账号类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-公众号"><span class="toc-text">2.公众号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-公众平台"><span class="toc-text">3.公众平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-公众号与个人号的区别"><span class="toc-text">4.公众号与个人号的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶微信开发原理"><span class="toc-text">二丶微信开发原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模型分类"><span class="toc-text">模型分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-无扩展应用模型"><span class="toc-text">1.无扩展应用模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-有扩展应用模型"><span class="toc-text">2.有扩展应用模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公众号接口"><span class="toc-text">公众号接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-公众号消息会话"><span class="toc-text">1.公众号消息会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-公众号内网页"><span class="toc-text">2.公众号内网页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-微信开发者文档"><span class="toc-text">3.微信开发者文档</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶关于在项目中循环导入的问题"><span class="toc-text">一丶关于在项目中循环导入的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶日志功能实现"><span class="toc-text">二丶日志功能实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶项目数据库设计"><span class="toc-text">三丶项目数据库设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-分析项目所需要的表"><span class="toc-text">1.分析项目所需要的表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-在models-py中创建数据库抽象模型类"><span class="toc-text">2.在models.py中创建数据库抽象模型类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶数据库迁移"><span class="toc-text">四丶数据库迁移</span></a></li></ol>
     </div>
   </section>
 

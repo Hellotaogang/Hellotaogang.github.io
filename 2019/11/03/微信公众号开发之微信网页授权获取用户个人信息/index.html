@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>微信公众号开发之微信网页授权获取用户个人信息 | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='微信公众号开发之微信网页授权获取用户个人信息' href='/2019/11/03/微信公众号开发之微信网页授权获取用户个人信息/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.1/images/wechat.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/03/微信公众号开发之微信网页授权获取用户个人信息/">
+        微信公众号开发之微信网页授权获取用户个人信息
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="https://hellotaogang.github.io/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-03</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/WeChat开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>WeChat开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h1 id="一丶概述"><a href="#一丶概述" class="headerlink" title="一丶概述"></a>一丶概述</h1><ul>
+<li><strong>微信网页授权</strong></li>
+</ul>
+<p>如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。</p>
+<p>现在，我们要实现一个微信内网页，通过微信访问网页时，网页会展示微信用户的个人信息。因为涉及到用户的个人信息，所以需要有用户授权才可以。当用户授权后，我们的网页服务器（开发者服务器）会拿到用户的“授权书”（code）,我们用这个code向微信服务器领取访问令牌（accecc_token）和用户的身份号码（openid)，然后凭借access_token和openid向微信服务器提取用户的个人信息。</p>
+<ol>
+<li>第一步：用户同意授权，获取code</li>
+<li>第二步：通过code换取网页授权access_token</li>
+<li>第三步：拉取用户信息(需scope为 snsapi_userinfo)</li>
+</ol>
+<p>那么，如何拿到用户的授权code呢？</p>
+<p>授权是由微信发起让用户进行确认，在这个过程中是微信在与用户进行交互，所以用户应该先访问微信的内容，用户确认后再由微信将用户导向到我们的网页链接地址，并携带上code参数。我们把这个过程叫做网页回调，类似于我们在程序编写时用到的回调函数，都是回调的思想。</p>
+<ul>
+<li><strong>关于网页授权回调域名的说明</strong></li>
+</ul>
+<p>1、在微信公众号请求用户网页授权之前，开发者需要先到公众平台官网中的“开发 - 接口权限 - 网页服务 - 网页帐号 - 网页授权获取用户基本信息”的配置选项中，修改授权回调域名。请注意，这里填写的是域名（是一个字符串），而不是URL，因此请勿加 http:// 等协议头；关于网页授权回调域名的说明</p>
+<p>2、授权回调域名配置规范为全域名，比如需要网页授权的域名为：<a href="http://www.qq.com，配置以后此域名下面的页面http://[www.qq.com/music.html](www.qq.com/music.html)" target="_blank" rel="noopener">www.qq.com，配置以后此域名下面的页面http://[www.qq.com/music.html](www.qq.com/music.html)</a> 、 <a href="http://www.qq.com/login.html" target="_blank" rel="noopener">http://www.qq.com/login.html</a> 都可以进行OAuth2.0鉴权。但<a href="http://pay.qq.com" target="_blank" rel="noopener">http://pay.qq.com</a> 、 <a href="http://music.qq.com" target="_blank" rel="noopener">http://music.qq.com</a> 、 <a href="http://qq.com" target="_blank" rel="noopener">http://qq.com</a>无法进行OAuth2.0鉴权</p>
+<p>3、如果公众号登录授权给了第三方开发者来进行管理，则不必做任何设置，由第三方代替公众号实现网页授权即可。</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229104150347.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229104333145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h2 id="第一步：用户同意授权，获取code"><a href="#第一步：用户同意授权，获取code" class="headerlink" title="第一步：用户同意授权，获取code"></a>第一步：用户同意授权，获取code</h2><p>在确保微信公众账号拥有授权作用域（scope参数）的权限的前提下（服务号获得高级接口后，默认拥有scope参数中的snsapi_base和snsapi_userinfo），引导关注者打开如下页面：</p>
+<p><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect</a></p>
+<p><strong><font color="#FF0000">尤其注意：</font>由于授权操作安全等级较高，所以在发起授权请求时，微信会对授权链接做正则强匹配校验，如果链接的参数顺序不对，授权页面将无法正常访问</strong></p>
+<p>参考链接(请在微信客户端中打开此链接体验):<br><strong>scope为snsapi_base</strong><br><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&amp;redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&amp;response_type=code&amp;scope=snsapi_base&amp;state=123#wechat_redirect" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&amp;redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&amp;response_type=code&amp;scope=snsapi_base&amp;state=123#wechat_redirect</a><br><strong>scope为snsapi_userinfo</strong><br><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&amp;redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=STATE#wechat_redirec" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&amp;redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=STATE#wechat_redirec</a></p>
+<p><strong><font color="#FF0000">尤其注意：</font>跳转回调redirect_uri，应当使用https链接来确保授权code的安全性。</strong></p>
+<p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">是否必须</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">appid</td>
+<td align="center">是</td>
+<td align="center">公众号的唯一标识</td>
+</tr>
+<tr>
+<td align="center">redirect_uri</td>
+<td align="center">是</td>
+<td align="center">授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理</td>
+</tr>
+<tr>
+<td align="center">response_type</td>
+<td align="center">是</td>
+<td align="center">返回类型，请填写code</td>
+</tr>
+<tr>
+<td align="center">scope</td>
+<td align="center">是</td>
+<td align="center">应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）</td>
+</tr>
+<tr>
+<td align="center">state</td>
+<td align="center">否</td>
+<td align="center">重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节</td>
+</tr>
+<tr>
+<td align="center">#wechat_redirect</td>
+<td align="center">是</td>
+<td align="center">无论直接打开还是做页面302重定向时候，必须带此参数</td>
+</tr>
+</tbody></table>
+<p>下图为scope等于snsapi_userinfo时的授权页面：</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229105505298.jpg" alt></fancybox></p>
+<p><strong>用户同意授权后</strong></p>
+<p>如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&amp;state=STATE。</p>
+<p><strong>code说明：</strong> code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。 </p>
+<h2 id="第二步：通过code换取网页授权access-token"><a href="#第二步：通过code换取网页授权access-token" class="headerlink" title="第二步：通过code换取网页授权access_token"></a>第二步：通过code换取网页授权access_token</h2><p>首先请注意，这里通过code换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同。公众号可通过下述接口来获取网页授权access_token。如果网页授权的作用域为snsapi_base，则本步骤中获取到网页授权access_token的同时，也获取到了openid，snsapi_base式的网页授权流程即到此为止。</p>
+<p>尤其注意：由于公众号的secret和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端。后续刷新access_token、通过access_token获取用户信息等步骤，也必须从服务器发起。</p>
+<p>请求方法</p>
+<p>获取code后，请求以下链接获取access_token：  <a href="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code</a></p>
+<p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">是否必须</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">appid</td>
+<td align="center">是</td>
+<td align="center">公众号的唯一标识</td>
+</tr>
+<tr>
+<td align="center">secret</td>
+<td align="center">是</td>
+<td align="center">公众号的appsecret</td>
+</tr>
+<tr>
+<td align="center">code</td>
+<td align="center">是</td>
+<td align="center">填写第一步获取的code参数</td>
+</tr>
+<tr>
+<td align="center">grant_type</td>
+<td align="center">是</td>
+<td align="center">填写为authorization_code</td>
+</tr>
+</tbody></table>
+<p>返回说明</p>
+<p>正确时返回的JSON数据包如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">"access_token"</span>:<span class="string">"ACCESS_TOKEN"</span>,</span><br><span class="line"><span class="attr">"expires_in"</span>:<span class="number">7200</span>,</span><br><span class="line"><span class="attr">"refresh_token"</span>:<span class="string">"REFRESH_TOKEN"</span>,</span><br><span class="line"><span class="attr">"openid"</span>:<span class="string">"OPENID"</span>,</span><br><span class="line"><span class="attr">"scope"</span>:<span class="string">"SCOPE"</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">access_token</td>
+<td align="center">网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同</td>
+</tr>
+<tr>
+<td align="center">expires_in</td>
+<td align="center">access_token接口调用凭证超时时间，单位（秒）</td>
+</tr>
+<tr>
+<td align="center">refresh_token</td>
+<td align="center">用户刷新access_token</td>
+</tr>
+<tr>
+<td align="center">openid</td>
+<td align="center">用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID</td>
+</tr>
+<tr>
+<td align="center">scope</td>
+<td align="center">用户授权的作用域，使用逗号（,）分隔</td>
+</tr>
+</tbody></table>
+<p>错误时微信会返回JSON数据包如下（示例为Code无效错误）:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"errcode"</span>:<span class="number">40029</span>,<span class="attr">"errmsg"</span>:<span class="string">"invalid code"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三步：拉取用户信息-需scope为-snsapi-userinfo"><a href="#第三步：拉取用户信息-需scope为-snsapi-userinfo" class="headerlink" title="第三步：拉取用户信息(需scope为 snsapi_userinfo)"></a>第三步：拉取用户信息(需scope为 snsapi_userinfo)</h2><p>如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了。</p>
+<p>请求方法</p>
+<p>http：GET（请使用https协议） <a href="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN</a></p>
+<p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">access_token</td>
+<td align="center">网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同</td>
+</tr>
+<tr>
+<td align="center">openid</td>
+<td align="center">用户的唯一标识</td>
+</tr>
+<tr>
+<td align="center">lang</td>
+<td align="center">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</td>
+</tr>
+</tbody></table>
+<p>返回说明</p>
+<p>正确时返回的JSON数据包如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;    <span class="attr">"openid"</span>:<span class="string">" OPENID"</span>,</span><br><span class="line"><span class="attr">" nickname"</span>: NICKNAME,</span><br><span class="line"><span class="attr">"sex"</span>:<span class="string">"1"</span>,</span><br><span class="line"><span class="attr">"province"</span>:<span class="string">"PROVINCE"</span></span><br><span class="line"><span class="string">"city"</span>:<span class="string">"CITY"</span>,</span><br><span class="line"><span class="attr">"country"</span>:<span class="string">"COUNTRY"</span>,</span><br><span class="line"><span class="attr">"headimgurl"</span>:    <span class="string">"http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46"</span>,</span><br><span class="line"><span class="attr">"privilege"</span>:[ <span class="string">"PRIVILEGE1"</span> <span class="string">"PRIVILEGE2"</span>     ],</span><br><span class="line"><span class="attr">"unionid"</span>: <span class="string">"o6_bmasdasdsad6_2sgVt7hMZOPfL"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">openid</td>
+<td align="center">用户的唯一标识</td>
+</tr>
+<tr>
+<td align="center">nickname</td>
+<td align="center">用户昵称</td>
+</tr>
+<tr>
+<td align="center">sex</td>
+<td align="center">用户的性别，值为1时是男性，值为2时是女性，值为0时是未知</td>
+</tr>
+<tr>
+<td align="center">province</td>
+<td align="center">用户个人资料填写的省份</td>
+</tr>
+<tr>
+<td align="center">city</td>
+<td align="center">普通用户个人资料填写的城市</td>
+</tr>
+<tr>
+<td align="center">country</td>
+<td align="center">国家，如中国为CN</td>
+</tr>
+<tr>
+<td align="center">headimgurl</td>
+<td align="center">用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。</td>
+</tr>
+<tr>
+<td align="center">privilege</td>
+<td align="center">用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）</td>
+</tr>
+<tr>
+<td align="center">unionid</td>
+<td align="center">只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。</td>
+</tr>
+</tbody></table>
+<p>错误时微信会返回JSON数据包如下（示例为openid无效）:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"errcode"</span>:<span class="number">40003</span>,<span class="attr">"errmsg"</span>:<span class="string">" invalid openid "</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="二丶代码实现"><a href="#二丶代码实现" class="headerlink" title="二丶代码实现"></a>二丶代码实现</h1><ul>
+<li>思路分析</li>
+<li>首选在我们的flask程序中需要定义一个视图函数路由规则为/wechat8007/index，定义微信服务器重定向网址redirect_uri为服务器域名+/wechat8007/index（例如<a href="http://www.xxxx.com/wechat8007/index" target="_blank" rel="noopener">http://www.xxxx.com/wechat8007/index</a>），通过访问微信提供的引导页面，让用户同意授权，然后重定向到我们定义的网址，此时微信服务器就会给我们的服务一个code，我们的服务器再通过code向微信服务器换取网页授权access_token(存取令牌)，如果网页授权作用域为snsapi_userinfo，则此时可以通过access_token和openid拉取用户信息了。</li>
+</ul>
+<ul>
+<li><strong>step1 同意授权，这一块不需要代码实现，只需要提供授权链接即可</strong></li>
+<li><strong>step2 定义视图函数，当用户同意授权，页面将跳转至 redirect_uri/?code=CODE&amp;state=STATE ，在flask程序中定义一个是视图函数接口index，让用户同意授权后，去访问的视图</strong></li>
+</ul>
+<ul>
+<li>上一篇博客定义的wechat视图，是由微信服务器访问，现在定义的index视图为用户访问的</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route("/wechat8007/index")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""让用户通过微信访问的网页页面视图"""</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3  刚开始还没拉去用户资料时，可直接返回一个模板</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4 从微信服务器中获取用户的资料数据，将用户的资料数据填充到index.html模板中</strong></li>
+<li>1.获取code参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code = request.args.get(<span class="string">"code"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.当code不存在时，返回字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> code:</span><br><span class="line">    <span class="keyword">return</span> <span class="string">u"缺失code参数"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.向微信服务器发送http请求，获取access_token，在获取之前要在代码定义全局变量WECHAT_APPID以及WECHAT_APPSECRET的值，用来填充<a href="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code</a> 微信提供获取access_token链接地址中的APPID以及SECRET和CODE的值，再通过python中的urllib2库向这个url发送请求，read方法读取文本内容获取json格式的字符串，然后使用json当中的loads方法将json格式的字符串转换为字典</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&amp;secret=%s&amp;code=%s&amp;grant_type=authorization_code"</span> %(WECHAT_APPID,WECHAT_APPSECRET,code)</span><br><span class="line"> </span><br><span class="line">response = urllib2.urlopen(url)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 获取响应体数据,微信返回的json数据</span></span><br><span class="line">json_str = response.read()</span><br><span class="line">resp_dict = json.loads(json_str)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4.提取access_token，首先对获取到的响应体数据进行判断，如果不存在，直接返回提示字符串，存在则通过get方式拿去字典中的access_token键的值以及用户编号openid的值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="string">"errcode"</span> <span class="keyword">in</span> resp_dict:</span><br><span class="line">    <span class="keyword">return</span> <span class="string">u"获取access_token失败"</span></span><br><span class="line"> </span><br><span class="line">access_token = resp_dict.get(<span class="string">"access_token"</span>)</span><br><span class="line">open_id = resp_dict.get(<span class="string">"openid"</span>)  <span class="comment"># 用户的编号</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5 向微信服务器发送http请求，获取用户的资料数据</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">"https://api.weixin.qq.com/sns/userinfo?access_token=%s&amp;openid=%s&amp;lang=zh_CN"</span> %(access_token,open_id)</span><br><span class="line"> </span><br><span class="line">response = urllib2.urlopen(url)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 读取微信传回的json的响应体数据</span></span><br><span class="line">user_json_str = response.read()</span><br><span class="line">user_dict_data = json.loads(user_json_str)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6 判断微信返回的响应体数据中是否有errorcode字段，如果存在则返回失败信息，不存在说明微信返回的json数据为正确数据，则将该数据传给index.html模板，当用户访问<a href="http://xxx/wechat8007/index" target="_blank" rel="noopener">http://xxx/wechat8007/index</a>地址时，会渲染出我们定义的index.html模板</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="string">"errcode"</span> <span class="keyword">in</span> user_dict_data:</span><br><span class="line">    <span class="keyword">return</span> <span class="string">u"获取用户信息失败"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 将用户的资料数据填充到页面中</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>, user=user_dict_data)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7 当前目录下创建templates模板目录，在该目录中创建index.html文件 ，代码如下</strong></li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;&#123;&#123;user["nickname"]&#125;&#125;的个人主页&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;img alt=<span class="string">"头像"</span> src=<span class="string">"&#123;&#123;user['headimgurl']&#125;&#125;"</span> width=<span class="string">"60"</span>&gt;</span><br><span class="line">    &lt;table&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;th&gt;openid&lt;/th&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;user["openid"]&#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;th&gt;昵称&lt;/th&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;user["nickname"]&#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;th&gt;性别&lt;/th&gt;</span><br><span class="line">            &lt;td&gt;</span><br><span class="line">                &#123;% <span class="keyword">if</span> <span class="number">1</span> == user[<span class="string">"sex"</span>] %&#125;</span><br><span class="line">                    男</span><br><span class="line">                &#123;% <span class="keyword">elif</span> <span class="number">2</span> == user[<span class="string">"sex"</span>] %&#125;</span><br><span class="line">                    女</span><br><span class="line">                &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">                    未知</span><br><span class="line">                &#123;% endif %&#125;</span><br><span class="line">            &lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;th&gt;省份&lt;/th&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;user["province"]&#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;th&gt;城市&lt;/th&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;user["city"]&#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;th&gt;国家&lt;/th&gt;</span><br><span class="line">            &lt;td&gt;&#123;&#123;user["country"]&#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="三丶部署测试"><a href="#三丶部署测试" class="headerlink" title="三丶部署测试"></a>三丶部署测试</h1><ul>
+<li><strong>step1 将代码推送到服务器上</strong></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229140003514.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>成功推送到服务器上</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229140215248.png" alt></fancybox></p>
+<ul>
+<li><strong>step2 在服务器上进入虚拟环境，运行此程序</strong></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/201812291420440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3 拼接微信提供网址</strong> <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect</a></li>
+<li>注：正式公众号redirect_uri地址必须为服务器的域名地址，不能是IP地址</li>
+<li>在拼接redirect_uri时，服务器的域名为<a href="http://www.xxx.com/wechat8007/index" target="_blank" rel="noopener">http://www.xxx.com/wechat8007/index</a>，微信提供的授权地址http://中不可能包含一个<a href="redirect_uri为http://www.xxx.com/wechat8007/index">redirect_uri为http://www.xxx.com/wechat8007/index</a>用户同意授权后跳转的地址，所以需要对重定向地址<a href="http://www.xxx.com/wechat8007/index" target="_blank" rel="noopener">http://www.xxx.com/wechat8007/index</a> 进行转义</li>
+<li>使用python urllib库中的quote方法进行转义</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> urllib</span><br><span class="line"> </span><br><span class="line">In [<span class="number">2</span>]: urllib.quote(<span class="string">"http://www.xxx.com/wechat8007/index"</span>)</span><br><span class="line">Out[<span class="number">2</span>]: <span class="string">'http%3A//www.xxx.com/wechat8007/index'</span></span><br></pre></td></tr></table></figure>
+
+<p>拼接好的用户访问的url地址为</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229150305130.png" alt></fancybox></p>
+<ul>
+<li><strong>step4 可以将该网址生成二维码，使用微信扫一扫，也可以在接口公众号直接发送此链接地址</strong></li>
+<li>使用谷歌浏览器的二维码插件，将网址生成对应的二维码(这里以百度首页网址为例)</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229150724658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>直接在浏览器中输入此地址会提示请在微信客户端打开链接</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229151458376.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step5 测试，在手机微信上打开此链接，出现授权登录提示，点击允许即可获取用户个人信息</strong></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229152114726.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p>点击允许后，进入如下界面</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229153415707.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p>点击继续访问，则出现博主个人的微信信息了，如下图</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229153709772.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="360" height="650"></fancybox></p>
+<p>此时查看服务器上程序运行日志 </p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20181229154311666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="四丶完整代码"><a href="#四丶完整代码" class="headerlink" title="四丶完整代码"></a>四丶完整代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template</span><br><span class="line"><span class="keyword">import</span> json, urllib2</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">WECHAT_APPID = <span class="string">"yourappid"</span></span><br><span class="line">WECHAT_APPSECRET = <span class="string">"yoursecret"</span></span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.route("/wechat8007/index")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line"> </span><br><span class="line">    code = request.args.get(<span class="string">"code"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> code:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">u"缺失code参数"</span></span><br><span class="line"> </span><br><span class="line">    url = <span class="string">"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&amp;secret=%s&amp;code=%s&amp;grant_type=authorization_code"</span> % (WECHAT_APPID, WECHAT_APPSECRET, code)</span><br><span class="line"> </span><br><span class="line">    response = urllib2.urlopen(url)</span><br><span class="line"> </span><br><span class="line">    json_str = response.read()</span><br><span class="line">    resp_dict = json.loads(json_str)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> <span class="string">"errcode"</span> <span class="keyword">in</span> resp_dict:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">u"获取access_token失败"</span></span><br><span class="line"> </span><br><span class="line">    access_token = resp_dict.get(<span class="string">"access_token"</span>)</span><br><span class="line">    open_id = resp_dict.get(<span class="string">"openid"</span>)</span><br><span class="line"> </span><br><span class="line">    url = <span class="string">"https://api.weixin.qq.com/sns/userinfo?access_token=%s&amp;openid=%s&amp;lang=zh_CN"</span> % (access_token, open_id)</span><br><span class="line"> </span><br><span class="line">    response = urllib2.urlopen(url)</span><br><span class="line">    user_json_str = response.read()</span><br><span class="line">    user_dict_data = json.loads(user_json_str)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> <span class="string">"errcode"</span> <span class="keyword">in</span> user_dict_data:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">u"获取用户信息失败"</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>, user=user_dict_data)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(port=<span class="number">8007</span>, debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结：微信公众号接口开发，根据官方提供的开发文档，进行开发，逻辑实现都很简单，多想多思考多练习，你会越来越棒的！</strong></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/85334634" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/85334634</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-03T14:27:22+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月3日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信公众号/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信公众号</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/微信开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>微信开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/03/微信公众号开发之微信网页授权获取用户个人信息/&title=微信公众号开发之微信网页授权获取用户个人信息 | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/03/微信公众号开发之微信网页授权获取用户个人信息/&title=微信公众号开发之微信网页授权获取用户个人信息 | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD3ElEQVR42u3aS24bQQwFwNz/0s46sDx+j6ScBKhZGdKo1V0ywOHn16/4+giu589+9XeyzufXk50872p14cCBAweOxVE/35Mc+PnOZ4Lkszl0fkYcOHDgwHHLsQmQmyD6HEqv4mAewnHgwIEDx89zJLlP/u5zevYMkYPiwIEDB47/heOjvDY1uk0QxYEDBw4cP8+Rt3DyMty7U8H8B3hLrRQHDhw4cEziXVQo/Pf/fst8Bw4cOHDgeEMCth+bmxUNr1LKP1bDgQMHDhxrjn1LKU/ANgE+3+HsUzhw4MCB44ojCXWz0lubFuahty0O5m0qHDhw4MBxy5GMONxW2GaFyDbxy4ckcODAgQPHniMfSsuD34x1lqS1EFGyhwMHDhw4FhxtknNV7MuDaNuUWpU7ceDAgQPHmiMfNZhhtcXHNjnMvz1pkuHAgQMHjj1HMo6wT+eSoJjQz9YvHhFw4MCBA8eaY19WSzadEydk+WBE/ljwItziwIEDB44RR1sE3Kdzs/SsfVDIX4n+L3DgwIEDx4hjU/LLRyJuOTYDEC/uxIEDBw4ca44E4nnTsxG6dsRhs2ZNjwMHDhw4jjhmZbu8zdOOFzyHyfzA7bs4cODAgWPD0X7NVUmxTcDyvc1WxoEDBw4ctxyb0t7m9XZEu03q6oIjDhw4cOB4A0fetkne3aywTy/rwT4cOHDgwHHE0cadvKiXrzNLHdtQPc3tcODAgQPH4bzZMNO5HXFIAmp77DMgHDhw4MARH/UqcM5oZkPebTHxGxQcOHDgwDHiyM3229oE6TztnLW4cODAgQPHnqM9UruhPJy/b1Si2CEOHDhw4FhzbALtvgXVJm+z3dbjFDhw4MCB420ceaKVB+ZZYXE2GNe2r3DgwIEDxxVHnphtttsmipvcavZYgAMHDhw49hxtKygpup3NViyG52Y/Bg4cOHDguOJoRwrawl9OMyv5zYL3i+/CgQMHDhxrjrbYl7SX8oA9G3RIUspNKRMHDhw4cGw4Zu2i2SGvQmZSEMzJiuIgDhw4cOCIOa5G1vbEm+bT/iw4cODAgWPPMRwjC8p5+dBDnp61Jci2lYUDBw4cOPYcs8QpKbftU6xZCrdKL3HgwIEDx5ojv3KgNtn75ikgDr35k0Wb/uHAgQMHjpajHV+YJWlXh2zbWvXvjwMHDhw4jjiKamIZsYexvSxctut/eT8OHDhw4Phxjn3QzRtXOUQe7L+Bw4EDBw4cf4mjbQu1oHnZcR/aXxQHceDAgQPHmmM2xJCkT7cdsDw8t6/jwIEDB44rjjYUzZZrQ/X7GmDtz4kDBw4cOOL9/Aa2U5rdqSOOgQAAAABJRU5ErkJggg=='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/03/微信公众号开发之微信网页授权获取用户个人信息/&title=微信公众号开发之微信网页授权获取用户个人信息 | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/03/Flask项目之手机端租房网站的实战开发（一）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（一）">
+                                
+                                    Flask项目之手机端租房网站的实战开发（一）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/03/微信公众号开发之接收与发送消息/" rel="prev" title="微信公众号开发之接收与发送消息">
+                                  
+                                      微信公众号开发之接收与发送消息
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/微信公众号/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信公众号</a> <a class="tag" href="/tags/微信开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 微信开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '微信公众号开发之微信网页授权获取用户个人信息',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶概述"><span class="toc-text">一丶概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：用户同意授权，获取code"><span class="toc-text">第一步：用户同意授权，获取code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二步：通过code换取网页授权access-token"><span class="toc-text">第二步：通过code换取网页授权access_token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三步：拉取用户信息-需scope为-snsapi-userinfo"><span class="toc-text">第三步：拉取用户信息(需scope为 snsapi_userinfo)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶代码实现"><span class="toc-text">二丶代码实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶部署测试"><span class="toc-text">三丶部署测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶完整代码"><span class="toc-text">四丶完整代码</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

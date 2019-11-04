@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Flask项目之手机端租房网站的实战开发（九） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Flask项目之手机端租房网站的实战开发（九）' href='/2019/11/04/Flask项目之手机端租房网站的实战开发（九）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/images/flask.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/04/Flask项目之手机端租房网站的实战开发（九）/">
+        Flask项目之手机端租房网站的实战开发（九）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="https://hellotaogang.github.io/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-04</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Flask开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Flask开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h1 id="一丶区县信息后端编写"><a href="#一丶区县信息后端编写" class="headerlink" title="一丶区县信息后端编写"></a>一丶区县信息后端编写</h1><p>1.定义视图函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/areas")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_area_info</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    获取区县信息</span></span><br><span class="line"><span class="string">    :return: </span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>2.逻辑编写</p>
+<ul>
+<li><strong>step1</strong> 从数据库中获取所有区县信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 从数据库中获取所有区县信息</span></span><br><span class="line">    area_li = Area.query.all()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"数据库异常"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 在Area类中构建一个to_dict方法，将对象转换成字典，因为我们给前端传输数据是需要传输json格式数据的</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_dict</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""将对象转换为字典"""</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">"aid"</span>: self.id,</span><br><span class="line">        <span class="string">"aname"</span>: self.name</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 遍历对象列表，调用每个对象中的to_dict方法，将返回的值添加到area_dict_li列表中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将对象转换为字典</span></span><br><span class="line">area_dict_li = []</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> area <span class="keyword">in</span> area_li:</span><br><span class="line">    area_dict_li.append(area.to_dict())</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 返回正确响应数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>, data=area_dict_li)</span><br></pre></td></tr></table></figure>
+
+<p>3.测试接口</p>
+<ul>
+<li><strong>step1</strong> 运行项目，打开Postman测试工具，向127.0.0.1:5000/api/v1.0/areas发送get请求</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115142331749.png" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 返回接口正确响应数据，因为数据库Area表没有数据，所以返回的响应数据为空</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115142537149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>4.向数据库中ih_area_info以及ih_facility_info两张表插入测试数据</p>
+<ul>
+<li><strong>step1</strong> 执行如下SQL语句</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`ih_area_info`</span>(<span class="string">`name`</span>) <span class="keyword">VALUES</span> (<span class="string">'锦江区'</span>),(<span class="string">'青羊区'</span>),(<span class="string">'金牛区'</span>),(<span class="string">'武侯区'</span>),(<span class="string">'成华区'</span>),(<span class="string">'龙泉驿区'</span>),(<span class="string">'青白江区'</span>),(<span class="string">'新都区'</span>),(<span class="string">'温江区'</span>),(<span class="string">'郫都区'</span>),(<span class="string">'双流区'</span>),(<span class="string">'高新区'</span>),(<span class="string">'天府新区'</span>),(<span class="string">'新津县'</span>),(<span class="string">'大邑县'</span>),(<span class="string">'金堂县'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`ih_facility_info`</span>(<span class="string">`name`</span>) <span class="keyword">VALUES</span>(<span class="string">'无线网络'</span>),(<span class="string">'热水淋浴'</span>),(<span class="string">'空调'</span>),(<span class="string">'暖气'</span>),(<span class="string">'允许吸烟'</span>),(<span class="string">'饮水设备'</span>),(<span class="string">'牙具'</span>),(<span class="string">'香皂'</span>),(<span class="string">'拖鞋'</span>),(<span class="string">'手纸'</span>),(<span class="string">'毛巾'</span>),(<span class="string">'沐浴露、洗发露'</span>),(<span class="string">'冰箱'</span>),(<span class="string">'洗衣机'</span>),(<span class="string">'电梯'</span>),(<span class="string">'允许做饭'</span>),(<span class="string">'允许带宠物'</span>),(<span class="string">'允许聚会'</span>),(<span class="string">'门禁系统'</span>),(<span class="string">'停车位'</span>),(<span class="string">'有线网络'</span>),(<span class="string">'电视'</span>),(<span class="string">'浴缸'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>ih_area_info表</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115144350737.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>ih_facility_info表</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115144445814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 再回到Postman中Send发送请求，显示出正确响应数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115144716273.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="二丶为区县信息补充缓存机制"><a href="#二丶为区县信息补充缓存机制" class="headerlink" title="二丶为区县信息补充缓存机制"></a>二丶为区县信息补充缓存机制</h1><p>1.为什么要补充缓存机制</p>
+<ul>
+<li><strong>step1</strong> 在网站首页，需要频繁获取区域数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115145249618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 在我的爱家中，发布房源也需要频繁获取区域数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115145600238.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 以及在房源列表，搜索栏也要频繁获取区域数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115145708692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.分析，因为区县一般都是固定的，不会经常变化，搜索页面和主页是用户经常访问的地方，那么即我们后端接口以及数据库就会被大量访问，而且是在很短时间内，这样可能会出现异常问题，导致访问速度缓慢，所以完美解决方法就是使用缓存</p>
+<p>3.具体实现流程</p>
+<ul>
+<li><strong>step1</strong> 当用户访问区县信息时，就会调用后端我们写的get_area_info接口，之前写的代码是，每次访问都会从数据库中拿去数据，现在将这一块改变一下，先从redis数据中拿去数据库（这里选择redis数据库，因为是内存级的数据库）</li>
+<li><strong>step2</strong> 如果redis数据库中有区域数据，直接返回给前端</li>
+<li><strong>step3</strong> 当redis数据库中没有区域数据时，此时再去mysql数据库中进行数据获取，拿到的区域数据不会马上返回给前端，而是将拿到的数据保存到redis数据库中，最后才返回给前端</li>
+</ul>
+<p>4.逻辑代码编写</p>
+<p>思考：将数据保存到redis数据库中，此时需要思考，以怎么形式保存数据，保存哪些数据到redis数据库</p>
+<p>实现：是将整个返回给前端正确响应数据全部以json格式的字符串保存</p>
+<ul>
+<li><strong>step1</strong> 将数据转换为json字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">resp_dict = dict(errno=RET.OK, errmsg=<span class="string">"OK"</span>, data=area_dict_li)</span><br><span class="line">resp_json_str = json.dumps(resp_dict)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 将构建的json格式的字符串响应数据保存到redis数据库中， 并设置有效期</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    redis_store.setex(<span class="string">"area_info"</span>,constants.AREA_INFO_REDIS_CACHE_EXPIRES, resp_json_str)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 返回构造响应头数据，设置Content-Type为json，默认的为html</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> resp_json_str, <span class="number">200</span>, &#123;<span class="string">"Content-Type"</span>:<span class="string">"application/json"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 调用接口一开始从redis数据库中拿去区域数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    resp_json_str = redis_store.get(<span class="string">"area_info"</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">if</span> resp_json_str <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> resp_json_str, <span class="number">200</span>, &#123;<span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 当redis数据库中获取的数据不为空时，往日志info中记录一句话，方便测试是从mysql 还是 redis 获取的区域数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">current_app.logger.info(<span class="string">"Area data from redis"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>5.测试redis缓存是否成功</p>
+<ul>
+<li><strong>step1</strong> 运行项目</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115162249936.png" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 在Postman测试工具中向后端接口</li>
+</ul>
+<p>第一次Send发送请求，查看程序运行日志，并没有显示我们定义日志信息</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115162754415.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>第二次Send发送请求，则显示我们定义的info日志信息，说明区域数据是从redis数据库中获取的</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115162944855.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 查看redis数据库，并获取area_info键的值</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115164249197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="三丶缓存数据同步问题"><a href="#三丶缓存数据同步问题" class="headerlink" title="三丶缓存数据同步问题"></a>三丶缓存数据同步问题</h1><p><strong>问</strong>：怎么保证redis缓存的数据和mysql数据保持一致性？</p>
+<p><strong>第一种</strong>方式：mysql数据库维护人员在修改区域表数据时，将redis数据库key删除</p>
+<p><strong>第二种</strong>方式：就是我们这种简单暴力有效的方式，设置数据的有效期，让redis数据库来帮我们把数据进行删除</p>
+<h1 id="四丶完善后端用户模块"><a href="#四丶完善后端用户模块" class="headerlink" title="四丶完善后端用户模块"></a>四丶完善后端用户模块</h1><p>1.对profile模块中的update_name进行修改</p>
+<ul>
+<li><strong>step1</strong> 修改路由请求方式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/users/name", methods=["PUT"])</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 从g对象中获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取前端请求中的参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">req_dict = request.get_json()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 判断参数是否为空</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> req_dict:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数不完整"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 获取用户修改的名字</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = req_dict.get(<span class="string">"name"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 判断用户是否输入用户名</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> name <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"名字不能为空"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 将用户修改后的名字保存到数据库，需要注意的是这里不需要判断名字name是否重复，因为当初在创建数据库表字段name的时候设置了唯一索引</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    User.query.filter_by(id=user_id).update(&#123;<span class="string">"name"</span>: name&#125;)</span><br><span class="line">    db.session.commit()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    db.session.rollback()</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"保存用户名字失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 因为在登录和注册接口编写时候最后都将name保存到session中，所以当用户修改name后，也需要将新的name进行session保存</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session[<span class="string">"name"</span>] = name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong> 最后返回正确响应</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"修改成功"</span>, data=&#123;<span class="string">"name"</span>: name&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>2.获取个人信息在我的爱家中进行显示</p>
+<ul>
+<li><strong>step1</strong> 定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/user", methods=["GET"])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_user_profile</span><span class="params">()</span>:</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 根据用户id在数据库中查询个人信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    user = User.query.get(user_id)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"获取用户信息失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 判断用户对象是否为空</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> User <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.NODATA, errmsg=<span class="string">"无效操作"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 在models模块中构建一个to_dict方法，用于构建我们返回给前端的数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_dict</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""将对象转换为字典数据"""</span></span><br><span class="line">    user_dict = &#123;</span><br><span class="line">        <span class="string">"user_id"</span>: self.id,</span><br><span class="line">        <span class="string">"name"</span>: self.name,</span><br><span class="line">        <span class="string">"mobile"</span>: self.mobile,</span><br><span class="line">        <span class="string">"avatar"</span>: constants.QINIU_URL_DOMAIN + self.avatar_url <span class="keyword">if</span> self.avatar_url <span class="keyword">else</span> <span class="string">""</span>,</span><br><span class="line">        <span class="string">"create_time"</span>: self.create_time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> user_dict</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 回到profile模块中，返回正确响应数据给前端</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>, data=user.to_dict())</span><br></pre></td></tr></table></figure>
+
+<p>3.获取用户的实名认证信息</p>
+<ul>
+<li><strong>step1</strong> 定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/users/auth", methods=["GET"])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_user_auth</span><span class="params">()</span>:</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 根据用户id在数据库中进行查询, 获取用户对象</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    user = User.query.get(user_id)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"获取用户实名认证信息失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 判断用户对象是否为空</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> user <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.NODATA, errmsg=<span class="string">"无效操作"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 在models模块中构建一个auth_to_dict方法，用于构建我们返回给前端的数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">auth_to_dict</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""将用户实名信息转换为字典数据"""</span></span><br><span class="line">    auth_dict = &#123;</span><br><span class="line">        <span class="string">"user_id"</span>: self.id,</span><br><span class="line">        <span class="string">"real_name"</span>: self.real_name,</span><br><span class="line">        <span class="string">"id_card"</span>: self.id_card</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> auth_dict</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 回到profile模块中，返回正确响应数据给前端</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>, data=user.auth_to_dict())</span><br></pre></td></tr></table></figure>
+
+<p>4.向数据库中保存用户实名认证信息</p>
+<ul>
+<li><strong>step1</strong> 定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/users/auth", methods=["POST"])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_user_auth</span><span class="params">()</span>:</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取前端发送请求中的参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">req_data = request.get_json()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 判断参数是否为空</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> req_data:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数错误"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 获取用户输入的真实姓名和身份证号</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">real_name = req_data.get(<span class="string">"real_name"</span>)</span><br><span class="line">id_card = req_data.get(<span class="string">"id_card"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 校验参数完整性</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> all([real_name,id_card]):</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数错误"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 将用户填写的真实姓名和身份证号保存到数据库中，这里在数据库进行数据更新是为什么将real_name和id_card默认为空，因为在后端来说，用户只能设置一次实名认证，当real_name和id_card为None时，才代用户是第一次进行认证，当获取的real_name和id_card不为空时，说明用户之前已经认证过了</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    User.query.filter_by(id=user_id, real_name=<span class="literal">None</span>, id_card=<span class="literal">None</span>).update(&#123;<span class="string">"real_name"</span>:real_name, <span class="string">"id_card"</span>:id_card&#125;)</span><br><span class="line">    db.session.commit()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    db.session.rollback()</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"保存用户实名信息失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 向前端返回正确响应</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="五丶完善前端用户模块"><a href="#五丶完善前端用户模块" class="headerlink" title="五丶完善前端用户模块"></a>五丶完善前端用户模块</h1><p>1.在profile.html文件中进行如下修改</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"form-name"</span> <span class="attr">action</span>=<span class="string">"/api/profile/name"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.在profile.js中进行如下编写</p>
+<ul>
+<li><strong>step1</strong> 在个人信息栏显示用户信息</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在页面加载是向后端查询用户的信息</span></span><br><span class="line">    $.<span class="keyword">get</span>("/api/v1.0/user", function(resp)&#123;</span><br><span class="line">        <span class="comment">// 当后端接口检验登录装饰器返回4101状态码，表示用户未登录，即跳转到登录页面</span></span><br><span class="line">        <span class="keyword">if</span> (resp.errno == <span class="string">"4101"</span>) &#123;</span><br><span class="line">            location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 后端返回正确响应码，将响应数据中的name填写到id = user-name的标签内容上</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (resp.errno == <span class="string">"0"</span>) &#123;</span><br><span class="line">            $(<span class="string">"#user-name"</span>).val(resp.data.name);</span><br><span class="line">            <span class="comment">// 头像链接存在则显示到src下</span></span><br><span class="line">            <span class="keyword">if</span> (resp.data.avatar) &#123;</span><br><span class="line">                $(<span class="string">"#user-avatar"</span>).attr(<span class="string">"src"</span>, resp.data.avatar);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="string">"json"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 将用户修改后的名字保存到数据库中</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将用户修改后名字向后端进行发送</span></span><br><span class="line">    $(<span class="string">"#form-name"</span>).submit(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">        <span class="comment">// 获取用户输入的名字</span></span><br><span class="line">        <span class="keyword">var</span> name = $(<span class="string">"#user-name"</span>).val();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (!name) &#123;</span><br><span class="line">            alert(<span class="string">"请填写用户名！"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">"/api/v1.0/users/name"</span>,</span><br><span class="line">            type:<span class="string">"PUT"</span>,</span><br><span class="line">            data: <span class="built_in">JSON</span>.stringify(&#123;<span class="attr">name</span>: name&#125;),</span><br><span class="line">            contentType: <span class="string">"application/json"</span>,</span><br><span class="line">            dataType: <span class="string">"json"</span>,</span><br><span class="line">            headers:&#123;</span><br><span class="line">                <span class="string">"X-CSRFTOKEN"</span>:getCookie(<span class="string">"csrf_token"</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (data.errno == <span class="string">"0"</span>) &#123;</span><br><span class="line">                    $(<span class="string">".error-msg"</span>).hide();</span><br><span class="line">                    showSuccessMsg();</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data.errno == <span class="string">"4001"</span>) &#123;</span><br><span class="line">                    $(<span class="string">".error-msg"</span>).show();</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data.errno == <span class="string">"4101"</span>) &#123;</span><br><span class="line">                    location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3.在我的爱家my.js中进行如下编写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $.<span class="keyword">get</span>("/api/v1.0/user", function(resp)&#123;</span><br><span class="line">        <span class="comment">// 用户未登录</span></span><br><span class="line">        <span class="keyword">if</span> (resp.errno == <span class="string">"4101"</span>) &#123;</span><br><span class="line">            location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 查询到了用户的信息</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (resp.errno == <span class="string">"0"</span>) &#123;</span><br><span class="line">            $(<span class="string">"#user-name"</span>).html(resp.data.name);</span><br><span class="line">            $(<span class="string">"#user-mobile"</span>).html(resp.data.mobile);</span><br><span class="line">            <span class="keyword">if</span> (resp.data.avatar) &#123;</span><br><span class="line">                $(<span class="string">"#user-avatar"</span>).attr(<span class="string">"src"</span>, resp.data.avatar);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="string">"json"</span>);</span><br><span class="line"> </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>4.在实名认证auth.js中进行如下编写</p>
+<ul>
+<li><strong>step1</strong> 当页面加载完毕时，想后端接口发送请求来获取用户的姓名和身份证</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 查询用户的实名认证信息</span></span><br><span class="line">    $.<span class="keyword">get</span>("/api/v1.0/users/auth", function(resp)&#123;</span><br><span class="line">        <span class="comment">// 4101代表用户未登录</span></span><br><span class="line">        <span class="keyword">if</span> (resp.errno == <span class="string">"4101"</span>) &#123;</span><br><span class="line">            location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (resp.errno == <span class="string">"0"</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果返回的数据中real_name与id_card不为null，表示用户有填写实名信息</span></span><br><span class="line">            <span class="keyword">if</span> (resp.data.real_name &amp;&amp; resp.data.id_card) &#123;</span><br><span class="line">                $(<span class="string">"#real-name"</span>).val(resp.data.real_name);</span><br><span class="line">                $(<span class="string">"#id-card"</span>).val(resp.data.id_card);</span><br><span class="line">                <span class="comment">// 给input添加disabled属性，禁止用户修改</span></span><br><span class="line">                $(<span class="string">"#real-name"</span>).prop(<span class="string">"disabled"</span>, <span class="literal">true</span>);</span><br><span class="line">                $(<span class="string">"#id-card"</span>).prop(<span class="string">"disabled"</span>, <span class="literal">true</span>);</span><br><span class="line">                <span class="comment">// 隐藏提交保存按钮</span></span><br><span class="line">                $(<span class="string">"#form-auth&gt;input[type=submit]"</span>).hide();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            alert(resp.errmsg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="string">"json"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 当页面加载完毕时，如果用户已经进行了实名认证，那么就不显示保存按钮以及对输入框进行禁止修改</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 管理实名信息表单的提交行为</span></span><br><span class="line">    $(<span class="string">"#form-auth"</span>).submit(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">        <span class="comment">// 如果用户没有填写完整，展示错误信息</span></span><br><span class="line">        <span class="keyword">var</span> realName = $(<span class="string">"#real-name"</span>).val();</span><br><span class="line">        <span class="keyword">var</span> idCard = $(<span class="string">"#id-card"</span>).val();</span><br><span class="line">        <span class="keyword">if</span> (realName == <span class="string">""</span> ||  idCard == <span class="string">""</span>) &#123;</span><br><span class="line">            $(<span class="string">".error-msg"</span>).show();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 将表单的数据转换为json字符串</span></span><br><span class="line">        <span class="keyword">var</span> data = &#123;</span><br><span class="line">            real_name: realName,</span><br><span class="line">            id_card: idCard</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">var</span> jsonData = <span class="built_in">JSON</span>.stringify(data);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 向后端发送请求</span></span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">"/api/v1.0/users/auth"</span>,</span><br><span class="line">            type:<span class="string">"post"</span>,</span><br><span class="line">            data: jsonData,</span><br><span class="line">            contentType: <span class="string">"application/json"</span>,</span><br><span class="line">            dataType: <span class="string">"json"</span>,</span><br><span class="line">            headers: &#123;</span><br><span class="line">                <span class="string">"X-CSRFTOKEN"</span>: getCookie(<span class="string">"csrf_token"</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            success: <span class="function"><span class="keyword">function</span> (<span class="params">resp</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (resp.errno == <span class="string">"0"</span>) &#123;</span><br><span class="line">                    $(<span class="string">".error-msg"</span>).hide();</span><br><span class="line">                    <span class="comment">// 显示保存成功的提示信息</span></span><br><span class="line">                    showSuccessMsg();</span><br><span class="line">                    $(<span class="string">"#real-name"</span>).prop(<span class="string">"disabled"</span>, <span class="literal">true</span>);</span><br><span class="line">                    $(<span class="string">"#id-card"</span>).prop(<span class="string">"disabled"</span>, <span class="literal">true</span>);</span><br><span class="line">                    $(<span class="string">"#form-auth&gt;input[type=submit]"</span>).hide();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>5.当用户进行实名制后，那么在我的房源页面，就不应该显示去实名认证按钮</p>
+<ul>
+<li><strong>step1</strong> 实名制之前显示界面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190121173205965.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 在myhouse.js中进行判断验证，如果用户已经实名制了，那么就不显示此按钮，否则才会显示</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 对于发布房源，只有认证后的用户才可以，所以先判断用户的实名认证状态</span></span><br><span class="line">    $.<span class="keyword">get</span>("/api/v1.0/users/auth", function(resp)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"4101"</span> == resp.errno) &#123;</span><br><span class="line">            <span class="comment">// 用户未登录</span></span><br><span class="line">            location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">            <span class="comment">// 未认证的用户，在页面中展示 "去认证"的按钮</span></span><br><span class="line">            <span class="keyword">if</span> (!(resp.data.real_name &amp;&amp; resp.data.id_card)) &#123;</span><br><span class="line">                $(<span class="string">".auth-warn"</span>).show();</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 实名制之后显示页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190121173708406.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="六丶测试用户模块中个人信息栏，我的爱家，实名认证"><a href="#六丶测试用户模块中个人信息栏，我的爱家，实名认证" class="headerlink" title="六丶测试用户模块中个人信息栏，我的爱家，实名认证"></a>六丶测试用户模块中个人信息栏，我的爱家，实名认证</h1><p>1.个人信息栏测试</p>
+<ul>
+<li><strong>step1</strong> 登录网站，进入个人信息栏，显示如下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115202637893.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 当修改用户名后，点击保存，显示保存成功提示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115202916720.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.我的爱家栏测试，成功显示出用户头像，用户名以及手机号</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115203111552.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>3.用户实名认证栏测试</p>
+<ul>
+<li><strong>step1</strong> 首次进行实名认证，界面显示如下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115203228933.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 当未填写姓名和身份证号时，出现如下显示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115203940925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 当输入完整信息后，会显示保存成功，出现如下界面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019011520444388.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 查看数据库信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115204947136.png" alt></fancybox></p>
+<ul>
+<li><strong>step5</strong> 此号码已经实名认证成功，再次进入实名认证，则显示如下界面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190115205408537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="七丶效果动图展示"><a href="#七丶效果动图展示" class="headerlink" title="七丶效果动图展示"></a>七丶效果动图展示</h1><p><fancybox><img src="https://img-blog.csdnimg.cn/20190115211230304.gif" alt></fancybox></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/86488529" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/86488529</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-04T20:35:24+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月4日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask网站实战开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask网站实战开发</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/手机端租房网站开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>手机端租房网站开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（九）/&title=Flask项目之手机端租房网站的实战开发（九） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（九）/&title=Flask项目之手机端租房网站的实战开发（九） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD9klEQVR42u3aW47iQBAEQO5/afYAs7azKptZVgp/ITB0O3qkmnq8XvH1/nH9/PTqnatvJb9/v+L9nfcrVhcOHDhw4Bg+6v1iycJTgoQy2VWCdX+0OHDgwIHjFMfVdpPAmWwxX+ueL/k0D7o4cODAgeN7OJIAlgS2+yA9Jcg/xYEDBw4c38bRbHRXncuTQBw4cODA8Q0c0/LfrjW1K+1ND+mXaqU4cODAgeM5Pr6mgfN/ef2R+Q4cOHDgwBEnS6fGF3bjCE3R8F1cOHDgwIGj52jSsynQ7r+APMGbli8v78SBAwcOHB/g2CVIp1KpvLw4Da7RfnDgwIEDx5meUdTs6VO1JCjmW08Sv+QpHnpxOHDgwIGj4MhHDZoHSFKsaXFw9+nDlAcOHDhw4Fhx5C2fAwFs+Pt5a2qapEV/Fzhw4MCBo+bImzfvQ9c91jQtvP/uoCyIAwcOHDhWHLvQ2AwrJLjNKEMVaHHgwIEDR82RbygPun0CtqPMf7kKujhw4MCBI+bog1k/7jAN4YOuGg4cOHDg+BWOZPk8TPaJU34Y0wAcPRcOHDhw4DjEseu/NInTbixvij5uPuHAgQMHjpojL7RNHyZvVk2HG3L6JNhHFVMcOHDgwBFzNGFsmv71Qw+nRisu78eBAwcOHIc48uRnuvVpctWMSuwC+XgyAgcOHDhwrDaapEy7oYT8dV5AbFK+h+EGHDhw4MAxXCvZ+m7ooUkFd6njgQQSBw4cOHCcqcW9pl+YkvXFu2NdtST5xIEDBw4cBUceaHu46QHk0NMEMurC4cCBAweOFUcfCJtG0dkmU5MuXo414MCBAweOIceukbMrFOYBe8qdFzGrthMOHDhw4NhX2wYJ2KnWUX5/XnbMjw0HDhw4cJzl6ANnsok8eXvIOIt/CKIjxIEDBw4cNUcfpZv2z6k7pwnnQ5jHgQMHDhwf4JgOByQPkITwaTlvGp6XYw04cODAgSN4riRhm5becohd0bBP1S4/xYEDBw4chzimKdk0pOUBOOqGFcf2UKbEgQMHDhxHOfKEako5bUflKd/uly/XwoEDBw4chzh2Y2p9aNyF8yTN262OAwcOHDh6jmkAa8YOdg8wnTRIVnm4EwcOHDhwFBzv4XV2QG3cFloNNAwaYDhw4MCBo+bYpUDJAtPCXNUuikcf8oE/HDhw4MDRcEyDa6MelefiELg7mOXJ48CBAweOIccuUOXL75KlacLWFx9x4MCBA8e/4kiGIfLm1q4I2Az5HQ60OHDgwIGj4NgV73bJ264gOA3DfykO4sCBAweOmmM37rZ7P29lJffnR3W47YQDBw4cOOqBhmk4bIbk8pCcvJ/vDQcOHDhwFBx/AOF4NDaRFSUSAAAAAElFTkSuQmCC'>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（九）/&title=Flask项目之手机端租房网站的实战开发（九） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/04/Flask项目之手机端租房网站的实战开发（十）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（十）">
+                                
+                                    Flask项目之手机端租房网站的实战开发（十）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/04/Flask项目之手机端租房网站的实战开发（八）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（八）">
+                                  
+                                      Flask项目之手机端租房网站的实战开发（八）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Flask项目之手机端租房网站的实战开发（九）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶区县信息后端编写"><span class="toc-text">一丶区县信息后端编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶为区县信息补充缓存机制"><span class="toc-text">二丶为区县信息补充缓存机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶缓存数据同步问题"><span class="toc-text">三丶缓存数据同步问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶完善后端用户模块"><span class="toc-text">四丶完善后端用户模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶完善前端用户模块"><span class="toc-text">五丶完善前端用户模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶测试用户模块中个人信息栏，我的爱家，实名认证"><span class="toc-text">六丶测试用户模块中个人信息栏，我的爱家，实名认证</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七丶效果动图展示"><span class="toc-text">七丶效果动图展示</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

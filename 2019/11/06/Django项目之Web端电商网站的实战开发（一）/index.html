@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Django项目之Web端电商网站的实战开发（一） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django项目之Web端电商网站的实战开发（一）' href='/2019/11/06/Django项目之Web端电商网站的实战开发（一）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.2/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/06/Django项目之Web端电商网站的实战开发（一）/">
+        Django项目之Web端电商网站的实战开发（一）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="https://hellotaogang.github.io/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-06</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <p><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.3/images/django_logo.png" width="900px" height="300px" align><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！</p>
+<a id="more"></a>
+<h1 id="一丶项目介绍"><a href="#一丶项目介绍" class="headerlink" title="一丶项目介绍"></a>一丶项目介绍</h1><ul>
+<li><strong>产品</strong>：关于Web端的电商网站</li>
+<li><strong>商业模式</strong>：B2C模式 企业对个人</li>
+<li><strong>设计模式</strong>：使用前后端不分离进行项目开发(后端控制前端的效果展示)</li>
+</ul>
+<p>前端效果展示</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019032514093763.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="二丶电商项目开发流程"><a href="#二丶电商项目开发流程" class="headerlink" title="二丶电商项目开发流程"></a>二丶电商项目开发流程</h1><p>1.流程图</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190325212907224.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.1 前奏<br>    项目立项：公司BOSS决定做项目<br>    需求分析：分析客户的需求<br>    原型设计：产品经理画出产品原型图</p>
+<p>2.2 前端<br>    UI设计：使用PS等工具对产品进行界面设计<br>    前端设计：根据UI人员设计的图片，写成对应的前端页面</p>
+<p>2.3 后端<br>    架构设计：①模块划分，功能架构 ② 开发环境选择 ③其他技术 ④部署架构<br>    数据库设计：①分析数据表和表字段 ②表关系<br>    模块代码实现和单元测试：①后端开发人员进行分工开发 ②开发完成后给测试人员进行单元测试</p>
+<p>2.4 尾声<br>    代码整合：将后端代码与前端代码进行耦合合并<br>    集成测试：将整合后的代码再次进行测试<br>    网站发布：在生产环境进行上线</p>
+<h1 id="三丶项目需求"><a href="#三丶项目需求" class="headerlink" title="三丶项目需求"></a>三丶项目需求</h1><p><strong>用户模块</strong></p>
+<ol>
+<li><p>注册页<br> 1.1 注册时校验用户名是否已被注册<br> 1.2 完成用户信息的注册<br> 1.3 给用户的注册邮箱发送邮件，用户点击邮件中的激活链接完成用户账户的激活<br> 1.4 城区的区域信息需动态加载</p>
+</li>
+<li><p>登录页<br> 2.1 实现用户的登录功能</p>
+</li>
+<li><p>用户中心<br> 3.1 用户中心信息页：显示登录用户的信息，包括用户名、电话和地址，同时页面下方显示出用户最近浏览的商品信息<br> 3.2 用户中心地址页：显示登录用户的默认收件地址，页面下方的表单可以新增用户的收货地址<br> 3.3 用户中心订单页：显示登录用户的订单信息<br> 3.4 用户可以选择城区、入住时间、离开时间等条件进行搜索</p>
+</li>
+<li><p>其他<br> 4.1 如果用户已经登录，页面顶部显示登录用户的信息</p>
+</li>
+</ol>
+<p><strong>商品相关</strong></p>
+<ol>
+<li><p>首页<br> 1.1 动态指定首页轮播商品信息<br> 1.2 动态指定首页活动信息<br> 1.3 动态获取商品的种类信息并显示<br> 1.4 动态指定首页显示的每个种类的商品(包括图片商品和文字商品)<br> 1.5 点击某一个商品时跳转到商品的详情页面</p>
+</li>
+<li><p>商品详情页<br> 2.1 显示出某个商品的详情信息<br> 2.2 页面的左下方显示出该种类商品的2个新品信息</p>
+</li>
+<li><p>商品列表页<br> 3.1 显示出某一个种类商品的列表数据，分页显示并支持按照默认、价格、和人气进行排序<br> 3.2 页面的左下方显示出该种类商品的2个新品信息</p>
+</li>
+<li><p>其他<br> 4.1 通过页面搜索框搜索商品信息</p>
+</li>
+</ol>
+<p><strong>购物车相关</strong><br>    1 列表页和详情页将商品添加到购物车<br>    2 用户登录后，首页，详情页，列表页显示登录用户购物车中商品的数目<br>    3 购物车页面：对用户购物车中商品的操作。如选择某件商品，增加或减少购物车中商品的数目</p>
+<p><strong>订单相关</strong><br>    1 提交订单页面：显示用户准备购买的商品信息<br>    2 点击提交订单完成订单的创建<br>    3 用户中心订单页显示用户的订单信息<br>    4 点击支付完成订单的支付</p>
+<h1 id="四丶项目架构概览"><a href="#四丶项目架构概览" class="headerlink" title="四丶项目架构概览"></a>四丶项目架构概览</h1><p>1.页面图</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190325142424812.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.功能图</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190325142457358.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>3.部署图</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190325142558314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="五丶项目数据库设计"><a href="#五丶项目数据库设计" class="headerlink" title="五丶项目数据库设计"></a>五丶项目数据库设计</h1><p>1.分析网站页面所需的参数</p>
+<p><strong>注册页（register.html）</strong><br>    ①用户名<br>    ②密码<br>    ③邮箱</p>
+<p><strong>登录页（login.html）</strong><br>    ①用户名<br>    ②密码</p>
+<p><strong>用户中心页（user_center_site.html）</strong><br>    ①收件人<br>    ②详细地址<br>    ③邮编<br>    ④联系方式</p>
+<p><strong>商品详情页（detail.html）</strong><br>    ①商品名称<br>    ②简介<br>    ③价格<br>    ④单位<br>    ⑤商品库存<br>    ⑥商品详情<br>    ⑦商品图片<br>    ⑧商品种类编号</p>
+<p><strong>主页（index.html）</strong><br>    ①商品种类名称<br>    ②logo<br>    ③图片</p>
+<p><strong>商品列表页（list.html）</strong><br>    ①商品名称<br>    ②商品价格<br>    ③商品图片<br>    ④商品分类</p>
+<p><strong>购物车页（cart.html）</strong><br>    ①商品图片<br>    ②商品名称<br>    ③商品SKU（库存量单位）</p>
+<p><strong>提交订单页（place_order.html）</strong><br>    ①地址<br>    ②支付方式<br>    ③商品信息<br>    ④总金额<br>    ⑤运费<br>    ⑥商品信息</p>
+<p><strong>用户订单页（user_center_order.html）</strong><br>    ①订单编号<br>    ②支付状态<br>    ③订单创建时间</p>
+<p>2.将参数拆分到其所对应的表中</p>
+<p><strong>用户表（df_user）</strong><br>    ①主键ID<br>    ②用户名<br>    ③密码<br>    ④邮箱<br>    ⑤激活标识（是否激活邮箱）<br>    ⑥权限标识（普通用户和管理员）</p>
+<p><strong>地址表（df_address）</strong><br>    ①主键ID<br>    ②收件人<br>    ③收件地址<br>    ④邮编<br>    ⑤联系方式<br>    ⑥是否默认（默认收货地址）<br>    ⑦用户ID （外键）</p>
+<p><strong>商品SKU表（df_goods_sku）</strong><br>    ①主键ID<br>    ②商品名称<br>    ③简介<br>    ④价格<br>    ⑤单位<br>    ⑥库存<br>    ⑦销量<br>    ⑧图片（这个图片字段只存一张商品封面图）<br>    ⑨状态<br>    ⑩商品种类ID（外键）<br>    ⑪spu ID（外键）</p>
+<p><strong>商品种类表（df_goods_type）</strong><br>    ①主键ID<br>    ②种类名称<br>    ③logo<br>    ④图片</p>
+<p><strong>主页幻灯片商品表（df_index_banner）</strong><br>    ①主键ID<br>    ②sku ID （外键）<br>    ③图片<br>    ④index （图片索引值）</p>
+<p><strong>主页促销活动表（df_index_promotion）</strong><br>    ①主键ID<br>    ②图片<br>    ③活动url地址<br>    ④index（图片索引值）</p>
+<p><strong>商品SPU表（df_goods）</strong><br>    ①主键ID<br>    ②名称<br>    ③商品详情</p>
+<p><strong>主页分类商品展示表（df_index_type_goods）</strong><br>    ①主键ID<br>    ②sku ID （外键）<br>    ③种类ID<br>    ④展示标识<br>    ⑤index（图片索引值）</p>
+<p><strong>商品图片表（df_goods_image）</strong><br>    ①主键ID<br>    ②图片<br>    ③sku ID</p>
+<p><strong>订单商品表（df_order_goods）</strong><br>    ①主键ID<br>    ②订单ID （外键）<br>    ③sku ID （外键）<br>    ④商品数量<br>    ⑤商品价格<br>    ⑥评论</p>
+<p><strong>订单信息表（df_order_info）</strong><br>    ①主键ID<br>    ②订单ID （外键）<br>    ③用户ID （外键）<br>    ④支付方式<br>    ⑤总数量<br>    ⑥总金额<br>    ⑦运费<br>    ⑧支付状态<br>    ⑨创建时间</p>
+<h1 id="六丶项目框架搭建"><a href="#六丶项目框架搭建" class="headerlink" title="六丶项目框架搭建"></a>六丶项目框架搭建</h1><p><strong>说明：</strong>博主这里使用开发环境为Windows7+PyCharm</p>
+<p>1.在PyCharm中创建dailyfresh项目，然后再到终端中创建项目应用模块，如下图所示</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019032517551860.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.在实际项目开发中应用比较多时，会在项目下创建一个名为apps的包，并将应用目录放在该apps下</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190325180249457.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>3.在配置文件settings中注册应用</p>
+<ul>
+<li><strong>step1</strong> 项目配置文件settings中导入sys模块，添加apps包到系统路径中，这样做的目的是在添加应用时不用写apps.应用名</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sys.path.insert(<span class="number">0</span>, os.path.join(BASE_DIR, <span class="string">"apps"</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 注册刚创建出来的应用 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    &apos;django.contrib.admin&apos;,</span><br><span class="line">    &apos;django.contrib.auth&apos;,</span><br><span class="line">    &apos;django.contrib.contenttypes&apos;,</span><br><span class="line">    &apos;django.contrib.sessions&apos;,</span><br><span class="line">    &apos;django.contrib.messages&apos;,</span><br><span class="line">    &apos;django.contrib.staticfiles&apos;,</span><br><span class="line">    &apos;df_cart&apos;,</span><br><span class="line">    &apos;df_goods&apos;,</span><br><span class="line">    &apos;df_order&apos;,</span><br><span class="line">    &apos;df_user&apos;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>4.在配置文件settings中配置mysql数据库</p>
+<ul>
+<li><strong>step1</strong> 在mysql中创建dailyfresh数据库</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> dailyfresh <span class="keyword">charset</span>=utf8;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 配置数据库 </li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    'default': &#123;</span><br><span class="line">        'ENGINE': 'django.db.backends.mysql',</span><br><span class="line">        'NAME': 'dailyfresh',</span><br><span class="line">        'USER': 'root',</span><br><span class="line">        'PASSWORD': 'mysql',</span><br><span class="line">        'HOST': 'localhost',</span><br><span class="line">        'PORT': '3306',</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 顺便设置语言和时区</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LANGUAGE_CODE = &apos;zh-hans&apos;</span><br><span class="line"> </span><br><span class="line">TIME_ZONE = &apos;Asia/Shanghai&apos;</span><br></pre></td></tr></table></figure>
+
+<p>5.在配置文件settings中配置静态文件目录</p>
+<ul>
+<li><strong>step1</strong> 在项目目录下创建static目录，用于存放前端静态文件</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190325184103681.png" alt></p>
+<ul>
+<li><strong>step2</strong> 在settings配置文件末端将static目录路径添加到系统路径中</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS = [os.path.join(BASE_DIR, &quot;static&quot;)]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 将前端资源放到static目录下</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190326002613320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p>6.在根基urls.py文件设置正则匹配将应用模块中的urls包含进来</p>
+<ul>
+<li><strong>step1</strong> 在根基urls.py文件中进行如下编写，namespace表示反向解析</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^admin/'</span>, include(admin.site.urls)),</span><br><span class="line">    url(<span class="string">r'^user/'</span>, include(<span class="string">'df_user.urls'</span>, namespace=<span class="string">'user'</span>)),  <span class="comment"># 用户模块</span></span><br><span class="line">    url(<span class="string">r'^cart/'</span>, include(<span class="string">'df_cart.urls'</span>, namespace=<span class="string">'cart'</span>)),  <span class="comment"># 购物车模块</span></span><br><span class="line">    url(<span class="string">r'^order/'</span>, include(<span class="string">'df_order.urls'</span>, namespace=<span class="string">'order'</span>)),  <span class="comment"># 订单模块</span></span><br><span class="line">    url(<span class="string">r'^'</span>, include(<span class="string">'df_goods.urls'</span>, namespace=<span class="string">'goods'</span>)),  <span class="comment"># 商品模块</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 在每个应用模块中创建urls.py文件，内容如下</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">urlpatterns = [</span><br><span class="line">   </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>7.在项目目录下创建一个名为db的python包，在这个包下创建一个base_model.py文件，用作于基类完成数据库表共有字段</p>
+<ul>
+<li><strong>step1</strong> 创建base_model.py文件</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190325190821194.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li><strong>step2</strong> 在base_model.py中进行如下编写</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseModel</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    <span class="string">"""抽象模型基类"""</span></span><br><span class="line">    create_time = models.DateTimeField(auto_now_add=<span class="literal">True</span>, verbose_name=<span class="string">"创建时间"</span>)</span><br><span class="line">    update_time = models.DateTimeField(auto_now=<span class="literal">True</span>, verbose_name=<span class="string">"更新时间"</span>)</span><br><span class="line">    isDelete = models.BooleanField(default=<span class="literal">False</span>, verbose_name=<span class="string">"删除标记"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        <span class="comment"># 表示为抽象模型类</span></span><br><span class="line">        abstract = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p>8.在df_user模块中的models.py中定义两个模型类分别是用户模型类和地址模型类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> AbstractUser</span><br><span class="line"><span class="keyword">from</span> db.base_model <span class="keyword">import</span> BaseModel</span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(AbstractUser, BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''用户模型类'''</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_user'</span></span><br><span class="line">        verbose_name = <span class="string">'用户'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Address</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''地址模型类'''</span></span><br><span class="line">    user = models.ForeignKey(<span class="string">'User'</span>, verbose_name=<span class="string">'所属账户'</span>)</span><br><span class="line">    receiver = models.CharField(max_length=<span class="number">20</span>, verbose_name=<span class="string">'收件人'</span>)</span><br><span class="line">    addr = models.CharField(max_length=<span class="number">256</span>, verbose_name=<span class="string">'收件地址'</span>)</span><br><span class="line">    zip_code = models.CharField(max_length=<span class="number">6</span>, null=<span class="literal">True</span>, verbose_name=<span class="string">'邮政编码'</span>)</span><br><span class="line">    phone = models.CharField(max_length=<span class="number">11</span>, verbose_name=<span class="string">'联系电话'</span>)</span><br><span class="line">    is_default = models.BooleanField(default=<span class="literal">False</span>, verbose_name=<span class="string">'是否默认'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_address'</span></span><br><span class="line">        verbose_name = <span class="string">'地址'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br></pre></td></tr></table></figure>
+
+<p>9.在df_goods模块中的models.py中定义模型类</p>
+<ul>
+<li><strong>step1</strong> 在models.py中进行如下编写</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> db.base_model <span class="keyword">import</span> BaseModel</span><br><span class="line"><span class="keyword">from</span> tinymce.models <span class="keyword">import</span> HTMLField</span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsType</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''商品类型模型类'''</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">20</span>, verbose_name=<span class="string">'种类名称'</span>)</span><br><span class="line">    logo = models.CharField(max_length=<span class="number">20</span>, verbose_name=<span class="string">'标识'</span>)</span><br><span class="line">    image = models.ImageField(upload_to=<span class="string">'type'</span>, verbose_name=<span class="string">'商品类型图片'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_goods_type'</span></span><br><span class="line">        verbose_name = <span class="string">'商品种类'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsSKU</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''商品SKU模型类'''</span></span><br><span class="line">    status_choices = (</span><br><span class="line">        (<span class="number">0</span>, <span class="string">'下线'</span>),</span><br><span class="line">        (<span class="number">1</span>, <span class="string">'上线'</span>),</span><br><span class="line">    )</span><br><span class="line">    type = models.ForeignKey(<span class="string">'GoodsType'</span>, verbose_name=<span class="string">'商品种类'</span>)</span><br><span class="line">    goods = models.ForeignKey(<span class="string">'Goods'</span>, verbose_name=<span class="string">'商品SPU'</span>)</span><br><span class="line">    name = models.CharField(max_length=<span class="number">20</span>, verbose_name=<span class="string">'商品名称'</span>)</span><br><span class="line">    desc = models.CharField(max_length=<span class="number">256</span>, verbose_name=<span class="string">'商品简介'</span>)</span><br><span class="line">    price = models.DecimalField(max_digits=<span class="number">10</span>, decimal_places=<span class="number">2</span>, verbose_name=<span class="string">'商品价格'</span>)</span><br><span class="line">    unite = models.CharField(max_length=<span class="number">20</span>, verbose_name=<span class="string">'商品单位'</span>)</span><br><span class="line">    image = models.ImageField(upload_to=<span class="string">'goods'</span>, verbose_name=<span class="string">'商品图片'</span>)</span><br><span class="line">    stock = models.IntegerField(default=<span class="number">1</span>, verbose_name=<span class="string">'商品库存'</span>)</span><br><span class="line">    sales = models.IntegerField(default=<span class="number">0</span>, verbose_name=<span class="string">'商品销量'</span>)</span><br><span class="line">    status = models.SmallIntegerField(default=<span class="number">1</span>, choices=status_choices, verbose_name=<span class="string">'商品状态'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_goods_sku'</span></span><br><span class="line">        verbose_name = <span class="string">'商品'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goods</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''商品SPU模型类'''</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">20</span>, verbose_name=<span class="string">'商品SPU名称'</span>)</span><br><span class="line">    <span class="comment"># 富文本类型:带有格式的文本</span></span><br><span class="line">    detail = HTMLField(blank=<span class="literal">True</span>, verbose_name=<span class="string">'商品详情'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_goods'</span></span><br><span class="line">        verbose_name = <span class="string">'商品SPU'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsImage</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''商品图片模型类'''</span></span><br><span class="line">    sku = models.ForeignKey(<span class="string">'GoodsSKU'</span>, verbose_name=<span class="string">'商品'</span>)</span><br><span class="line">    image = models.ImageField(upload_to=<span class="string">'goods'</span>, verbose_name=<span class="string">'图片路径'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_goods_image'</span></span><br><span class="line">        verbose_name = <span class="string">'商品图片'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexGoodsBanner</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''首页轮播商品展示模型类'''</span></span><br><span class="line">    sku = models.ForeignKey(<span class="string">'GoodsSKU'</span>, verbose_name=<span class="string">'商品'</span>)</span><br><span class="line">    image = models.ImageField(upload_to=<span class="string">'banner'</span>, verbose_name=<span class="string">'图片'</span>)</span><br><span class="line">    index = models.SmallIntegerField(default=<span class="number">0</span>, verbose_name=<span class="string">'展示顺序'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_index_banner'</span></span><br><span class="line">        verbose_name = <span class="string">'首页轮播商品'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexTypeGoodsBanner</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''首页分类商品展示模型类'''</span></span><br><span class="line">    DISPLAY_TYPE_CHOICES = (</span><br><span class="line">        (<span class="number">0</span>, <span class="string">"标题"</span>),</span><br><span class="line">        (<span class="number">1</span>, <span class="string">"图片"</span>)</span><br><span class="line">    )</span><br><span class="line"> </span><br><span class="line">    type = models.ForeignKey(<span class="string">'GoodsType'</span>, verbose_name=<span class="string">'商品类型'</span>)</span><br><span class="line">    sku = models.ForeignKey(<span class="string">'GoodsSKU'</span>, verbose_name=<span class="string">'商品SKU'</span>)</span><br><span class="line">    display_type = models.SmallIntegerField(default=<span class="number">1</span>, choices=DISPLAY_TYPE_CHOICES, verbose_name=<span class="string">'展示类型'</span>)</span><br><span class="line">    index = models.SmallIntegerField(default=<span class="number">0</span>, verbose_name=<span class="string">'展示顺序'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_index_type_goods'</span></span><br><span class="line">        verbose_name = <span class="string">"主页分类展示商品"</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexPromotionBanner</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''首页促销活动模型类'''</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">20</span>, verbose_name=<span class="string">'活动名称'</span>)</span><br><span class="line">    url = models.URLField(verbose_name=<span class="string">'活动链接'</span>)</span><br><span class="line">    image = models.ImageField(upload_to=<span class="string">'banner'</span>, verbose_name=<span class="string">'活动图片'</span>)</span><br><span class="line">    index = models.SmallIntegerField(default=<span class="number">0</span>, verbose_name=<span class="string">'展示顺序'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_index_promotion'</span></span><br><span class="line">        verbose_name = <span class="string">"主页促销活动"</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 因为在df_goods模块中使用了第三方模块tinymce富文本编辑器所以需要在settings中进行添加应用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    &apos;django.contrib.admin&apos;,</span><br><span class="line">    &apos;django.contrib.auth&apos;,</span><br><span class="line">    &apos;django.contrib.contenttypes&apos;,</span><br><span class="line">    &apos;django.contrib.sessions&apos;,</span><br><span class="line">    &apos;django.contrib.messages&apos;,</span><br><span class="line">    &apos;django.contrib.staticfiles&apos;,</span><br><span class="line">    &apos;tinymce&apos;,</span><br><span class="line">    &apos;df_cart&apos;,</span><br><span class="line">    &apos;df_goods&apos;,</span><br><span class="line">    &apos;df_order&apos;,</span><br><span class="line">    &apos;df_user&apos;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 在配置文件末尾添加编辑器的配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 富文本编辑器配置</span><br><span class="line">TINYMCE_DEFAULT_CONFIG = &#123;</span><br><span class="line">    &apos;theme&apos;: &apos;advanced&apos;,</span><br><span class="line">    &apos;width&apos;: 600,</span><br><span class="line">    &apos;height&apos;: 400,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 在根基urls文件中配置编辑器url</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^tinymce/'</span>, include(<span class="string">'tinymce.urls'</span>)),  <span class="comment"># 富文本编辑器</span></span><br></pre></td></tr></table></figure>
+
+<p>10.在df_order模块中的models.py中定义如下模型类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> db.base_model <span class="keyword">import</span> BaseModel</span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderInfo</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''订单模型类'''</span></span><br><span class="line">    PAY_METHOD_CHOICES = (</span><br><span class="line">        (<span class="number">1</span>, <span class="string">'货到付款'</span>),</span><br><span class="line">        (<span class="number">2</span>, <span class="string">'微信支付'</span>),</span><br><span class="line">        (<span class="number">3</span>, <span class="string">'支付宝'</span>),</span><br><span class="line">        (<span class="number">4</span>, <span class="string">'银联支付'</span>)</span><br><span class="line">    )</span><br><span class="line"> </span><br><span class="line">    ORDER_STATUS_CHOICES = (</span><br><span class="line">        (<span class="number">1</span>, <span class="string">'待支付'</span>),</span><br><span class="line">        (<span class="number">2</span>, <span class="string">'待发货'</span>),</span><br><span class="line">        (<span class="number">3</span>, <span class="string">'待收货'</span>),</span><br><span class="line">        (<span class="number">4</span>, <span class="string">'待评价'</span>),</span><br><span class="line">        (<span class="number">5</span>, <span class="string">'已完成'</span>)</span><br><span class="line">    )</span><br><span class="line"> </span><br><span class="line">    order_id = models.CharField(max_length=<span class="number">128</span>, primary_key=<span class="literal">True</span>, verbose_name=<span class="string">'订单id'</span>)</span><br><span class="line">    user = models.ForeignKey(<span class="string">'df_user.User'</span>, verbose_name=<span class="string">'用户'</span>)</span><br><span class="line">    addr = models.ForeignKey(<span class="string">'df_user.Address'</span>, verbose_name=<span class="string">'地址'</span>)</span><br><span class="line">    pay_method = models.SmallIntegerField(choices=PAY_METHOD_CHOICES, default=<span class="number">3</span>, verbose_name=<span class="string">'支付方式'</span>)</span><br><span class="line">    total_count = models.IntegerField(default=<span class="number">1</span>, verbose_name=<span class="string">'商品数量'</span>)</span><br><span class="line">    total_price = models.DecimalField(max_digits=<span class="number">10</span>, decimal_places=<span class="number">2</span>, verbose_name=<span class="string">'商品总价'</span>)</span><br><span class="line">    transit_price = models.DecimalField(max_digits=<span class="number">10</span>, decimal_places=<span class="number">2</span>,verbose_name=<span class="string">'订单运费'</span>)</span><br><span class="line">    order_status = models.SmallIntegerField(choices=ORDER_STATUS_CHOICES, default=<span class="number">1</span>, verbose_name=<span class="string">'订单状态'</span>)</span><br><span class="line">    trade_no = models.CharField(max_length=<span class="number">128</span>, verbose_name=<span class="string">'支付编号'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_order_info'</span></span><br><span class="line">        verbose_name = <span class="string">'订单'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderGoods</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    <span class="string">'''订单商品模型类'''</span></span><br><span class="line">    order = models.ForeignKey(<span class="string">'OrderInfo'</span>, verbose_name=<span class="string">'订单'</span>)</span><br><span class="line">    sku = models.ForeignKey(<span class="string">'df_goods.GoodsSKU'</span>, verbose_name=<span class="string">'商品SKU'</span>)</span><br><span class="line">    count = models.IntegerField(default=<span class="number">1</span>, verbose_name=<span class="string">'商品数目'</span>)</span><br><span class="line">    price = models.DecimalField(max_digits=<span class="number">10</span>, decimal_places=<span class="number">2</span>, verbose_name=<span class="string">'商品价格'</span>)</span><br><span class="line">    comment = models.CharField(max_length=<span class="number">256</span>, verbose_name=<span class="string">'评论'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'df_order_goods'</span></span><br><span class="line">        verbose_name = <span class="string">'订单商品'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br></pre></td></tr></table></figure>
+
+<p>11.在settings配置文件中使用django内置的认证系统指定的模型类为df_user下的User类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># django认证系统指定的模型类</span><br><span class="line">AUTH_USER_MODEL = &apos;df_user.User&apos;</span><br></pre></td></tr></table></figure>
+
+<p>12.生成迁移文件</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190325204751966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>13.执行迁移文件</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019032520492812.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>14.查看数据库</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190325205129354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>15.运行项目</p>
+<p><img src="https://img-blog.csdnimg.cn/2019032520532189.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/88790662" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/88790662</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-06T14:37:32+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月6日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Django/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Django</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Django网站实战</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python Web开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/06/Django项目之Web端电商网站的实战开发（一）/&title=Django项目之Web端电商网站的实战开发（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/06/Django项目之Web端电商网站的实战开发（一）/&title=Django项目之Web端电商网站的实战开发（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD/klEQVR42u3aS27bQBAFQN//0srWgkz6ve6RHQPFVSCT4kxNgFZ/Pj7i6/Hp+vzJ1Z2vT91//nrPbD3JCg9cOHDgwIEj/up2A8lSXpc1+2uyqvzOywPAgQMHDhyHOJKQmS/3PsglBHvi9mcBDhw4cOD4LY5kk1fLzb8zf+PVAeDAgQMHjr/C8YivK4hZdW6zVRw4cODA8fMcyZY228hLe7PkcFbcxIEDBw4c7+DIg9/f/fdb5jtw4MCBA0ccnDYp2X1ZcBZo89LhY3HhwIEDB449x77BMxuem8W+thTY7gsHDhw4cJzlaAtqSWhsQ/L9U7MV1geDAwcOHDgWHKeaQHlClQTF4SDCKMF7uh8HDhw4cKw5coj89febab9tNjzXrhAHDhw4cLyDI1lQGwg3hbwk9dqMMlyuEAcOHDhwLDhmr8w3k5Tw8mDZFiLrHxA4cODAgWPN0QbaU6W6dpxuE4DzT3DgwIEDx57jVOvoQLMneCo/jDbJfOrC4cCBAweOBUebquVp22Y0oU3kksG4PLXDgQMHDhwbjjzU5cMKOV+bPbVXfYQ4cODAgeMQRx6u8qfy8mI+3j0bfcj3hQMHDhw49hxJ8S75PB+Ja0cc2vA/+wGBAwcOHDjOchQ3ve/1o/bVqcIiDhw4cOA4xZGnTHni1LaX8nGKGU1xGDhw4MCBY82RjxrMWkH7BG+zvaRhVow14MCBAweOkmM4YVemdvvvn7Wp6kCLAwcOHDgWHJtQmoSuNmC3DarZhqO2Ew4cOHDgKDk25b98QK0t+eUQ+TqTo8KBAwcOHKc48mTpbLCcNZlOreGLO3HgwIEDx5pjVmLLA1g+9NY2vfK3J8+upjxw4MCBA0eZws2GA95RyEvaWjNQHDhw4MBxlqNtI7VJXbKsIsWKk8x2/A4HDhw4cOw5ZoW2/K+bBlXdNBqNVhThFgcOHDhwBO+dFQTbptGsObRP5/Kg/vS7AwcOHDhwLDjahlDboMq31KLnx9YeDw4cOHDgOMWRp2EJyiywzYp6efGxODYcOHDgwDHiyDc2C8lJYjZLI2cJ4Td7xIEDBw4chzhmG87DZLu4NvWarbDuv+HAgQMHjjJ5S4LlqfRps8l6XiNIVi9/feDAgQMHjpLjUV73C2qD39n2VV5AjP5f4MCBAweOEcd+0CH5PE/w2hZUWyjchGccOHDgwJFz7McU8rA9a1zlW90UN3HgwIEDx1mOTaDKxyPaCN8WIttvxoEDBw4c/wPHppLWtpeSbbfH8M2+cODAgQPHj3PkS9+kfPlWi9mNJOjiwIEDB45DHLMELC/8zTjyUmaSi0X7woEDBw4ca45ZKa1t6swg2vQvb32tElQcOHDgwPH1ev4BlFea3f2/NbkAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/06/Django项目之Web端电商网站的实战开发（一）/&title=Django项目之Web端电商网站的实战开发（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/06/Django项目之Web端电商网站的实战开发（二）/" rel="prev" title="Django项目之Web端电商网站的实战开发（二）">
+                                
+                                    Django项目之Web端电商网站的实战开发（二）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Django/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django</a> <a class="tag" href="/tags/Django网站实战/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django网站实战</a> <a class="tag" href="/tags/Python-Web开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Web开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/06/Flask项目之手机端租房网站的实战开发（完结）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（完结）">
+                                  
+                                      Flask项目之手机端租房网站的实战开发（完结）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Django项目之Web端电商网站的实战开发（一）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶项目介绍"><span class="toc-text">一丶项目介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶电商项目开发流程"><span class="toc-text">二丶电商项目开发流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶项目需求"><span class="toc-text">三丶项目需求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶项目架构概览"><span class="toc-text">四丶项目架构概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶项目数据库设计"><span class="toc-text">五丶项目数据库设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶项目框架搭建"><span class="toc-text">六丶项目框架搭建</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

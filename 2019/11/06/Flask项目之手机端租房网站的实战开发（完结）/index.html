@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Flask项目之手机端租房网站的实战开发（完结） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Flask项目之手机端租房网站的实战开发（完结）' href='/2019/11/06/Flask项目之手机端租房网站的实战开发（完结）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/images/flask.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/06/Flask项目之手机端租房网站的实战开发（完结）/">
+        Flask项目之手机端租房网站的实战开发（完结）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="https://hellotaogang.github.io/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-06</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Flask开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Flask开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <p><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.2/images/flask_logo.png" width="900px" height="300px" align><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！</p>
+<a id="more"></a>
+<h1 id="一丶注册和登录以及用户退出功能"><a href="#一丶注册和登录以及用户退出功能" class="headerlink" title="一丶注册和登录以及用户退出功能"></a>一丶注册和登录以及用户退出功能</h1><p>1.注册功能</p>
+<ul>
+<li><strong>step1</strong> 使用博主自己的手机号码进行注册功能测试，注册界面（左图），手机收到短信验证（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203100139178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203100312989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 点击注册则成功进入网站主页，并在右上角显示注册的手机号码，功能测试成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203100722415.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 查看数据库用户表ih_user_profile与刚注册的用户信息一致</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203101038573.png" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 查看redis数据库保存用户登录信息的session数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203103640694.png" alt></fancybox></p>
+<p>2.退出功能</p>
+<ul>
+<li><strong>step1</strong> 点击网站主页右上角的手机号码（左图，刚注册还未设置用户名，所以用户名默认为手机号），进入我的爱家界面（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203101734856.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203101744663.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 在我的爱家页面，点击最下面的退出功能按钮，成功退出并清除用户信息相关的session数据，在主页右上方显示注册登录按钮</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203102012902.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 此时查看redis数据库中session数据，按上一篇博客写的逻辑，正确则只显示csrf_token的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019020310383990.png" alt></fancybox></p>
+<p>3.登录功能</p>
+<p>点击登录按钮，进入登录页（左图），输入刚注册时的手机号码以及密码，成功登录进入主页（右图）</p>
+<p><img src="https://img-blog.csdnimg.cn/2019020310261483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203102644808.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<h1 id="二丶上传头像功能和修改用户名功能测试"><a href="#二丶上传头像功能和修改用户名功能测试" class="headerlink" title="二丶上传头像功能和修改用户名功能测试"></a>二丶上传头像功能和修改用户名功能测试</h1><p>1.上传头像功能</p>
+<ul>
+<li><strong>step1</strong> 进入我的爱家（左图），点击修改进入个人信息页面（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/201902031059569.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203110038632.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 点击选择文件按钮，选择头像图片（左图），点击上传则设置头像成功（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203110939319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203111009296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step3</strong> 查看数据库用户信息表ih_user_profile，avatar_url头像图片url字段不再为null</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203111233758.png" alt></fancybox></p>
+<p>2.修改用户名功能</p>
+<ul>
+<li><strong>step1</strong> 在用户名一栏输入要修改后用户名（左图），点击保存按钮，则提示保存成功（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203111738595.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203111750399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 查看数据库用户信息表ih_user_profile，name字段的值为刚设置的用户名</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203112041314.png" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 进入我的爱家页面，在个人信息栏，成功显示出设置的用户头像和用户名</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203112254310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 回到主页，在右上角成功显示出设置的用户名</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203120818378.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="三丶发布房源以及实名认证功能测试"><a href="#三丶发布房源以及实名认证功能测试" class="headerlink" title="三丶发布房源以及实名认证功能测试"></a>三丶发布房源以及实名认证功能测试</h1><p>1.实名认证功能</p>
+<ul>
+<li><strong>step1</strong> 首先先进入我的房源页面，当用户想发布房源那么就需要进行实名认证，实名认证成功后，在我的房源页面才有发布房源的功能按钮</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203112906521.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 进入实名认证页面（左图），输入姓名以及身份证号（这个身份证号乱输的），如（右图）所示</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203113110987.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203113227504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step3</strong> 点击保存后，成功则提示保存成功（左图），然后此页面便变成灰色输入框不可编写状态（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203113431423.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203113439222.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step4</strong> 数据库用户信息表ih_user_profile，real_name和id_card字段的值为用户实名认证填写的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203113723536.png" alt></fancybox></p>
+<p>2.发布房源功能</p>
+<ul>
+<li><strong>step1</strong> 当用户进行实名注册成功之后，再次进入我的房源页，则出现发布房源功能按钮（左图），点击发布房源功能出现（右图）界面</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203114005321.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203114015635.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 填写房源信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203115501527.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 店家发布房源信息进入发布新房源页面（左图），选择房屋图片，点击上传（右图），可以传多张</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203115759821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203120117244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step4</strong> 查看数据库房屋信息表ih_house_info，表字段值与填写的新房源数据一致</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203120404350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step5</strong> 回到我的房源页面，则成功显示该用户发布的房源信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203120548663.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="四丶网站房屋搜索功能测试"><a href="#四丶网站房屋搜索功能测试" class="headerlink" title="四丶网站房屋搜索功能测试"></a>四丶网站房屋搜索功能测试</h1><p>1.网站主页搜索</p>
+<ul>
+<li><strong>step1</strong> 用户在主页中选择入住条件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019020312534569.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 点击搜索后则跳转到房屋列表页，显示出满足用户选择的入住条件的房屋（左图），客户点击此列表页中任意一房屋后，则显示该房屋的相关信息（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203125734149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" div align="left"><img src="https://img-blog.csdnimg.cn/20190203125917613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" div align="right"></p>
+<ul>
+<li><strong>step3</strong> 此账号用户刚好在锦江区发布过一个房源，因为代码逻辑设定用户自己不能预订自己发布的房屋，所以点击进行该房屋，则不显示即可预定功能按钮</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203130258473.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.房源列表页进行搜索</p>
+<p>在房源列表页上，可进行入住日期区域以及按照条件进行筛选，选择2-3~2-5日入住，房屋位置为武侯区，筛选条件为价格由低到高，进行搜索，筛选条件就不进行一一测试了</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203134638737.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="五丶我的订单功能以及客户订单功能测试"><a href="#五丶我的订单功能以及客户订单功能测试" class="headerlink" title="五丶我的订单功能以及客户订单功能测试"></a>五丶我的订单功能以及客户订单功能测试</h1><p>1.我的订单功能</p>
+<ul>
+<li><strong>step1</strong> 进入我的订单页面，显示为空，因为该用户并未进行房屋预定（左图），对云漫单间进行预定（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203143007544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203143016295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 因为预订房屋为张三发布的，所以切换到张三账户，在我的订单中对该订单进行接单处理</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203143237309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203143246597.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step3</strong> 回到之前账户，查看我的订单显示为待支付状态，功能测试成功，支付功能测试在客户订单功能中进行测试</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203143421785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.客户订单功能</p>
+<ul>
+<li><strong>step1</strong> 该用户在锦江区成功发布了一个新房源，登录18033333333（张三）账号，对此房源进行预定，在主页选择锦江区（左图），点击搜索按钮，默认筛选条件为最新，所以第一个为该用户发布的房屋（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203135015341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203135218152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 点击房屋图片显示房屋信息，点击即可预定对该房屋进行预定（左图），输入入住以及离开日期后，显示出订单总金额（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203135504587.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203135513511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step3</strong> 提交订单后，显示该订单状态信息为待接单</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203135651800.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 此时登录180XXXXX796（2019 努力 奋斗）账号，进入我的爱家—–客户订单页面，显示18033333333（张三）预定了我的房屋的订单信息（左图），选择接单，此单状态变为已接单状态（右图），选择拒单则需要填写拒单原因，拒单就不进行演示了，之前的博客已经演示过了</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203140215668.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/2019020314041149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step5</strong> 切换到18033333333（张三）账号，查看我的订单则显示此单的状态为待支付状态（左图），正常来说是待使用，等到客户到店入住后，则显示为入住中，退房时显示为待支付，支付后显示为待评价，评价完成后，此订单状态才为已完成，前面的三个步骤给省略掉了，因为没那个时间去等待测试，点击去支付则跳转到登录支付宝页面（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203140640233.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203141009857.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step6</strong> 登录支付宝后，则显示订单的信息，以及付款金额（左图），确认付款输入支付密码后，则显示支付成功界面（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203141247167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203141324300.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step7</strong> 点击完成后，则跳转到我的订单页面，此时订单的状态为待评价状态</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203141509454.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step8</strong> 点击发表评价后，弹出评价框（左图），输入评价信息，然后确定则此单的评价信息成功显示出来（右图）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190203141947840.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190203141957537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step9</strong> 切换到180XXXXX796（2019 努力 奋斗）账号，进入到客户订单中，在此订单我的评价一栏也显示了用户作出的评价信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203142714893.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="六丶网站主页房屋幻灯片功能测试"><a href="#六丶网站主页房屋幻灯片功能测试" class="headerlink" title="六丶网站主页房屋幻灯片功能测试"></a>六丶网站主页房屋幻灯片功能测试</h1><p><strong>说明</strong>：网站主页五张幻灯片是按照订单量倒序进行筛选的，意思就是订单量越大则显示到幻灯片主页第一张，以此类推，因为主页幻灯片属于用户经常访问的资源，所以是保存在redis数据库中当中缓存数据的，所以就会有有效期（7200S），当过了有效期后则会按照此时的订单量进行筛选房屋数据的，按照房屋的订单量进行倒序排序，取出5条数据对象，每个对象中的房屋图片，则显示拿到前端主页页面进行显示给所有用户</p>
+<ul>
+<li><strong>step1</strong> 在数据库中按照订单量的倒序进行查询，并显示5条</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203145240141.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 根据数据库查询结果，得值云漫单间排名第一，所以在主页房屋幻灯片第一张应该是云漫单间</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190203145501912.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/86756248" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/86756248</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-06T14:01:09+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月6日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask网站实战开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask网站实战开发</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/手机端租房网站开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>手机端租房网站开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/06/Flask项目之手机端租房网站的实战开发（完结）/&title=Flask项目之手机端租房网站的实战开发（完结） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/06/Flask项目之手机端租房网站的实战开发（完结）/&title=Flask项目之手机端租房网站的实战开发（完结） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD50lEQVR42u3aS27jQAwFwNz/0h5gdgEi5T2yZRhIaWUkcqu7vKD4+fqKr9f/q/189ZfNCld7y+8/cOHAgQMHjuCoV9fV0i3Q7JD3O0zuz8+IAwcOHDjOcpwNrpcPu41rs3vuD5+fEQcOHDhwvJ8jD6htIL/fT86a/Jw4cODAgeNzOO7D3hN1yhkfDhw4cOD4BI6kONiW2/ISXt5S2uzkcK0UBw4cOHCk9bpjAw2f8/kj5jtw4MCB4w9wvBbXLM1L0rPZ+F3eBrs8EQ4cOHDgWHPkW8+bQG1S1xb1ZisUe8CBAwcOHIc42v9uHtkG77b4eN8Y+4UYBw4cOHCsOZ4rCOZjELMm1qmy5pvqozhw4MDxxzjy4JSX89pA3pb28icmAxM4cODAgeMsR3tTniy1A3OzNCxP+R6pnuLAgQMHjotAmy+dl9vaA7fNsHy1+r0DBw4cOHCMOPZJ0aydsxlrm43QRe8aOHDgwIFjzZEE2n3prd1cHubzAuWxFA4HDhw4cIyC7qysthlxmG0630N7Dw4cOHDgaDlmX2uHHmapWjvcdiB448CBAweOQxx5kpY0gU41kPIj7YP0t0CLAwcOHDgWHLMwOSu6taldm6rNBuZ+WAcHDhw4cBzlyMNhXoxr18/59isPJ+9w4MCBA0dw5yZZ2owgnEoO831GQDhw4MCBY80xnICIQ2+b4M3u3Iw14MCBAweOPUc+IrDfxCy12z89Lz7iwIEDB449x+ZKjroZhkjC7eyom8IiDhw4cOC452ibTG2qttluizt7afj2XRw4cODAseZIwtumzbMZoZuF3jaZ/OUlAAcOHDhwlBztdtsDJMEsKRre37MJ/D+8d+DAgQMHjgXHrBHVPniW2u3R9yN0OHDgwIFjxjHbeh60Ziu3aVj7y+PAgQMHjic48rA6m5LIB+BmQT3f7YGBBhw4cODAEe98Vp47WxxMEsJZyyoP8zhw4MCB4xTHpkSYFOZWExaLQmRbLsSBAwcOHHuOWZMmCb3t+EJb5msLghEZDhw4cOA4xDGLxnugPej+zh9qpThw4MCBY82Rt/xnadJsfCHZQ9vKOtCFw4EDBw4ccQd/NiLQHjVfM3nK5sKBAwcOHE9wvMpr8+CWctbQmiHiwIEDB45THLMjtaXAvHVUvyOUe064ceDAgQPHnmM2cNameftBhOcSPxw4cODA8QRHfoy2nTNL/9rEctZ2woEDBw4cn8CRF+ba9GnzOUkXox8GBw4cOHC8kWOWUOWpWh4Oz47r4cCBAweOJzhmCdJ+GO65EYrhCCAOHDhw4FhzbIYD8lA922g+BpePRGyGJHDgwIEDxy3HPxa8pLd6r338AAAAAElFTkSuQmCC'>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/06/Flask项目之手机端租房网站的实战开发（完结）/&title=Flask项目之手机端租房网站的实战开发（完结） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/06/Django项目之Web端电商网站的实战开发（一）/" rel="prev" title="Django项目之Web端电商网站的实战开发（一）">
+                                
+                                    Django项目之Web端电商网站的实战开发（一）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Django/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django</a> <a class="tag" href="/tags/Django网站实战/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django网站实战</a> <a class="tag" href="/tags/Python-Web开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Web开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/06/Flask项目之手机端租房网站的实战开发（十四）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（十四）">
+                                  
+                                      Flask项目之手机端租房网站的实战开发（十四）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Flask项目之手机端租房网站的实战开发（完结）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶注册和登录以及用户退出功能"><span class="toc-text">一丶注册和登录以及用户退出功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶上传头像功能和修改用户名功能测试"><span class="toc-text">二丶上传头像功能和修改用户名功能测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶发布房源以及实名认证功能测试"><span class="toc-text">三丶发布房源以及实名认证功能测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶网站房屋搜索功能测试"><span class="toc-text">四丶网站房屋搜索功能测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶我的订单功能以及客户订单功能测试"><span class="toc-text">五丶我的订单功能以及客户订单功能测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶网站主页房屋幻灯片功能测试"><span class="toc-text">六丶网站主页房屋幻灯片功能测试</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

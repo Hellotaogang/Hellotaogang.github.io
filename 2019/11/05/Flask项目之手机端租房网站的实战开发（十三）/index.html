@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Flask项目之手机端租房网站的实战开发（十三） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Flask项目之手机端租房网站的实战开发（十三）' href='/2019/11/05/Flask项目之手机端租房网站的实战开发（十三）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/images/flask.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/05/Flask项目之手机端租房网站的实战开发（十三）/">
+        Flask项目之手机端租房网站的实战开发（十三）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="https://hellotaogang.github.io/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-05</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Flask开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Flask开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h1 id="一丶保存订单后端接口编写"><a href="#一丶保存订单后端接口编写" class="headerlink" title="一丶保存订单后端接口编写"></a>一丶保存订单后端接口编写</h1><p>1.分析：当用户点击房屋图片进入房间信息页面时，在页面最下面会出现即可预定功能按钮（左图），当用户点击预定时，即跳转到预定页面（右图），在该页面中，首选是获取用户点击的房屋信息显示到此页面上，然后需要用户选择入住的时间和离开的时间，当用户选择完时间后那么在界面左下角即显示出订单的价格，点击提交订单后，此时需要从后端来判断此房间在用户选择入住离开期间有没有冲突订单，如果有则提示用户房屋被抢订，重新选择日期的一个提示，如果提交订单成功，则在我的订单中显示出该订单，这是整个业务逻辑</p>
+<p><img src="https://img-blog.csdnimg.cn/20190127094248993.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190127094301338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<p>2.逻辑编写如下</p>
+<ul>
+<li><strong>step1</strong> 在api_v1.0目录下创建orders.py模块，用于编写订单相关的接口，并在<strong>init</strong>.py模块中导入此模块</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190127095436279.png" alt></p>
+<ul>
+<li><strong>step2</strong> 定义路由接口</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/orders", methods=["POST"])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_order</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""保存用户的订单"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 获取前端发送的请求参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order_data = request.get_json()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 校验参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> order_data:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数错误"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 获取用户预订的房屋编号，入住时间以及离开时间</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">house_id = order_data.get(<span class="string">"house_id"</span>)</span><br><span class="line">start_date_str = order_data.get(<span class="string">"start_date"</span>)</span><br><span class="line">end_date_str = order_data.get(<span class="string">"end_date"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 校验参数完整性</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> all([house_id, start_date_str, end_date_str]):</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数不完整"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 检查日期格式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 将str格式的日期数据转换成datetime格式的日期数据</span></span><br><span class="line">    start_date = datetime.strptime(start_date_str, <span class="string">"%Y-%m-%d"</span>)</span><br><span class="line">    end_date = datetime.strptime(end_date_str, <span class="string">"%Y-%m-%d"</span>)</span><br><span class="line">    <span class="keyword">assert</span> start_date &lt;= end_date <span class="comment">#使用断言就行判断</span></span><br><span class="line">    <span class="comment"># 计算预订的天数</span></span><br><span class="line">    days = (end_date-start_date).days + <span class="number">1</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"日期格式不正确"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong> 查询用户预订的房屋是否存在</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    house = House.query.get(house_id)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"获取房屋信息失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step10</strong> 判断房屋是否存在</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> house:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.NODATA, errmsg=<span class="string">"房屋不存在"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step11</strong> 判断房东预订的房屋是不是自己的发布的房屋</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> user_id == house.user_id:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.ROLEERR, errmsg=<span class="string">"不能预订自己发布的房屋"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step12</strong> 检查用户预订的时间内，房屋没有被别人下单</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 查询时间冲突的订单数 select count(*) from ih_order_info where ()</span></span><br><span class="line">    count = Order.query.filter(Order.house_id == house_id, Order.begin_date &lt;= end_date, Order.end_date &gt;= start_date).count()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"系统繁忙，请稍候重试"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step13</strong> 如果查询的订单冲突数大于0，则说明房屋在用户预订时间内，已被他人预订</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> count &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DATAERR, errmsg=<span class="string">"房屋已被预订"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step14</strong> 计算订单总额</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amount = house.price * days</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step15</strong> 保存订单数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">order = Order(</span><br><span class="line">        house_id=house_id,</span><br><span class="line">        user_id=user_id,</span><br><span class="line">        begin_date=start_date,</span><br><span class="line">        end_date=end_date,</span><br><span class="line">        days=days,</span><br><span class="line">        house_price=house.price,</span><br><span class="line">        amount=amount</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step16</strong> 将订单数据提交到数据库中，并返回正确响应数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    db.session.add(order)</span><br><span class="line">    db.session.commit()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> (e):</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    db.session.rollback()</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"保存订单失败"</span>)</span><br><span class="line"></span><br><span class="line">返回正确响应数据</span><br><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>, data=&#123;<span class="string">"order_id"</span>: order.id&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="二丶预订页面前端编写以及接口测试"><a href="#二丶预订页面前端编写以及接口测试" class="headerlink" title="二丶预订页面前端编写以及接口测试"></a>二丶预订页面前端编写以及接口测试</h1><p>1.在booking.js中进行如下编写</p>
+<ul>
+<li><strong>step1</strong> 首先当页面加载完时，则判断用户是否登录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.get(<span class="string">"/api/v1.0/session"</span>, function(resp) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">"0"</span> != resp.errno) &#123;</span><br><span class="line">        location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="string">"json"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取详情页面要展示的房屋编号</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryData = decodeQuery();</span><br><span class="line"><span class="keyword">var</span> houseId = queryData[<span class="string">"id"</span>];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取房屋的基本信息</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="keyword">get</span>("/api/v1.0/houses/" + houseId, function(resp)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">0</span> == resp.errno) &#123;</span><br><span class="line">            $(<span class="string">".house-info&gt;img"</span>).attr(<span class="string">"src"</span>, resp.data.house.img_urls[<span class="number">0</span>]);</span><br><span class="line">            $(<span class="string">".house-text&gt;h3"</span>).html(resp.data.house.title);</span><br><span class="line">            $(<span class="string">".house-text&gt;p&gt;span"</span>).html((resp.data.house.price/<span class="number">100.0</span>).toFixed(<span class="number">0</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 提交订单</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">".submit-btn"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ($(<span class="string">".order-amount&gt;span"</span>).html()) &#123;</span><br><span class="line">        $(<span class="keyword">this</span>).prop(<span class="string">"disabled"</span>, <span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">var</span> startDate = $(<span class="string">"#start-date"</span>).val();</span><br><span class="line">        <span class="keyword">var</span> endDate = $(<span class="string">"#end-date"</span>).val();</span><br><span class="line">        <span class="keyword">var</span> data = &#123;</span><br><span class="line">            <span class="string">"house_id"</span>:houseId,</span><br><span class="line">            <span class="string">"start_date"</span>:startDate,</span><br><span class="line">            <span class="string">"end_date"</span>:endDate</span><br><span class="line">        &#125;;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">"/api/v1.0/orders"</span>,</span><br><span class="line">            type:<span class="string">"POST"</span>,</span><br><span class="line">            data: <span class="built_in">JSON</span>.stringify(data),</span><br><span class="line">            contentType: <span class="string">"application/json"</span>,</span><br><span class="line">            dataType: <span class="string">"json"</span>,</span><br><span class="line">            headers:&#123;</span><br><span class="line">                <span class="string">"X-CSRFTOKEN"</span>:getCookie(<span class="string">"csrf_token"</span>),</span><br><span class="line">            &#125;,</span><br><span class="line">            success: <span class="function"><span class="keyword">function</span> (<span class="params">resp</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"4101"</span> == resp.errno) &#123;</span><br><span class="line">                    location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"4004"</span> == resp.errno) &#123;</span><br><span class="line">                    showErrorMsg(<span class="string">"房间已被抢定，请重新选择日期！"</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">                    location.href = <span class="string">"/orders.html"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>2.测试</p>
+<ul>
+<li><strong>step1</strong> 在房屋信息页（左图），点击即可预定后成功跳转到预定界面（右图），并成功显示预定房屋的信息</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190127115846581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/2019012711585629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step2</strong> 在预定房屋界面，选择入住时间以及离开时间后，左下角则成功显示正确的订单总额（左图），当点击提交订单成功后，则跳转到我的订单页面（右图），因为此页面接口未编写，所以啥都没有属于正常情况</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190127121041498.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190127121136714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step3</strong> 此时查看数据库ih_order_info表，则显示我们成功提交的订单信息，此功能测试成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019012712143515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="三丶订单模块（我的订单）后端接口编写"><a href="#三丶订单模块（我的订单）后端接口编写" class="headerlink" title="三丶订单模块（我的订单）后端接口编写"></a>三丶订单模块（我的订单）后端接口编写</h1><p>1.分析：第一当用户成功提交订单后，则会跳转到我的订单页面，此时在这个页面就应该显示出用户刚才预定房屋的订单情况，第二就是需要对角色进行一个判断，如果是下单人那么在我的订单中查看订单，如果是房东那么就在客户订单中，查看别人预定我发布的房屋的订单，无论是哪种情况，对于后端来说都是查询数据库订单信息情况而已，所以这两个功能可以用一个查询订单接口在后端进行实现</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127122606756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.说明：之所以不管哪种角色在我的爱家页面都出现这两个有关订单的功能（我的订单和客户订单），那是因为对于任何注册网站的用户来说，我既可以订房，也可以发布房源，即一个账号可以切换成两种角色</p>
+<p>3.逻辑编写</p>
+<ul>
+<li><strong>step1</strong> 定义接口路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /api/v1.0/user/orders?role=(custom/landlord)</span></span><br><span class="line"><span class="meta">@api.route("/user/orders", methods=["GET"])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_user_orders</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""查询用户的订单信息"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取前端请求数据中角色role,如果没有则默认为空字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">role = request.args.get(<span class="string">"role"</span>, <span class="string">""</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 获取订单数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 以房东的身份在数据库中查询自己发布过的房屋</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">"landlord"</span> == role:</span><br><span class="line">        houses = House.query.filter(House.user_id == user_id).all()</span><br><span class="line">        <span class="comment"># 通过列表生成式方式保存房东名下的所有房屋的id</span></span><br><span class="line">        houses_ids = [house.id <span class="keyword">for</span> house <span class="keyword">in</span> houses]</span><br><span class="line">        <span class="comment"># 在Order表中查询预定了自己房子的订单,并按照创建订单的时间的倒序排序，也就是在此页面显示最新的订单信息</span></span><br><span class="line">        orders = Order.query.filter(Order.house_id.in_(houses_ids)).order_by(Order.create_time.desc()).all()</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 以房客的身份查询订单，则查询的是我的订单</span></span><br><span class="line">        orders = Order.query.filter(Order.user_id == user_id).order_by(Order.create_time.desc()).all()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"获取订单信息失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 在models.py模块Order类中构建to_dict方法，用于将详细信息转换为字典数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_dict</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""将订单信息转换为字典数据"""</span></span><br><span class="line">    order_dict = &#123;</span><br><span class="line">        <span class="string">"order_id"</span>: self.id,</span><br><span class="line">        <span class="string">"title"</span>: self.house.title,</span><br><span class="line">        <span class="string">"img_url"</span>: constants.QINIU_URL_DOMAIN + self.house.index_image_url <span class="keyword">if</span> self.house.index_image_url <span class="keyword">else</span> <span class="string">""</span>,</span><br><span class="line">        <span class="string">"start_date"</span>: self.begin_date.strftime(<span class="string">"%Y-%m-%d"</span>),</span><br><span class="line">        <span class="string">"end_date"</span>: self.end_date.strftime(<span class="string">"%Y-%m-%d"</span>),</span><br><span class="line">        <span class="string">"ctime"</span>: self.create_time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>),</span><br><span class="line">        <span class="string">"days"</span>: self.days,</span><br><span class="line">        <span class="string">"amount"</span>: self.amount,</span><br><span class="line">        <span class="string">"status"</span>: self.status,</span><br><span class="line">        <span class="string">"comment"</span>: self.comment <span class="keyword">if</span> self.comment <span class="keyword">else</span> <span class="string">""</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 订单存在则将订单对象orders转换成字典数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">orders_dict_list = []</span><br><span class="line">    <span class="keyword">if</span> orders:</span><br><span class="line">        <span class="keyword">for</span> order <span class="keyword">in</span> orders:</span><br><span class="line">            orders_dict_list.append(order.to_dict())</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 最后向前端返回正确响应数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>, data=&#123;<span class="string">"orders"</span>: orders_dict_list&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="四丶订单模块（我的订单）前端编写"><a href="#四丶订单模块（我的订单）前端编写" class="headerlink" title="四丶订单模块（我的订单）前端编写"></a>四丶订单模块（我的订单）前端编写</h1><p>1.我的订单orders.js中进行如下编写，需注意的是当客户预定的房间后，会引导到支付链接去</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询房客订单</span></span><br><span class="line">    $.<span class="keyword">get</span>("/api/v1.0/user/orders?role=custom", function(resp)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">            $(<span class="string">".orders-list"</span>).html(template(<span class="string">"orders-list-tmpl"</span>, &#123;<span class="attr">orders</span>:resp.data.orders&#125;));</span><br><span class="line">            $(<span class="string">".order-pay"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> orderId = $(<span class="keyword">this</span>).parents(<span class="string">"li"</span>).attr(<span class="string">"order-id"</span>);</span><br><span class="line">                $.ajax(&#123;</span><br><span class="line">                    url: <span class="string">"/api/v1.0/orders/"</span> + orderId + <span class="string">"/payment"</span>,</span><br><span class="line">                    type: <span class="string">"post"</span>,</span><br><span class="line">                    dataType: <span class="string">"json"</span>,</span><br><span class="line">                    headers: &#123;</span><br><span class="line">                        <span class="string">"X-CSRFToken"</span>: getCookie(<span class="string">"csrf_token"</span>),</span><br><span class="line">                    &#125;,</span><br><span class="line">                    success: <span class="function"><span class="keyword">function</span> (<span class="params">resp</span>) </span>&#123;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">"4101"</span> == resp.errno) &#123;</span><br><span class="line">                            location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">                            <span class="comment">// 引导用户跳转到支付宝连接</span></span><br><span class="line">                            location.href = resp.data.pay_url;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>2.在orders.html中进行如下编写</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">"orders-list-tmpl"</span> <span class="attr">type</span>=<span class="string">"text/html"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-variable">&#123;&#123;<span class="builtin-name">if</span> orders&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="actionscript">    &#123;&#123;<span class="keyword">each</span> orders <span class="keyword">as</span> order&#125;&#125;</span></span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">order-id</span>=</span></span><span class="template-variable">&#123;&#123;order.order_id&#125;&#125;</span><span class="xml"><span class="tag">&gt;</span></span></span></span><br><span class="line"><span class="javascript">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"order-title"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;<span class="name">h3</span>&gt;</span>订单编号：</span><span class="template-variable">&#123;&#123;order.order_id&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">            &#123;&#123; <span class="keyword">if</span> <span class="string">"WAIT_COMMENT"</span> == order.status &#125;&#125;</span></span><br><span class="line"><span class="javascript">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"fr order-operate"</span>&gt;</span></span><br><span class="line"><span class="javascript">                &lt;button type=<span class="string">"button"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-success order-comment"</span> data-toggle=<span class="string">"modal"</span> data-target=<span class="string">"#comment-modal"</span>&gt;发表评价&lt;<span class="regexp">/button&gt;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">            &#123;&#123; <span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"WAIT_PAYMENT"</span> == order.status &#125;&#125;</span></span><br><span class="line"><span class="javascript">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"fr order-operate"</span>&gt;</span></span><br><span class="line"><span class="javascript">                &lt;button type=<span class="string">"button"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-success order-pay"</span>&gt;去支付&lt;<span class="regexp">/button&gt;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="javascript">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"order-content"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123;order.img_url&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span></span><br><span class="line"><span class="javascript">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"order-text"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">                <span class="tag">&lt;<span class="name">h3</span>&gt;</span></span><span class="template-variable">&#123;&#123;order.title&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>创建时间：</span><span class="template-variable">&#123;&#123;order.ctime&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>入住日期：</span><span class="template-variable">&#123;&#123;order.start_date&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>离开日期：</span><span class="template-variable">&#123;&#123;order.end_date&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>合计金额：￥</span><span class="template-variable">&#123;&#123;(order.amount/100.0).toFixed(0)&#125;&#125;</span><span class="xml">(共</span><span class="template-variable">&#123;&#123;order.days&#125;&#125;</span><span class="xml">晚)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>订单状态：</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                        <span class="tag">&lt;<span class="name">span</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">if</span> <span class="string">"WAIT_ACCEPT"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                待接单</span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"WAIT_PAYMENT"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                待支付</span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"WAIT_COMMENT"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                待评价</span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"COMPLETE"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                已完成</span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"REJECTED"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                已拒单</span><br><span class="line"><span class="handlebars"><span class="xml">                            </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                        <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">                    &#123;&#123;<span class="keyword">if</span> <span class="string">"COMPLETE"</span> == order.status&#125;&#125;</span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>我的评价： </span><span class="template-variable">&#123;&#123;order.comment&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">                    &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"REJECTED"</span> == order.status&#125;&#125;</span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>拒单原因： </span><span class="template-variable">&#123;&#123;order.comment&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">each</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-variable">&#123;&#123;<span class="builtin-name">else</span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line">    暂时没有订单。</span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="五丶我的订单功能测试"><a href="#五丶我的订单功能测试" class="headerlink" title="五丶我的订单功能测试"></a>五丶我的订单功能测试</h1><p>1.登录18022222222（Hellotaogang）账户后，直接进入我的订单页面，成功显示我的订单信息，如下</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127133933172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.以客户的角色进行预定房间，选择锦江区，价格由高到低，选择最贵的房间</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019012713411835.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>3.进入房间信息后，点击即可预定（左图），然后提交成功后跳转到我的订单页（右图），成功按照最新预定时间进行排序显示</p>
+<p><img src="https://img-blog.csdnimg.cn/20190127134417361.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190127134428412.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<p>4.查看数据库ih_user_profile用户信息表以及ih_order_info订单信息表，当前的所有订单都是由18022222222（Hellotaogang）账号进行的预定</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127134938646.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>5.现在博主登录18033333333（张三）账号进行测试，测试房东能不能预定自己发布的房屋（刷单）</p>
+<ul>
+<li><strong>step1</strong> 首先在数据中查看张三发布了哪些房屋</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127135507485.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 这里对house_id为10的房屋进行预定，也就是至朴大床房进行预定，结果发现根本没有即可预定按钮（左图），反之对house_id为8的商务套房进行预定，如果成功显示即可预定功能按钮（右图），那么说明编写的代码逻辑没有任何问题</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190127135831672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" div align="left"><img src="https://img-blog.csdnimg.cn/20190127140157913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" div align="right"></p>
+<p>6.上一篇博客中有一个搜索条件未进行测试，因为当时并没有编写订单模块接口，所以无法查询到冲突订单，现在我使用18111111111（taogang123）账号进行相同房间时间冲突为条件进行搜索测试</p>
+<ul>
+<li><strong>step1</strong> 根据数据库订单表以及房屋信息表，获取Hellotaogang账号的订单信息以及对应的房屋信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127140951110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 根据获取的信息来进行冲突订单搜索条件测试，金牛区房屋id为13的云篆单间入住时间为2019-01-27到2019-01-30的订单已经被Hellotaogang账号预定，无法预定则表示代码逻辑正确</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127151404233.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 在主页进行条件搜索时，则不显示冲突订单中房屋信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127151552797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="六丶订单模块（客户订单）后端接口编写"><a href="#六丶订单模块（客户订单）后端接口编写" class="headerlink" title="六丶订单模块（客户订单）后端接口编写"></a>六丶订单模块（客户订单）后端接口编写</h1><p>1.分析：当房东进入客户订单后，即显示出该房东的房屋被客户预定的订单信息，在每个订单上都会有接单以及拒单的功能按钮，不管是接单还是拒单都是改变订单的一个状态，只是房东在选择拒单时必需填写拒绝原因，所以这关于接单和拒单这两个功能接口可以进行复用</p>
+<p>2.接口逻辑编写</p>
+<ul>
+<li><strong>step1</strong> 定义路由接口，需从前端请求中获取订单编号，使用PUT方式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/orders/&lt;int:order_id&gt;/status", methods=["PUT"])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">accept_reject_order</span><span class="params">(order_id)</span>:</span></span><br><span class="line">    <span class="string">"""接单拒单"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取请求参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">req_data = request.get_json()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 校验参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> req_data:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数错误"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 获取前端用户请求为接单还是拒单，关键字action</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">action = req_data.get(<span class="string">"action"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 判断action参数的值在不在accept接单和reject拒单之间</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> action <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">"accept"</span>, <span class="string">"reject"</span>):</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数错误"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 在数据库中根据订单号查询订单状态为等待接单状态的订单</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    order = Order.query.filter(Order.id == order_id, Order.status == <span class="string">"WAIT_ACCEPT"</span>).first()</span><br><span class="line">    <span class="comment"># 获取order订单对象中的house对象</span></span><br><span class="line">    house = order.house</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"无法获取订单数据"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 如果order对象不存在或者订单中的房屋id不等于用户id 则说明房东在修改不属于自己房屋订单</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> order <span class="keyword">or</span> house.user_id != user_id:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.REQERR, errmsg=<span class="string">"操作无效"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 房东选择接单，则对应订单状态为等待评论，拒单则需房东填写拒单的原因</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> action == <span class="string">"accept"</span>: <span class="comment"># 接单</span></span><br><span class="line">    order.status = <span class="string">"WAIT_PAYMENT"</span></span><br><span class="line"><span class="keyword">elif</span> action == <span class="string">"reject"</span>: <span class="comment"># 拒单</span></span><br><span class="line">    reason = req_data.get(<span class="string">"reason"</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> reason:</span><br><span class="line">        <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数错误"</span>)</span><br><span class="line">    order.status = <span class="string">"REJECTED"</span></span><br><span class="line">    order.comment = reason</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong> 将订单修改后的对象提交到数据库</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    db.session.add(order)</span><br><span class="line">    db.session.commit()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    db.session.rollback()</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"操作失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step10</strong> 返回正确响应，因为接口逻辑是在数据库的修改以及查询，所以不需要向前端返回数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="七丶订单模块（客户订单）前端编写以及接口测试"><a href="#七丶订单模块（客户订单）前端编写以及接口测试" class="headerlink" title="七丶订单模块（客户订单）前端编写以及接口测试"></a>七丶订单模块（客户订单）前端编写以及接口测试</h1><p>1.在客户订单页lorders.js中进行如下编写</p>
+<ul>
+<li><strong>step1</strong> 查询房东的订单</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="keyword">get</span>("/api/v1.0/user/orders?role=landlord", function(resp)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">            $(<span class="string">".orders-list"</span>).html(template(<span class="string">"orders-list-tmpl"</span>, &#123;<span class="attr">orders</span>:resp.data.orders&#125;));</span><br><span class="line">            $(<span class="string">".order-accept"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> orderId = $(<span class="keyword">this</span>).parents(<span class="string">"li"</span>).attr(<span class="string">"order-id"</span>);</span><br><span class="line">                $(<span class="string">".modal-accept"</span>).attr(<span class="string">"order-id"</span>, orderId);</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 接单处理</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">".modal-accept"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> orderId = $(<span class="keyword">this</span>).attr(<span class="string">"order-id"</span>);</span><br><span class="line">                $.ajax(&#123;</span><br><span class="line">                    url:<span class="string">"/api/v1.0/orders/"</span>+orderId+<span class="string">"/status"</span>,</span><br><span class="line">                    type:<span class="string">"PUT"</span>,</span><br><span class="line">                    data:<span class="string">'&#123;"action":"accept"&#125;'</span>,</span><br><span class="line">                    contentType:<span class="string">"application/json"</span>,</span><br><span class="line">                    dataType:<span class="string">"json"</span>,</span><br><span class="line">                    headers:&#123;</span><br><span class="line">                        <span class="string">"X-CSRFTOKEN"</span>:getCookie(<span class="string">"csrf_token"</span>),</span><br><span class="line">                    &#125;,</span><br><span class="line">                    success:<span class="function"><span class="keyword">function</span> (<span class="params">resp</span>) </span>&#123;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">"4101"</span> == resp.errno) &#123;</span><br><span class="line">                            location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">                            $(<span class="string">".orders-list&gt;li[order-id="</span>+ orderId +<span class="string">"]&gt;div.order-content&gt;div.order-text&gt;ul li:eq(4)&gt;span"</span>).html(<span class="string">"已接单"</span>);</span><br><span class="line">                            $(<span class="string">"ul.orders-list&gt;li[order-id="</span>+ orderId +<span class="string">"]&gt;div.order-title&gt;div.order-operate"</span>).hide();</span><br><span class="line">                            $(<span class="string">"#accept-modal"</span>).modal(<span class="string">"hide"</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;);</span><br><span class="line">            $(<span class="string">".order-reject"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> orderId = $(<span class="keyword">this</span>).parents(<span class="string">"li"</span>).attr(<span class="string">"order-id"</span>);</span><br><span class="line">                $(<span class="string">".modal-reject"</span>).attr(<span class="string">"order-id"</span>, orderId);</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 拒单处理</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">".modal-reject"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> orderId = $(<span class="keyword">this</span>).attr(<span class="string">"order-id"</span>);</span><br><span class="line">    <span class="keyword">var</span> reject_reason = $(<span class="string">"#reject-reason"</span>).val();</span><br><span class="line">    <span class="keyword">if</span> (!reject_reason) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">var</span> data = &#123;</span><br><span class="line">        action: <span class="string">"reject"</span>,</span><br><span class="line">        reason:reject_reason</span><br><span class="line">    &#125;;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url:<span class="string">"/api/v1.0/orders/"</span>+orderId+<span class="string">"/status"</span>,</span><br><span class="line">        type:<span class="string">"PUT"</span>,</span><br><span class="line">        data:<span class="built_in">JSON</span>.stringify(data),</span><br><span class="line">        contentType:<span class="string">"application/json"</span>,</span><br><span class="line">        headers: &#123;</span><br><span class="line">            <span class="string">"X-CSRFTOKEN"</span>:getCookie(<span class="string">"csrf_token"</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        dataType:<span class="string">"json"</span>,</span><br><span class="line">        success:<span class="function"><span class="keyword">function</span> (<span class="params">resp</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"4101"</span> == resp.errno) &#123;</span><br><span class="line">                location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">                $(<span class="string">".orders-list&gt;li[order-id="</span>+ orderId +<span class="string">"]&gt;div.order-content&gt;div.order-text&gt;ul li:eq(4)&gt;span"</span>).html(<span class="string">"已拒单"</span>);</span><br><span class="line">                $(<span class="string">"ul.orders-list&gt;li[order-id="</span>+ orderId +<span class="string">"]&gt;div.order-title&gt;div.order-operate"</span>).hide();</span><br><span class="line">                $(<span class="string">"#reject-modal"</span>).modal(<span class="string">"hide"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>2.在lorders.html中进行如下编写</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">"orders-list-tmpl"</span> <span class="attr">type</span>=<span class="string">"text/html"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-variable">&#123;&#123;<span class="builtin-name">if</span> orders&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="actionscript">    &#123;&#123;<span class="keyword">each</span> orders <span class="keyword">as</span> order&#125;&#125;</span></span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">order-id</span>=</span></span><span class="template-variable">&#123;&#123;order.order_id&#125;&#125;</span><span class="xml"><span class="tag">&gt;</span></span></span></span><br><span class="line"><span class="javascript">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"order-title"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;<span class="name">h3</span>&gt;</span>订单编号：</span><span class="template-variable">&#123;&#123;order.order_id&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">            &#123;&#123; <span class="keyword">if</span> <span class="string">"WAIT_ACCEPT"</span> == order.status &#125;&#125;</span></span><br><span class="line"><span class="javascript">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"fr order-operate"</span>&gt;</span></span><br><span class="line"><span class="javascript">                &lt;button type=<span class="string">"button"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-success order-accept"</span> data-toggle=<span class="string">"modal"</span> data-target=<span class="string">"#accept-modal"</span>&gt;接单&lt;<span class="regexp">/button&gt;</span></span></span><br><span class="line"><span class="javascript">                &lt;button type=<span class="string">"button"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-danger order-reject"</span> data-toggle=<span class="string">"modal"</span> data-target=<span class="string">"#reject-modal"</span>&gt;拒单&lt;<span class="regexp">/button&gt;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="javascript">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"order-content"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123;order.img_url&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span></span><br><span class="line"><span class="javascript">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"order-text"</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">                <span class="tag">&lt;<span class="name">h3</span>&gt;</span></span><span class="template-variable">&#123;&#123;order.title&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>创建时间：</span><span class="template-variable">&#123;&#123;order.ctime&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>入住日期：</span><span class="template-variable">&#123;&#123;order.start_date&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>离开日期：</span><span class="template-variable">&#123;&#123;order.end_date&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>合计金额：￥</span><span class="template-variable">&#123;&#123;(order.amount/100.0).toFixed(0)&#125;&#125;</span><span class="xml">(共</span><span class="template-variable">&#123;&#123;order.days&#125;&#125;</span><span class="xml">晚)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>订单状态：</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                        <span class="tag">&lt;<span class="name">span</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">if</span> <span class="string">"WAIT_ACCEPT"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                待接单</span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"WAIT_COMMENT"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                待评价</span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"COMPLETE"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                已完成</span><br><span class="line"><span class="actionscript">                            &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"REJECTED"</span> == order.status&#125;&#125;</span></span><br><span class="line">                                已拒单</span><br><span class="line"><span class="handlebars"><span class="xml">                            </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                        <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">                    &#123;&#123;<span class="keyword">if</span> <span class="string">"COMPLETE"</span> == order.status&#125;&#125;</span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>我的评价： </span><span class="template-variable">&#123;&#123;order.comment&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="actionscript">                    &#123;&#123;<span class="keyword">else</span> <span class="keyword">if</span> <span class="string">"REJECTED"</span> == order.status&#125;&#125;</span></span><br><span class="line"><span class="handlebars"><span class="xml">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span>拒单原因： </span><span class="template-variable">&#123;&#123;order.comment&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                    </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">each</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-variable">&#123;&#123;<span class="builtin-name">else</span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line">    暂时没有订单。</span><br><span class="line"><span class="handlebars"><span class="xml">    </span><span class="template-tag">&#123;&#123;/<span class="name"><span class="builtin-name">if</span></span>&#125;&#125;</span><span class="xml"></span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.测试</p>
+<ul>
+<li><strong>step1</strong> 使用18033333333（张三）账号进行此接口测试，账号登录后进入客户订单，成功显示客户预定了我发布的房屋列表信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127184900869.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 查询数据库ih_order_info订单表，验证是否有4张客户订单，结果显示正确，<font style="color:red">需要注意的是这里的user_id指的是哪个账号预定的</font>，通过user_id发现用户id为3的用户预定了三间，而用户id为8的预定了一间</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127185518102.png" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 查看数据库ih_user_profile表，查看是user_id =3 和 8 的是哪个账号</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127185905456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 分别登录这两个账号，进入我的订单，如果订单详情和张三客户订单一样，说明代码逻辑完全没问题，左图为Hellotaogang账户，右图为taogang123账户</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190127190213627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190127190223306.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step5</strong> 接单功能接口测试，切换18033333333（张三）账号，进入客户订单，选择订单编号为1的订单，点击接单出现提示信息（左图），点击确定接单后，则在客户订单页中此编号的订单的状态即变成了已接单状态，而在前端中此订单不在显示出接单和拒单功能按钮，说明代码逻辑正确</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190127190756932.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190127190808322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step6</strong> 拒单功能接口测试，选择订单编号为3的订单进行测试，当点击拒单时，必须要填写原因（左图），然后点击确定后，则该订单状态为已拒绝，说明代码逻辑没问题</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190127191313368.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="left"><img src="https://img-blog.csdnimg.cn/20190127191322613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" width="368" height="655" div align="right"></p>
+<ul>
+<li><strong>step7</strong> 查看数据库订单状态信息，状态为WAIT_PAYMENT的表示已接单，REJECTED表示已拒单，填写的拒单原因存到comment评论字段，证明代码逻辑完全没问题</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127192018139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step8</strong> 切换到到18022222222（Hellotaogang）客户账号，进入我的订单中，查看18033333333（张三）房东对于订单的接单以及拒单情况，对于只有房东接单的订单才会出现去支付的功能按钮，因为该接口还没有写，所以在这里不进行演示，显示信息与上面测试结果一样，代码逻辑正确</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190127194718107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="八丶订单评价后端接口编写"><a href="#八丶订单评价后端接口编写" class="headerlink" title="八丶订单评价后端接口编写"></a>八丶订单评价后端接口编写</h1><p>1.分析：因为订单评价接口和接单拒单功能接口一样，也是对数据库进行修改操作，所以在定义接口路由的时候请求方式也是选择的是PUT，本来订单评价接口是在支付接口后面才去写的，但因为此接口与拒单接单接口大同小异，所以便一块接着客户订单接口在orders.py中一起写了，需要注意的时这个接口是在订单状态变成待评价时，才能触发这个功能接口进行评价</p>
+<p>2.逻辑编写</p>
+<ul>
+<li><strong>step1</strong> 定义路由接口</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api.route("/orders/&lt;int:order_id&gt;/comment", methods=["PUT"])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_order_comment</span><span class="params">(order_id)</span>:</span></span><br><span class="line">    <span class="string">"""保存订单评价信息"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取用户id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_id = g.user_id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取请求参数中的评价信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">req_data = request.get_json()</span><br><span class="line">comment = req_data.get(<span class="string">"comment"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 校验参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> comment:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.PARAMERR, errmsg=<span class="string">"参数错误"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 确保用户只能评价自己的订单并且订单处于待评价的状态</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    order = Order.query.filter(Order.id == order_id, Order.user_id == user_id, Order.status == <span class="string">"WAIT_COMMENT"</span>).first()</span><br><span class="line">    house = order.house</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"无法获取订单数据"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 查询的订单对象order不存在，则返回错误信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> order:</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.REQERR, errmsg=<span class="string">"操作无效"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 构建订单参数，并提交到数据库中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 将订单的状态设置为已完成</span></span><br><span class="line">    order.status = <span class="string">"COMPLETE"</span></span><br><span class="line">    <span class="comment"># 保存订单的评价信息</span></span><br><span class="line">    order.comment = comment</span><br><span class="line">    <span class="comment"># 将房屋的完成订单数增加1</span></span><br><span class="line">    house.order_count += <span class="number">1</span></span><br><span class="line">    db.session.add(order)</span><br><span class="line">    db.session.add(house)</span><br><span class="line">    db.session.commit()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line">    db.session.rollback()</span><br><span class="line">    <span class="keyword">return</span> jsonify(errno=RET.DBERR, errmsg=<span class="string">"操作失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 因为在房屋详情中有会显示订单的评价信息，为了在房屋详情中显示最新的评价信息，所以需要删除redis中该订单对应的房屋的信息，并返回正确响应</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    redis_store.delete(<span class="string">"house_info_%s"</span> % order.house.id)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    current_app.logger.error(e)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> jsonify(errno=RET.OK, errmsg=<span class="string">"OK"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3.在order.js中补充处理评论的逻辑</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">"/api/v1.0/orders/"</span>+orderId+<span class="string">"/comment"</span>,</span><br><span class="line">    type:<span class="string">"PUT"</span>,</span><br><span class="line">    data:<span class="built_in">JSON</span>.stringify(data),</span><br><span class="line">    contentType:<span class="string">"application/json"</span>,</span><br><span class="line">    dataType:<span class="string">"json"</span>,</span><br><span class="line">    headers:&#123;</span><br><span class="line">        <span class="string">"X-CSRFTOKEN"</span>:getCookie(<span class="string">"csrf_token"</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    success:<span class="function"><span class="keyword">function</span> (<span class="params">resp</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"4101"</span> == resp.errno) &#123;</span><br><span class="line">            location.href = <span class="string">"/login.html"</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"0"</span> == resp.errno) &#123;</span><br><span class="line">            $(<span class="string">".orders-list&gt;li[order-id="</span>+ orderId +<span class="string">"]&gt;div.order-content&gt;div.order-text&gt;ul li:eq(4)&gt;span"</span>).html(<span class="string">"已完成"</span>);</span><br><span class="line">            $(<span class="string">"ul.orders-list&gt;li[order-id="</span>+ orderId +<span class="string">"]&gt;div.order-title&gt;div.order-operate"</span>).hide();</span><br><span class="line">            $(<span class="string">"#comment-modal"</span>).modal(<span class="string">"hide"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong><font style="color:red">注</font>：此接口在客户支付订单后，订单状态变成待评价时，才能进行测试</strong></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/86660480" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/86660480</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-06T13:29:35+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月6日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask网站实战开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask网站实战开发</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/手机端租房网站开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>手机端租房网站开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/05/Flask项目之手机端租房网站的实战开发（十三）/&title=Flask项目之手机端租房网站的实战开发（十三） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/05/Flask项目之手机端租房网站的实战开发（十三）/&title=Flask项目之手机端租房网站的实战开发（十三） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD5UlEQVR42u3ay07rUAwF0P7/T5fplSBhb/sE9UorI1TgxFkdOH68XvH1/ue6/zz5m/vzv5+W3/c+kmMXDhw4cOCIHzUJ6z7EU8TJfXPE5Blx4MCBA8dZjqtwZyHeE+T3auNpky4OHDhw4PgcjjY15un5l0QY/yUOHDhw4Pi/ONqCat+jy4tAHDhw4MDxCRx5Yda2DlvW/QDsj3qlOHDgwIGju29dzn3yz4/sd+DAgQMHjqBMahNSO2TKE+2safheXDhw4MCBY8+RJ6R2nS4nawu2dsGuLghx4MCBA8eaoy2KNqk3LxHvE+0suRYR4sCBAweONUcy+M8DOjvQmpWI+VNc/hcOHDhw4Fhw5CHOSqw2ubbrcbPVumEJhwMHDhw4bqPdt9ueHlPNlvBWbUEcOHDgwPHAhCVPh3mBty/D8pSZf0k4cODAgeMsR/vYs3FU8l9tDDlo+yXhwIEDB449RxviDKsopcqRWPvqULyD4MCBAweOmCNvru1HRO3VLijkuDhw4MCB4zmOvK02Gxq1oeRFWpuA63SLAwcOHDhGHG3x0y4fJL/NP98v4RX9URw4cODAcWiOvy/nNgsHyQltEm1/iwMHDhw4TnG0aWyWLPO8lhdm+ctB8TKBAwcOHDjWHEnxszq6PH9DuTkBBw4cOHCc4sgbhbMW3tMl2ebnX3Y9cODAgQNHyZE/6mxR4FQqTQrFfarGgQMHDhynOGalTt6e268jnI0/6pLiwIEDB46SY7N20Aba0uRpvi3wLr88HDhw4MCx5mhHR8lxCWibjPMW5CwZR81BHDhw4MARcOSPl8PNVtyiWrNcXKjPx4EDBw4ca45Zmy9Jn/knsxbkZtEhainiwIEDB44Fx6ys2qwdbB4sfyGYrfThwIEDB44Nx2wBrh1BtUD5F7MZMhUDJxw4cODAUXIkV3uDdnSUlIt5cdiWbT+MnXDgwIEDx4hjk6JmawqzRt6+VBvWtThw4MCB4wGOdnS0CeLUICpPtwc2JnDgwIEDR9nym0FsTmsHYJsXgstVBhw4cODAseCYLcNtFhpmaxPtmKpN/zhw4MCBY8/RJrB84JRDJCXlnrugx4EDBw4cC453eW0CzVuQs9PyeC7RceDAgQPHmqNNe7P1hbyRN+NOBk75awEOHDhw4NhztMm1HT61axObll+baItvHgcOHDhwlBz3n+/DnRVLeRPwVPMRBw4cOHD8PUd+47PDqnwpIWkaHku0OHDgwIHjEMd9WLNW3b6XOUvDPzQHceDAgQPHmiNpDs6Cy5uD+WPMli0Oj51w4MCBA8ckc73aRDsbdM1Oztfg8sSPAwcOHDgWHF9cBRVH+HbxWgAAAABJRU5ErkJggg=='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/05/Flask项目之手机端租房网站的实战开发（十三）/&title=Flask项目之手机端租房网站的实战开发（十三） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/06/Flask项目之手机端租房网站的实战开发（十四）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（十四）">
+                                
+                                    Flask项目之手机端租房网站的实战开发（十四）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/05/Flask项目之手机端租房网站的实战开发（十二）/" rel="prev" title="Flask项目之手机端租房网站的实战开发（十二）">
+                                  
+                                      Flask项目之手机端租房网站的实战开发（十二）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战开发</a> <a class="tag" href="/tags/手机端租房网站开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 手机端租房网站开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Flask项目之手机端租房网站的实战开发（十三）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶保存订单后端接口编写"><span class="toc-text">一丶保存订单后端接口编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶预订页面前端编写以及接口测试"><span class="toc-text">二丶预订页面前端编写以及接口测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶订单模块（我的订单）后端接口编写"><span class="toc-text">三丶订单模块（我的订单）后端接口编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶订单模块（我的订单）前端编写"><span class="toc-text">四丶订单模块（我的订单）前端编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶我的订单功能测试"><span class="toc-text">五丶我的订单功能测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶订单模块（客户订单）后端接口编写"><span class="toc-text">六丶订单模块（客户订单）后端接口编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七丶订单模块（客户订单）前端编写以及接口测试"><span class="toc-text">七丶订单模块（客户订单）前端编写以及接口测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八丶订单评价后端接口编写"><span class="toc-text">八丶订单评价后端接口编写</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

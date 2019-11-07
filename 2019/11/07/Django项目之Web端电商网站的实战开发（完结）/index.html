@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Django项目之Web端电商网站的实战开发（完结） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django项目之Web端电商网站的实战开发（完结）' href='/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.2/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/">
+        Django项目之Web端电商网站的实战开发（完结）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-07</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h1 id="一丶订单生成"><a href="#一丶订单生成" class="headerlink" title="一丶订单生成"></a>一丶订单生成</h1><p>1.显示订单提交页面</p>
+<ul>
+<li><strong>step1</strong> 在df_order/views中定义类视图post方法，显示订单提交页面</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /order/place</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderPlaceView</span><span class="params">(LoginRequiredMixin, View)</span>:</span></span><br><span class="line">    <span class="string">"""提交订单"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="string">"""显示提交订单页面"""</span></span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">'place_order.html'</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 在df_order/urls中定义路由规则</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r"^place$"</span>, OrderPlaceView.as_view(), name=<span class="string">'place'</span>), <span class="comment"># 显示订单页</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 在place_order.html模板文件中，设置复选框checkbox的name为sku_ids以及value值为sku.id也就是商品id，因为当进行表单提交时，复选框的状态为未勾选状态时，则在headers from data表单数据中不会显示该商品的value值，即可以利用该点再后端获取提交订单页面中所有的数据</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"/order/place"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col01"</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"sku_ids"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123; sku.id &#125;&#125;"</span> <span class="attr">checked</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col04"</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"去结算"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190408150548568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 在我的购物车页面点击去结算提交按钮，成功跳转到到提交订单页面</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190408150717752.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p>2.获取提交订单页面中的数据</p>
+<ul>
+<li><strong>step1</strong> 判断用户是否登录状态，如果没有登录则跳转到登录页面</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user = request.user</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> user.is_authenticated():</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">'user:login'</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取表单中的sku_ids数据并进行校验</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 获取表单中的sku_ids参数</span></span><br><span class="line">sku_ids = request.POST.getlist(<span class="string">"sku_ids"</span>)  <span class="comment">#[11,19,39,41]</span></span><br><span class="line"><span class="comment">#2 校验参数</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> sku_ids:</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">'cart:cart_show'</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 获取redis连接对象，通过遍历sku_ids获取商品的信息，并获取数据库中商品的数量，计算出商品的小计，总计和总件数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">conn = get_redis_connection(<span class="string">"default"</span>)</span><br><span class="line">cart_key = <span class="string">"cart_%d"</span> % user.id</span><br><span class="line">skus = []</span><br><span class="line">total_price = <span class="number">0</span>  <span class="comment"># 总金额</span></span><br><span class="line">total_count = <span class="number">0</span>  <span class="comment"># 总件数</span></span><br><span class="line"><span class="comment"># 遍历sku_ids获取每个商品的信息</span></span><br><span class="line"><span class="keyword">for</span> sku_id <span class="keyword">in</span> sku_ids:</span><br><span class="line">    <span class="comment"># 根据商品id获取商品的信息</span></span><br><span class="line">    sku = GoodsSKU.objects.get(id=sku_id)</span><br><span class="line">    <span class="comment"># 根据商品id获取商品的数量</span></span><br><span class="line">    count = conn.hget(cart_key, sku_id)</span><br><span class="line">    <span class="comment"># 计算商品的小计</span></span><br><span class="line">    amount = sku.price*int(count)</span><br><span class="line">    <span class="comment"># 动态保存购买商品的数量和小计</span></span><br><span class="line">    sku.count = count</span><br><span class="line">    sku.amount = amount</span><br><span class="line">    <span class="comment"># 商品信息对象保存到列表中</span></span><br><span class="line">    skus.append(sku)</span><br><span class="line">    <span class="comment"># 累加金额与件数</span></span><br><span class="line">    total_count += int(count)</span><br><span class="line">    total_price += amount</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 设定运费金额，计算订单总金额组织模板上下文，返回给前端模板中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运费，一般在实际开发中需要单独创建一张表，当金额超过多少时免运费或者是多少钱,这里直接写死为10块</span></span><br><span class="line">transit_price = <span class="number">10</span></span><br><span class="line"><span class="comment"># 实际付款金额</span></span><br><span class="line">total_pay = total_price + transit_price</span><br><span class="line"><span class="comment"># 获取收件人地址</span></span><br><span class="line">addrs = Address.objects.filter(user=user)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 组织模板上下文</span></span><br><span class="line">context = &#123;</span><br><span class="line">    <span class="string">'skus'</span>:skus,<span class="string">'total_count'</span>:total_count,</span><br><span class="line">    <span class="string">'total_price'</span>:total_price, <span class="string">'transit_price'</span>:transit_price,</span><br><span class="line">    <span class="string">'total_pay'</span>:total_pay, <span class="string">'addrs'</span>:addrs</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> render(request, <span class="string">'place_order.html'</span>, context)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 在模板文件place_order.html中进行数据填坑</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"common_list_con clearfix"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dt</span>&gt;</span>寄送到：<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">        &#123;% for addr in addrs %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">checked</span>=<span class="string">""</span>&gt;</span>&#123;&#123; addr.addr &#125;&#125; （&#123;&#123; addr.receiver &#125;&#125; 收） &#123;&#123; addr.phone &#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'user:address' %&#125;"</span> <span class="attr">class</span>=<span class="string">"edit_site"</span>&gt;</span>编辑收货地址<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% for sku in skus %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"goods_list_td clearfix"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col01"</span>&gt;</span>&#123;&#123; forloop.counter &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col02"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123; sku.image.url &#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col03"</span>&gt;</span>&#123;&#123; sku.name &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col04"</span>&gt;</span>&#123;&#123; sku.unite &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col05"</span>&gt;</span>&#123;&#123; sku.price &#125;&#125;元<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col06"</span>&gt;</span>&#123;&#123; sku.count &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col07"</span>&gt;</span>&#123;&#123; sku.amount &#125;&#125;元<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">&#123;% endfor %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"settle_con"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"total_goods_count"</span>&gt;</span>共<span class="tag">&lt;<span class="name">em</span>&gt;</span>&#123;&#123; total_count &#125;&#125;<span class="tag">&lt;/<span class="name">em</span>&gt;</span>件商品，总金额<span class="tag">&lt;<span class="name">b</span>&gt;</span>&#123;&#123; total_price &#125;&#125;元<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"transit"</span>&gt;</span>运费：<span class="tag">&lt;<span class="name">b</span>&gt;</span>&#123;&#123; transit_price &#125;&#125;元<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"total_pay"</span>&gt;</span>实付款：<span class="tag">&lt;<span class="name">b</span>&gt;</span>&#123;&#123; total_pay &#125;&#125;元<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 测试点击去结算按钮</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190408161217733.gif" alt></fancybox></p>
+<ul>
+<li><strong>step7</strong> 在提交订单页面上的收货地址，应该将数据库中默认的收货地址is_default字段为1的复选框checkbox状态为checked，而不应该全部地址都是勾选状态，所以在place_order.html中进行如下判断显示</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dd</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"addr_id"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123; addr.id &#125;&#125;"</span> &#123;% <span class="attr">if</span> <span class="attr">addr.is_default</span> %&#125;<span class="attr">checked</span>&#123;% <span class="attr">endif</span> %&#125;&gt;</span>&#123;&#123; addr.addr &#125;&#125; （&#123;&#123; addr.receiver &#125;&#125; 收） &#123;&#123; addr.phone &#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 刷新页面</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190408162242415.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p>3.创建订单</p>
+<ul>
+<li><strong>step1</strong> 在提交订单页面，点击提交订单按钮，需要向后端传递提交订单页面中的收获地址和支付方式以及商品的id，即在place_order.html模板文件中需要手动去添加支付方式的value值对应后端订单模型类中的df_order_info表,收获地址前面已经进行设置了，所以不需要设置</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"pay_style"</span> <span class="attr">value</span>=<span class="string">"1"</span> <span class="attr">checked</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"cash"</span>&gt;</span>货到付款<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"pay_style"</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"weixin"</span>&gt;</span>微信支付<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"pay_style"</span> <span class="attr">value</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"zhifubao"</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"pay_style"</span> <span class="attr">value</span>=<span class="string">"4"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">"bank"</span>&gt;</span>银行卡支付<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 收货地址和支付方式已经在前端模板中设置好了，最后需要设置的就是商品的id，需要在后端中进行组织好传递到前端模板文件的数据格式，提交订单页面中的商品id已经保存到厚度那中skus列表中了，现在将该列表保存的商品id以逗号进行拼接，传递到前端模板中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sku_ids = <span class="string">','</span>.join(sku_ids)  <span class="comment"># 11,19,39,41</span></span><br><span class="line"><span class="comment"># 组织模板上下文</span></span><br><span class="line">context = &#123;</span><br><span class="line">    <span class="string">'skus'</span>:skus,<span class="string">'total_count'</span>:total_count,</span><br><span class="line">    <span class="string">'total_price'</span>:total_price, <span class="string">'transit_price'</span>:transit_price,</span><br><span class="line">    <span class="string">'total_pay'</span>:total_pay, <span class="string">'addrs'</span>:addrs,</span><br><span class="line">    <span class="string">'sku_ids'</span>:sku_ids</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 在前端模板中提交订单按钮中，定义标签属性sku_ids</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">sku_ids</span>=<span class="string">&#123;&#123;</span> <span class="attr">sku_ids</span> &#125;&#125; <span class="attr">id</span>=<span class="string">"order_btn"</span>&gt;</span>提交订单<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 在place_order.html模板文件中进行提交订单js代码编写，获取用户选择的收货地址，支付方式以及购买的商品id，并通过ajax post方式向后端发送请求</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#order_btn'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取用户选择的收货地址和支付方式以及商品id</span></span><br><span class="line">    addr_id = $(<span class="string">'input[name="addr_id"]:checked'</span>).val();</span><br><span class="line">    pay_method = $(<span class="string">'input[name="pay_style"]:checked'</span>).val();</span><br><span class="line">    sku_ids = $(<span class="keyword">this</span>).attr(<span class="string">'sku_ids'</span>);</span><br><span class="line">    csrf = $(<span class="string">'input[name="csrfmiddlewaretoken"]'</span>).val();</span><br><span class="line">    params = &#123;<span class="string">"addr_id"</span>:addr_id, <span class="string">"pay_method"</span>:pay_method, <span class="string">"sku_ids"</span>:sku_ids, <span class="string">"csrfmiddlewaretoken"</span>:csrf&#125;;</span><br><span class="line">    <span class="comment">// 向后端/order/commit地址发送ajax post请求</span></span><br><span class="line">    $.post(<span class="string">'/order/commit'</span>,params, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 紧接着在后端中定义类视图post方法，配置url路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /order/commit</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderCommitView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""创建订单"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">url(<span class="string">r"^commit$"</span>, OrderCommitView.as_view(), name=<span class="string">'commit'</span>), <span class="comment"># 创建订单</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 判断用户是否登录，获取参数以及校验参数完整性</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">user = request.user</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> user.is_authenticated():</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>: <span class="number">0</span>, <span class="string">"error_msg"</span>: <span class="string">"请先登录"</span>&#125;)</span><br><span class="line"><span class="comment"># 获取参数</span></span><br><span class="line">addr_id = request.POST.get(<span class="string">"addr_id"</span>)</span><br><span class="line">pay_method = request.POST.get(<span class="string">"pay_method"</span>)</span><br><span class="line">sku_ids = request.POST.get(<span class="string">"sku_ids"</span>)</span><br><span class="line"><span class="comment"># 校验参数</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> all([addr_id, pay_method, sku_ids]):</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>: <span class="number">1</span>, <span class="string">"error_msg"</span>: <span class="string">"参数不完整"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 判断传递的支付方式以及收货地址是否合法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 判断前端传递过来的支付方式是否存在</span></span><br><span class="line"><span class="keyword">if</span> pay_method <span class="keyword">not</span> <span class="keyword">in</span> OrderInfo.pay_method.key():</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>: <span class="number">2</span>, <span class="string">"error_msg"</span>: <span class="string">"非法的支付方式"</span>&#125;)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 判断前端传递过来的收货地址是否存在</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    addr = Address.objects.get(id=addr_id)</span><br><span class="line"><span class="keyword">except</span> Address.DoesNotExist:</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>: <span class="number">3</span>, <span class="string">"error_msg"</span>: <span class="string">"非法的收货地址"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 向df_order_info表中插入记录，提交订单会在df_order_info以及df_order_goods这两张表中各产生一条记录，由于df_order_goods表外键为df_order_info表，所以需要先在df_order_info表中产生订单记录，在df_order_info表字段中，还需要去获取order_id，total_count，total_price，transit_price</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 自定义order_id 20190408174330+用户id（作为唯一标识）</span></span><br><span class="line">order_id = datetime.now().strftime(<span class="string">"%Y%m%d%H%M%S"</span>) + str(user.id)</span><br><span class="line"><span class="comment">#2 总件数和总金额初始设置为0</span></span><br><span class="line">total_count = <span class="number">0</span></span><br><span class="line">total_price = <span class="number">0</span></span><br><span class="line"><span class="comment">#3 运费</span></span><br><span class="line">transit_price = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># todo: 向df_order_info表中插入记录</span></span><br><span class="line">order = OrderInfo.objects.create(</span><br><span class="line">    order_id=order_id, user=user,</span><br><span class="line">    addr=addr, pay_method=pay_method,</span><br><span class="line">    total_count=total_count, total_price=total_price,</span><br><span class="line">    transit_price=transit_price)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong> 向df_order_goods表中插入记录，有多少种商品插入多少条记录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">conn = get_redis_connection(<span class="string">"default"</span>)</span><br><span class="line">cart_key = <span class="string">"cart_%d"</span> % user.id</span><br><span class="line">sku_ids = sku_ids.split(<span class="string">','</span>)</span><br><span class="line"><span class="keyword">for</span> sku_id <span class="keyword">in</span> sku_ids:</span><br><span class="line">    <span class="comment"># 获取商品信息</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sku = GoodsSKU.objects.get(id=sku_id)</span><br><span class="line">    <span class="keyword">except</span> GoodsSKU.DoesNotExist:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>: <span class="number">4</span>, <span class="string">"error_msg"</span>: <span class="string">"商品不存在"</span>&#125;)</span><br><span class="line">    <span class="comment"># 从redis数据库中获取用户购买商品的数量</span></span><br><span class="line">    count = conn.hget(cart_key, sku_id)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># todo:向df_order_goods表中添加记录</span></span><br><span class="line">    OrderGoods.objects.create(</span><br><span class="line">        order=order,sku=sku,</span><br><span class="line">        count=count,price=sku.price)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># todo: 更新商品的库存和销量</span></span><br><span class="line">    sku.stock -= int(count)</span><br><span class="line">    sku.sales += int(count)</span><br><span class="line">    sku.save()</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># todo: 累加计算订单商品的总数量和总价格</span></span><br><span class="line">    amount = sku.price * int(count)</span><br><span class="line">    total_count += int(count)</span><br><span class="line">    total_price += amount</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step10</strong> 更新订单信息表df_order_info中的总件数和总金额</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">order.total_count = total_count</span><br><span class="line">order.total_price = total_price</span><br><span class="line">order.save()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step11</strong> 清除用户购物车中的商品，最后返回给前端正确响应</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conn.hdel(cart_key, *sku_ids)  <span class="comment"># *sku_ids ---&gt; [1,2,3]变成1,2,3</span></span><br><span class="line"><span class="comment"># 返回正确响应</span></span><br><span class="line"><span class="keyword">return</span> JsonResponse(&#123;<span class="string">'errno'</span>:<span class="string">"ok"</span>, <span class="string">'error_message'</span>:<span class="string">'订单创建成功'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step12</strong> 在place_order.html模板js中进行打印显示</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$.post(<span class="string">'/order/commit'</span>,params, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(data.errno==<span class="string">"ok"</span>)&#123;</span><br><span class="line">        alert(<span class="string">"创建订单成功"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        alert(data.error_msg)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step13</strong> 创建订单测试</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190408193709912.gif" alt></fancybox></p>
+<ul>
+<li><strong>step14</strong> 查看数据库df_order_info表数据</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190408193927756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li><strong>step15</strong> 查看数据库df_order_goods表数据</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190408194159252.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p>4.订单生成使用mysql事务</p>
+<ul>
+<li><strong>step1</strong> 当某个商品库存只有2件时，有不止一个用户购物车添加了2个该商品，假设第一个用户提交订单，成功后，则后面的用户提交订单时，则应该提示用户商品库存不足</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># todo:判断用户购物车中商品的数量是否小于商品库存</span></span><br><span class="line"><span class="keyword">if</span> int(count) &gt; sku.stock:</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="string">"5"</span>, <span class="string">"error_msg"</span>:<span class="string">"商品库存不足"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 经过上面的判断后，当商品库存不足顾客订单上的商品数量时，则会提示商品库存不足，即不会在df_order_goods表中插入数据，但是会在df_order_info表中生成订单记录，这样肯定不对，商品不足的情况下即使生成了订单，那么订单的数据肯定是错误的，那么就需要使用事务的特性来帮助我们完成在插入数据时，要么成功，要么撤回，这是mysql事务原子性的体现，在django中使用数据库事务参考—Django数据库事务</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> transaction</span><br><span class="line"> </span><br><span class="line"><span class="meta">@transaction.atomic</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">viewfunc</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="comment"># This code executes inside a transaction.</span></span><br><span class="line">    do_stuff()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 在df_order/views订单提交视图OrderCommitView中对post方法进行装饰，需要导入transaction模块</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@transaction.atomic</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 设置事务保存点，在进行数据库插入数据之前进行设置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置事务保存点</span></span><br><span class="line">save_id = transaction.savepoint()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 在出现异常的时候，进行事务回滚</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transaction.savepoint_rollback(save_id)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 将post函数中关于数据库操作的代码放在try中，当在任何地方出现异常时，全部进行回滚操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">try:</span><br><span class="line">    order = OrderInfo.objects.create(</span><br><span class="line">        order_id=order_id, user=user,</span><br><span class="line">        addr=addr, pay_method=pay_method,</span><br><span class="line">        total_count=total_count, total_price=total_price,</span><br><span class="line">        transit_price=transit_price)</span><br><span class="line">    # 中间代码省略</span><br><span class="line">    order.total_count = total_count</span><br><span class="line">    order.total_price = total_price</span><br><span class="line">    order.save()</span><br><span class="line">except Exception as e:</span><br><span class="line">    # 将整个关于数据操作的代码，放在try里面，任何地方出现异常，立即做事务回滚</span><br><span class="line">    transaction.savepoint_rollback(save_id)</span><br><span class="line">    return JsonResponse(&#123;&quot;errno&quot;:6, &quot;error_msg&quot;:e &#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 在异常外面进行事务的提交操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 没有出现异常则进行事务的提交操作</span></span><br><span class="line">transaction.savepoint_commit(save_id)</span><br></pre></td></tr></table></figure>
+
+<p>5.订单并发问题</p>
+<p><font style="color:red"><strong>悲观锁</strong></font></p>
+<p><strong>说明</strong>：电商网站在做秒杀活动时，就会出现大量用户对同一商品进行购买，当该秒杀商品库存只有1个时，如果很多顾客同时进行点击购买，就会出现一个库存的商品卖了好几百个情况，导致并发生成订单问题</p>
+<ul>
+<li><strong>step1</strong> 使用悲观锁进行订单并发处理，悲观锁获取数据时对数据行了锁定，其他事务要想获取锁，必须等原事务结束，换句话说就是当用户1在做sql查询时，进行加锁，那么期间用户2使用同sql语句进行查询时，需要等待用户1事务提交或者回滚事务结束后解锁，才能进行操作；在数据库中对查询语句加锁就是在后面加上for update，如select * from df_goods_sku where id = 41 for update；在django中则在objects下有个select_for_update方法，等价于上面</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sku = GoodsSKU.objects.select_for_update().get(id=sku_id)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 查看数据库中商品库存前五商品，库存最少的为商品id为8的盒装草莓</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409091923810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 进行测试，在查询商品信息代码后秒加上以下代码，打印出用户的id和商品库存信息，休眠10秒是为了演示效果，博主使用两个浏览器对商品id为8库存为1的盒装草莓进行购买</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"用户id:%d,商品库存:%d"</span>%(user.id, sku.stock))</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">time.sleep(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409101106502.gif" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 查看数据库中该商品的库存与销量</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409102959360.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><font style="color:red"><strong>乐观锁</strong></font></p>
+<p><strong>说明</strong>：在查询数据的时候不加锁，在进行数据更新时判断更新时的库存和之前查出数据库的库存是否一致</p>
+<ul>
+<li><strong>step1</strong> 乐观锁，在更新商品库存时，条件为该商品的id以及商品的库存必须与更新之前的商品库存一致，才进行库存的更新，如update df_goods_sku set stock=0, sales=1 where <font style="color:red">id=8 and stock=1</font>；当用户1购买商品成功则执行update语句那么就会修改stock的库存为0，那么用户2在购买商品时执行update语句时就不会成功，因为此时的where条件中的stock库存与购买前商品库存不一致导致条件不成立，就不会往下执行</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># todo: 更新商品的库存和销量</span></span><br><span class="line">orgin_stock = sku.stock</span><br><span class="line">new_stock = orgin_stock - int(count)</span><br><span class="line">new_sales = sku.sales + int(count)</span><br><span class="line"><span class="comment"># update df_goods_sku set stock=0, sales=1 where id=8 and stock=1;</span></span><br><span class="line">res = GoodsSKU.objects.filter(id=sku_id, stock=orgin_stock).update(stock=new_stock, sales=new_sales)</span><br><span class="line"><span class="keyword">if</span> res == <span class="number">0</span>:</span><br><span class="line">    <span class="comment"># 表示没有修改成功,进行事务的回滚操作</span></span><br><span class="line">    transaction.savepoint_rollback(save_id)</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="number">6</span>, <span class="string">"error_msg"</span>:<span class="string">"下单失败"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 进行测试前将数据库中商品id为8的商品库存设置为1</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409105004240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 进行测试，其中某个账户完成创建订单成功时，则原始库存与更新后的库存肯定不一致，另一个用户在执行到update语句时，则会出现无法修改，因为条件中的库存不等于原始库存</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409110550932.gif" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 当库存不止为1时，也就是说足够两个用户同时下单时，如果以原有库存与现有库存进行sql修改条件判断时，那么也同样会出现一个客户下单成功，另一个客户下单失败</li>
+</ul>
+<p><font style="color:red"><strong>解决方法</strong></font></p>
+<p>①在mysql配置文件中（windows—my.ini  linux—-mysqld.cnf）添加如下配置读取提交内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置mysql数据库隔离级别</span><br><span class="line">transaction-isolation = READ-COMMITTED</span><br></pre></td></tr></table></figure>
+
+<p>②在视图中对逻辑代码进行三次尝试判断，当用户1创建订单成功，更新了库存，从头开始去执行查询最新库存进行判断，这样就不会出现在商品库存充足的情况下，多个顾客在同一时间对同一商品进行下单操作，出现只有一个用户下单成功的情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> sku_id <span class="keyword">in</span> sku_ids:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        <span class="comment"># 代码省略</span></span><br><span class="line">        <span class="keyword">if</span> res == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">2</span>: <span class="comment"># 第三次尝试如果不成功执行下面代码</span></span><br><span class="line">                <span class="comment"># 表示没有修改成功,进行事务的回滚操作</span></span><br><span class="line">                transaction.savepoint_rollback(save_id)</span><br><span class="line">                <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="number">6</span>, <span class="string">"error_msg"</span>:<span class="string">"下单失败"</span>&#125;)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 代码省略</span></span><br><span class="line">        <span class="comment"># 一次成功则跳出循环</span></span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="二丶订单支付"><a href="#二丶订单支付" class="headerlink" title="二丶订单支付"></a>二丶订单支付</h1><p>1.在订单提交页面点击提交订单按钮，提交订单成功后应该跳转到用户中心—订单页面中</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409130922376.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step1</strong> 在place_order.html模板文件中，当后端发回来的data数据errno值为ok表示提交成功，那么在js中进行如下编写，在页面显示出订单提交成功的提示，并跳转到用户中心订单页</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$.post(<span class="string">'/order/commit'</span>,params, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(data.errno==<span class="string">"ok"</span>)&#123;</span><br><span class="line">    &#123;#alert("创建订单成功")#&#125;</span><br><span class="line">    localStorage.setItem(<span class="string">'order_finish'</span>,<span class="number">2</span>);</span><br><span class="line">    $(<span class="string">'.popup_con'</span>).fadeIn(<span class="string">'fast'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="string">'.popup_con'</span>).fadeOut(<span class="string">'fast'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="built_in">window</span>.open(data.pay_url)</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="number">3000</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    alert(data.error_msg)</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 测试，当进行提交订单时，提示提交订单成功并跳转到用户中心订单页</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409132015492.gif" alt></fancybox></p>
+<p>2.获取并显示我的订单页面的数据 </p>
+<ul>
+<li><strong>step1</strong> 因为在我的订单页面中需要用到分页，所以需要修改df_user/urls中订单的正则</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r"^order/(?P&lt;page&gt;\d+)$"</span>, UserOrderView.as_view(), name=<span class="string">"order"</span>),  <span class="comment"># 用户中心-订单</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 将所有的页面涉及链接到我的订单页面的地址进行修改</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href="&#123;% url 'user:order' 1 %&#125;"&gt;我的订单&lt;/a&gt;</span><br><span class="line">&lt;li&gt;&lt;a href="&#123;% url 'user:order' 1 %&#125;"&#123;% if page == 'order' %&#125;class="active"&#123;% endif %&#125;&gt;· 全部订单&lt;/a&gt;&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 在df_user/views中UserOrderView类视图get中接收参数page</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /user/order</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserOrderView</span><span class="params">(LoginRequiredMixin, View)</span>:</span></span><br><span class="line">    <span class="string">"""用户中心-订单"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, page)</span>:</span></span><br><span class="line">        <span class="string">"""显示页面"""</span></span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"user_center_order.html"</span>, &#123;<span class="string">"page"</span>:<span class="string">"order"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 获取用户的所有订单信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user = request.user</span><br><span class="line">orders = OrderInfo.objects.filter(user=user)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 遍历用户订单集获取</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> order <span class="keyword">in</span> orders:</span><br><span class="line">    order_skus = OrderGoods.objects.filter(order_id=order.order_id)</span><br><span class="line">    <span class="keyword">for</span> order_sku <span class="keyword">in</span> order_skus:</span><br><span class="line">        <span class="comment"># 商品小计</span></span><br><span class="line">        amount = order_sku.count * order_sku.price</span><br><span class="line">        <span class="comment"># 动态的添加属性</span></span><br><span class="line">        order_sku.amount = amount</span><br><span class="line">    <span class="comment"># 动态添加属性</span></span><br><span class="line">    order.order_skus = order_skus</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 对数据进行分页显示</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对数据进行分页</span></span><br><span class="line">paginator = Paginator(orders, <span class="number">2</span>)  <span class="comment"># Show 25 contacts per page</span></span><br><span class="line"><span class="comment"># 获取页数</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    page = int(page)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    page = <span class="number">1</span></span><br><span class="line"><span class="comment"># 判断用户传递过来的页数，是否小于总页数，大于总页数则设置第一页</span></span><br><span class="line"><span class="keyword">if</span> page &gt; paginator.num_pages:</span><br><span class="line">    page = <span class="number">1</span></span><br><span class="line"> </span><br><span class="line">order_page = paginator.page(page)</span><br><span class="line"> </span><br><span class="line">num_pages = paginator.num_pages</span><br><span class="line"><span class="keyword">if</span> num_pages &lt; <span class="number">5</span>:</span><br><span class="line">    pages = range(<span class="number">1</span>, num_pages + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">elif</span> page &lt;= <span class="number">3</span>:</span><br><span class="line">    pages = range(<span class="number">1</span>, <span class="number">6</span>)</span><br><span class="line"><span class="keyword">elif</span> num_pages - page &lt;= <span class="number">2</span>:</span><br><span class="line">    pages = range(num_pages - <span class="number">4</span>, num_pages + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    pages = range(page - <span class="number">2</span>, page + <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 组织模板上下文，返回给前端模板</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 组织模板上下文</span></span><br><span class="line">context=&#123;</span><br><span class="line">    <span class="string">"order_page"</span>:order_page,<span class="string">"pages"</span>:pages,</span><br><span class="line">    <span class="string">"page"</span>: <span class="string">"order"</span>&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> render(request, <span class="string">"user_center_order.html"</span>,context)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 在user_center_order.html中进行数据填坑</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right_content clearfix"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"common_title2"</span>&gt;</span>全部订单<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        &#123;% for order in order_page %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"order_list_th w978 clearfix"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col01"</span>&gt;</span>&#123;&#123; order.create_time &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col02"</span>&gt;</span>订单号：&#123;&#123; order.order_id &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col02 stress"</span>&gt;</span>&#123;&#123; order.order_status &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"order_list_table w980"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"55%"</span>&gt;</span></span><br><span class="line">                        &#123;% for order_sku in order.order_skus %&#125;</span><br><span class="line">                        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"order_goods_list clearfix"</span>&gt;</span>                  </span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col01"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123; order_sku.sku.image.url &#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col02"</span>&gt;</span>&#123;&#123; order_sku.sku.name &#125;&#125;<span class="tag">&lt;<span class="name">em</span>&gt;</span>&#123;&#123; order_sku.price &#125;&#125;元/&#123;&#123; order_sku.sku.unite &#125;&#125;g<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col03"</span>&gt;</span>&#123;&#123; order_sku.count &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col04"</span>&gt;</span>&#123;&#123; order_sku.amount &#125;&#125;元<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                        &#123;% endfor %&#125;</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    &#123;% comment %&#125;add过滤器作加法计算&#123;% endcomment %&#125;</span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"15%"</span>&gt;</span>&#123;&#123; order.total_price |add:order.transit_price&#125;&#125;(含运费:&#123;&#123; order.transit_price &#125;&#125;)元<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"15%"</span>&gt;</span>&#123;&#123; order.order_status &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"15%"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"oper_btn"</span>&gt;</span>去付款<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pagenation"</span>&gt;</span></span><br><span class="line">            &#123;% if order_page.has_previous%&#125;</span><br><span class="line">            &lt;a href="&#123;% url 'user:order' order_page.previous_page_number %&#125;"&gt;&lt;上一页&lt;/a&gt;</span><br><span class="line">            &#123;% endif %&#125;</span><br><span class="line">            &#123;% for pindex in pages %&#125;</span><br><span class="line">                &#123;% if pindex == order_page.number %&#125;</span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'user:order' pindex %&#125;"</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span>&#123;&#123; pindex &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                &#123;% else %&#125;</span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'user:order' pindex %&#125;"</span>&gt;</span>&#123;&#123; pindex &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                &#123;% endif %&#125;</span><br><span class="line">            &#123;% endfor %&#125;</span><br><span class="line">            &#123;% if order_page.has_next %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'user:order' order_page.next_page_number %&#125;"</span>&gt;</span>下一页&gt;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            &#123;% endif %&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong> 刷新页面成功将数据库数据显示到页面上</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409153525341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step10</strong> 在上图中会发现订单状态一栏显示的并不是未支付已支付已完成等状态，而是显示的数字1，因为订单创建到数据库中状态栏保存的就是为数字，这里需要进行获取订单状态信息；在视图中向order对象中动态添加对应模型中的状态名</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 动态添加属性，保存订单状态</span></span><br><span class="line">order.status_name = OrderInfo.ORDER_STATUS[order.order_status]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step11</strong> 然后紧接着在user_center_order.html模板中将替换成即可，刷新页面成功显示出状态名</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409155607238.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step12</strong> 一般来说在我的订单页面中，第一页显示的肯定是最新创建的，所以需要按照创建时间进行排序</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">orders = OrderInfo.objects.filter(user=user).order_by(<span class="string">'-create_time'</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step13</strong> 细节就是在js中，当创建订单成功即跳转到我的订单页，因为之前显示订单页时，没有做分页，不需要传递page页数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.location.href = <span class="string">'/user/order/1'</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step14</strong> 刷新页面则按照创建订单倒序进行显示，也就是显示出最新创建的订购单</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409161819282.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>3.接入支付宝进行订单支付</p>
+<ul>
+<li><strong>step1</strong> 进入支付宝开放平台<a href="https://open.alipay.com/platform/home.htm" target="_blank" rel="noopener">https://open.alipay.com/platform/home.htm</a>，在开发中心—沙箱中，创建应用，详细说明请查看<a href="https://blog.csdn.net/qq_41782425/article/details/86699086" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/86699086</a></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409163540279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 网站向支付宝平台发送支付请求，采用的是网络请求方式，下图为应用于支付宝平台秘钥验证导图</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409184837827.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 进入电脑网站支付，查看开发说明文档</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409163754665.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 因为支付宝官方没有提供python语言的SDK，需要在<a href="https://github.com/fzlee/alipay/blob/master/README.zh-hans.md" target="_blank" rel="noopener">https://github.com/fzlee/alipay/blob/master/README.zh-hans.md</a>上去使用他人封装好的python编写的支付宝SDK，在df_order/views中创建OrderPayView类视图post方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /order/pay</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderPayView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""订单支付"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 判断用户是否登录并接收参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user = request.user</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> user.is_authenticated():</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">'user:login'</span>))</span><br><span class="line"><span class="comment"># 接收参数</span></span><br><span class="line">order_id = request.POST.get(<span class="string">"order_id"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 校验参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> order_id:</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="number">1</span>, <span class="string">"error_msg"</span>:<span class="string">"参数不完整"</span>&#125;)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    order = OrderInfo.objects.get(order_id=order_id, user=user, pay_method=<span class="number">3</span>, order_status=<span class="number">1</span>)</span><br><span class="line"><span class="keyword">except</span> OrderInfo.DoesNotExist:</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="number">2</span>, <span class="string">"error_msg"</span>:<span class="string">"无效订单"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 调用支付宝接口，并传递必要参数，最后向模板返回响应数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># todo: 使用支付宝python SDK工具，调用支付宝支付接口</span></span><br><span class="line"><span class="comment"># 初始化</span></span><br><span class="line">alipay = AliPay(</span><br><span class="line">    appid=<span class="string">""</span>,  <span class="comment"># 应用id</span></span><br><span class="line">    app_notify_url=<span class="literal">None</span>,  <span class="comment"># 默认回调url</span></span><br><span class="line">    app_private_key_path=os.path.join(settings.BASE_DIR, <span class="string">'apps/df_order/app_private_key.pem'</span>),</span><br><span class="line">    <span class="comment"># 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,</span></span><br><span class="line">    alipay_public_key_path=os.path.join(settings.BASE_DIR, <span class="string">'apps/df_order/alipay_public_key.pem'</span>),</span><br><span class="line">    sign_type=<span class="string">"RSA2"</span>,  <span class="comment"># RSA 或者 RSA2</span></span><br><span class="line">    debug = <span class="literal">True</span>  <span class="comment"># 默认False</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 电脑网站支付，需要跳转到https://openapi.alipay.com/gateway.do? + order_string</span></span><br><span class="line">total_pay = order.total_price + order.transit_price</span><br><span class="line">order_string = alipay.api_alipay_trade_page_pay(</span><br><span class="line">    out_trade_no=order_id,  <span class="comment">#订单编号</span></span><br><span class="line">    total_amount=str(total_pay),</span><br><span class="line">    subject=<span class="string">u"天天生鲜&lt;%s&gt;"</span> % order_id,</span><br><span class="line">    return_url=<span class="literal">None</span>,</span><br><span class="line">    notify_url=<span class="literal">None</span>  <span class="comment"># 可选, 不填则使用默认notify url</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 构造用户跳转的支付链接地址</span></span><br><span class="line">pay_url = <span class="string">"https://openapi.alipaydev.com/gateway.do?"</span> + order_string</span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="string">"ok"</span>, <span class="string">"pay_url"</span>:pay_url&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 配置支付路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r"^pay$"</span>, OrderPayView.as_view(), name=<span class="string">'pay'</span>), <span class="comment"># 订单支付</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong> 在user_center_order.html模板中编写js，需要在去支付按钮标签中获取订单编号以及订单的状态，当状态为1表示该订单为待支付状态，此时才会向后端接口发送ajax post请求，后端返回正确响应，则引导客户到支付宝支付界面，进行支付</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;td width=<span class="string">"15%"</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">order_id</span>=<span class="string">"&#123;&#123; order.order_id &#125;&#125;"</span> <span class="attr">status</span>=<span class="string">"&#123;&#123; order.order_status &#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"oper_btn"</span>&gt;</span>去付款<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'.oper_btn'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 获取页面上订单状态</span></span><br><span class="line">        status = $(<span class="keyword">this</span>).attr(<span class="string">'status'</span>)</span><br><span class="line">        <span class="keyword">if</span>(status == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="comment">// 状态为1表示待支付状态</span></span><br><span class="line">            <span class="comment">// 获取订单id</span></span><br><span class="line">            order_id = $(<span class="keyword">this</span>).attr(<span class="string">'order_id'</span>);</span><br><span class="line">            csrf = $(<span class="string">'input[name="csrfmiddlewaretoken"]'</span>).val();</span><br><span class="line">            params = &#123;<span class="string">"order_id"</span>:order_id, <span class="string">"csrfmiddlewaretoken"</span>:csrf&#125;;</span><br><span class="line">            <span class="comment">// 向后端接口/order/pay 发送ajax post请求</span></span><br><span class="line">            $.post(<span class="string">'/order/pay'</span>, params, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(data.errno==<span class="string">"ok"</span>)&#123;</span><br><span class="line">                    <span class="comment">// 引导客户到支付界面</span></span><br><span class="line">                    <span class="built_in">window</span>.open(data.pay_url)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    alert(data.error_msg)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step10</strong> 测试点击去付款跳转到支付宝支付页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409204724920.gif" alt></fancybox></p>
+<ul>
+<li><strong>step11</strong> 支付测试利用沙箱买家账号进行支付测试</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190409210116748.gif" alt></fancybox></p>
+<p>4.获取支付宝支付结果</p>
+<ul>
+<li><strong>step1</strong> 在项目中使用支付宝整个流程图</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410100716643.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 在user_center_order.html模板中当打开支付界面后，即向/order/check后端接口发送ajax post请求，传递参数为订单号order_id，在后端接口中调用支付宝检查支付结果的接口，获取支付结果信息返回正确响应到前端模板页面中</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.post(<span class="string">'/order/check'</span>, params, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 判断用户是否支付成功</span></span><br><span class="line">    <span class="keyword">if</span>(data.errno==<span class="string">"ok"</span>)&#123;</span><br><span class="line">        alert(<span class="string">"支付成功"</span>);</span><br><span class="line">        location.reload()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        alert(data.error_msg)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 在df_order/views中定义类视图post方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /order/check</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderCheckView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""查看支付宝支付结果"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 判断用户是否登录获取参数校验参数以及对支付宝工具初始化，跟前面写的支付宝支付视图逻辑一样</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 判断用户是否登录</span></span><br><span class="line">user = request.user</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> user.is_authenticated():</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">'user:login'</span>))</span><br><span class="line"><span class="comment"># 接收参数</span></span><br><span class="line">order_id = request.POST.get(<span class="string">"order_id"</span>)</span><br><span class="line"><span class="comment"># 校验参数</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> order_id:</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>: <span class="number">1</span>, <span class="string">"error_msg"</span>: <span class="string">"参数不完整"</span>&#125;)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    order = OrderInfo.objects.get(order_id=order_id, user=user, pay_method=<span class="number">3</span>, order_status=<span class="number">1</span>)</span><br><span class="line"><span class="keyword">except</span> OrderInfo.DoesNotExist:</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="number">2</span>, <span class="string">"error_msg"</span>:<span class="string">"无效订单"</span>&#125;)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># todo: 使用支付宝python SDK工具，调用支付宝支付接口</span></span><br><span class="line"><span class="comment"># 初始化</span></span><br><span class="line">alipay = AliPay(</span><br><span class="line">    appid=<span class="string">""</span>,  <span class="comment"># 应用id</span></span><br><span class="line">    app_notify_url=<span class="literal">None</span>,  <span class="comment"># 默认回调url</span></span><br><span class="line">    app_private_key_path=os.path.join(settings.BASE_DIR, <span class="string">'apps/df_order/app_private_key.pem'</span>),</span><br><span class="line">    <span class="comment"># 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,</span></span><br><span class="line">    alipay_public_key_path=os.path.join(settings.BASE_DIR, <span class="string">'apps/df_order/alipay_public_key.pem'</span>),</span><br><span class="line">    sign_type=<span class="string">"RSA2"</span>,  <span class="comment"># RSA 或者 RSA2</span></span><br><span class="line">    debug = <span class="literal">True</span>  <span class="comment"># 默认False</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 调用sdk工具中支付宝交易查询接口，根据返回的response数据中的code接口状态码以及支付状态trade_status来判断支付是否成功</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    response = alipay.api_alipay_trade_query(order_id)</span><br><span class="line">    <span class="comment"># 从支付宝返回的响应数据中获取code以及trade_status</span></span><br><span class="line">    code = response.get(<span class="string">"code"</span>)</span><br><span class="line">    trade_status = response.get(<span class="string">"trade_status"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> code == <span class="string">'10000'</span> <span class="keyword">and</span> trade_status == <span class="string">"TRADE_SUCCESS"</span>:</span><br><span class="line">        <span class="comment"># 表示成功</span></span><br><span class="line">        <span class="comment"># 获取支付宝交易号</span></span><br><span class="line">        trade_no = response.get(<span class="string">"trade_no"</span>)</span><br><span class="line">        <span class="comment"># 更新订单状态</span></span><br><span class="line">        order.trade_no = trade_no</span><br><span class="line">        order.order_status = <span class="number">4</span>  <span class="comment"># 待评价</span></span><br><span class="line">        order.save()</span><br><span class="line">        <span class="comment"># 返回正确响应</span></span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="string">"ok"</span>, <span class="string">"error_msg"</span>:<span class="string">"交易成功"</span>&#125;)</span><br><span class="line">    <span class="keyword">elif</span> code == <span class="string">'40004'</span> <span class="keyword">or</span> (code == <span class="string">'10000'</span> <span class="keyword">and</span> trade_status == <span class="string">"WAIT_BUYER_PAY"</span>):</span><br><span class="line">        <span class="comment"># 业务处理失败以及等待买家付款</span></span><br><span class="line">        <span class="keyword">import</span> time</span><br><span class="line">        time.sleep(<span class="number">5</span>)  <span class="comment"># 休眠5秒再次调用支付宝交易查询接口，重新获取状态码以及支付状态信息</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">"errno"</span>:<span class="number">4</span>, <span class="string">"error_msg"</span>:<span class="string">"交易失败"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 配置urls路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r"^check$"</span>, OrderCheckView.as_view(), name=<span class="string">'check'</span>), <span class="comment"># 订单支付结果</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 进行订单支付，查看返回的支付结果，以及订单状态</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019041012021975.gif" alt></fancybox></p>
+<h1 id="三丶订单评论"><a href="#三丶订单评论" class="headerlink" title="三丶订单评论"></a>三丶订单评论</h1><p>1.显示订单评价页面</p>
+<ul>
+<li><strong>step1</strong> 当订单支付成功后，订单状态变为待评价，但该订单却还显示去支付按钮</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410121058115.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 将已经支付成功的订单对应显示出去评价按钮，在js中进行遍历判断status状态，设置对应状态对应的功能</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.oper_btn'</span>).each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取订单状态</span></span><br><span class="line">    status = $(<span class="keyword">this</span>).attr(<span class="string">'status'</span>);</span><br><span class="line">    <span class="keyword">if</span>(status == <span class="number">1</span>)&#123;</span><br><span class="line">        $(<span class="keyword">this</span>).text(<span class="string">'去支付'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(status == <span class="number">4</span>)&#123;</span><br><span class="line">        $(<span class="keyword">this</span>).text(<span class="string">'去评价'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(status == <span class="number">5</span>)&#123;</span><br><span class="line">        $(<span class="keyword">this</span>).text(<span class="string">'已完成'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 刷新页面，显示正确订单状态对应的功能按钮</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410122357186.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 当用户点击去评价时，在点击事件中，判断如果status状态为4，则跳转到评论地址，传递参数order_id，博主在测试时候发现location.href无法跳转，解决方法就是在下面添加return false即可</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.oper_btn'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取页面上订单状态</span></span><br><span class="line">    status = $(<span class="keyword">this</span>).attr(<span class="string">'status'</span>);</span><br><span class="line">    <span class="comment">// 获取订单id</span></span><br><span class="line">    order_id = $(<span class="keyword">this</span>).attr(<span class="string">'order_id'</span>);</span><br><span class="line">    <span class="keyword">if</span>(status == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">// 状态为1表示待支付状态</span></span><br><span class="line">        csrf = $(<span class="string">'input[name="csrfmiddlewaretoken"]'</span>).val();</span><br><span class="line">        params = &#123;<span class="string">"order_id"</span>:order_id, <span class="string">"csrfmiddlewaretoken"</span>:csrf&#125;;</span><br><span class="line">        <span class="comment">// 向后端接口/order/pay 发送ajax post请求</span></span><br><span class="line">        $.post(<span class="string">'/order/pay'</span>, params, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(data.errno==<span class="string">"ok"</span>)&#123;</span><br><span class="line">                <span class="comment">// 引导客户到支付界面</span></span><br><span class="line">                <span class="built_in">window</span>.open(data.pay_url);</span><br><span class="line">                <span class="comment">// 向/order/check 发起请求查询支付宝支付结果</span></span><br><span class="line">                $.post(<span class="string">'/order/check'</span>, params, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">// 判断用户是否支付成功</span></span><br><span class="line">                    <span class="keyword">if</span>(data.errno==<span class="string">"ok"</span>)&#123;</span><br><span class="line">                        alert(<span class="string">"支付成功"</span>);</span><br><span class="line">                        location.reload()</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        alert(data.error_msg)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                alert(data.error_msg)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(status == <span class="number">4</span>)&#123;</span><br><span class="line">        <span class="comment">// 去评价</span></span><br><span class="line">        location.href = <span class="string">'/order/comment/'</span> + order_id</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 在df_order/views中定义类视图get方法，显示评论页面</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /order/comment</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderCommentView</span><span class="params">(LoginRequiredMixin, View)</span>:</span></span><br><span class="line">    <span class="string">"""订单评价"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, order_id)</span>:</span></span><br><span class="line">        <span class="string">"""显示评论页面"""</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step6</strong> 校验参数，参数不存在或者参数不正确则跳转到订单页面</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user = request.user</span><br><span class="line"><span class="comment"># 校验数据</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> order_id:</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">'user:order'</span>))</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    order = OrderInfo.objects.get(order_id=order_id, user=user)</span><br><span class="line"><span class="keyword">except</span> OrderInfo.DoesNotExist:</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">"user:order"</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step7</strong> 获取订单商品信息，遍历商品信息，获取每个商品的小计，动态给订单对象添加属性</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取订单商品信息</span></span><br><span class="line">order_skus = OrderGoods.objects.filter(order_id=order_id)</span><br><span class="line"><span class="keyword">for</span> order_sku <span class="keyword">in</span> order_skus:</span><br><span class="line">    <span class="comment"># 计算商品的小计</span></span><br><span class="line">    amount = order_sku.count * order_sku.price</span><br><span class="line">    <span class="comment"># 动态给order_sku增加属性amount,保存商品小计</span></span><br><span class="line">    order_sku.amount = amount</span><br><span class="line"><span class="comment"># 动态给order增加属性order_skus, 保存订单商品信息</span></span><br><span class="line">order.order_skus = order_skus</span><br><span class="line"><span class="comment"># 渲染模板</span></span><br><span class="line"><span class="keyword">return</span> render(request, <span class="string">"order_comment.html"</span>, &#123;<span class="string">"order"</span>: order&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 在df_order/urls中配置视图url</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(r"^comment/(?P<span class="tag">&lt;<span class="name">order_id</span>&gt;</span>.+)$", OrderCommentView.as_view(), name='comment'), # 订单评价</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong>  在将user_center_order.html复制到templates目录下命名为order_comment.html，进行如下编写</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right_content clearfix"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"common_title2"</span>&gt;</span>订单评价<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"order_list_th w978 clearfix"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col01"</span>&gt;</span>&#123;&#123;order.create_time&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col02"</span>&gt;</span>订单号：&#123;&#123;order.order_id&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col02 stress"</span>&gt;</span>&#123;&#123;order.status_name&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">        &#123;% csrf_token %&#125;</span><br><span class="line">        &#123;# 订单id #&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"order_id"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;order.order_id&#125;&#125;"</span>&gt;</span></span><br><span class="line">        &#123;# 订单中有几个商品 #&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"total_count"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;order.order_skus|length&#125;&#125;"</span>&gt;</span></span><br><span class="line">        &#123;% for order_sku in order.order_skus %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"order_list_table w980"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"80%"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"order_goods_list clearfix"</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col01"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123; order_sku.sku.image.url &#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col02"</span>&gt;</span>&#123;&#123;order_sku.sku.name&#125;&#125;<span class="tag">&lt;<span class="name">em</span>&gt;</span>&#123;&#123;order_sku.price&#125;&#125;/&#123;&#123;order_sku.sku.unite&#125;&#125;<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"col03"</span>&gt;</span>&#123;&#123;order_sku.count&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"20%"</span>&gt;</span>&#123;&#123;order_sku.amount&#125;&#125;元<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"site_con"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sku_&#123;&#123;forloop.counter&#125;&#125;"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;order_sku.sku.id&#125;&#125;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form_group form_group2"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">label</span>&gt;</span>评价内容：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">"site_area"</span> <span class="attr">name</span>=<span class="string">"content_&#123;&#123;forloop.counter&#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">"提交"</span> <span class="attr">class</span>=<span class="string">"info_submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step10</strong> 点击去评价功能按钮，测试显示订单评价页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410142002987.gif" alt></fancybox></p>
+<p>2.处理评论内容</p>
+<ul>
+<li><strong>step1</strong> 在OrderCommentView类视图中定义post方法，在方法中对参数进行校验</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">user = request.user</span><br><span class="line"><span class="comment"># 校验数据</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> order_id:</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">'user:order'</span>))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    order = OrderInfo.objects.get(order_id=order_id, user=user)</span><br><span class="line"><span class="keyword">except</span> OrderInfo.DoesNotExist:</span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">"user:order"</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 获取表单提交中的评论条数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">total_count = request.POST.get(<span class="string">"total_count"</span>)</span><br><span class="line">total_count = int(total_count)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 循环遍历获取订单中商品的评论内容，设置df_order_goods表中的comment字段的内容为客户填写的评论内容content</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, total_count + <span class="number">1</span>):</span><br><span class="line">    <span class="comment"># 获取评论的商品的id</span></span><br><span class="line">    sku_id = request.POST.get(<span class="string">"sku_%d"</span> % i)  <span class="comment"># sku_1 sku_2</span></span><br><span class="line">    <span class="comment"># 获取评论的商品的内容</span></span><br><span class="line">    content = request.POST.get(<span class="string">'content_%d'</span> % i, <span class="string">''</span>)  <span class="comment"># cotent_1 content_2 content_3</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        order_goods = OrderGoods.objects.get(order=order, sku_id=sku_id)</span><br><span class="line">    <span class="keyword">except</span> OrderGoods.DoesNotExist:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    order_goods.comment = content</span><br><span class="line">    order_goods.save()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 最后设置订单状态为5也就是已完成状态，重定向到订单页面第一页</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">order.order_status = <span class="number">5</span>  <span class="comment"># 已完成</span></span><br><span class="line">order.save()</span><br><span class="line"><span class="keyword">return</span> redirect(reverse(<span class="string">"user:order"</span>, kwargs=&#123;<span class="string">"page"</span>: <span class="number">1</span>&#125;))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step5</strong> 测试订单评论功能</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410143227355.gif" alt></fancybox></p>
+<ul>
+<li><strong>step6</strong> 查看上一步中评论的商品详情信息，刚商品的评论信息显示到了商品介绍一栏，正确来说应该在评论里面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410143600527.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>3.显示评论信息</p>
+<ul>
+<li><strong>step1</strong> 在商品详情页面（detail.html）模板文件中，li标签模块商品介绍以和评论，分别添加id属性；同时在div标签中分别添加id属性，需要主要的是评论内容默认是不显示的，所以在.tab_content标签中添加style=”display: none”</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"detail_tab clearfix"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"tag_detail"</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span>商品介绍<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"tag_comment"</span>&gt;</span>评论<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tab_content"</span> <span class="attr">id</span>=<span class="string">"tab_detail"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dt</span>&gt;</span>商品详情：<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span>&#123;&#123; sku.goods.detail |safe &#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tab_content"</span> <span class="attr">id</span>=<span class="string">"tab_comment"</span> <span class="attr">style</span>=<span class="string">"display: none"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">        &#123;% for comment in sku_orders_comment %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">dt</span>&gt;</span>评论时间：&#123;&#123; comment.update_time &#125;&#125;&amp;nbsp;&amp;nbsp;&#123;&#123; comment.order.user.username &#125;&#125;<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span>评论内容：&#123;&#123; comment.comment |safe &#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step2</strong> 刷新页面后，商品介绍li模块中不再显示出评论内容</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410144851224.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 添加如下js控制商品介绍模块与评论模块点击事件显示激活与内容</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#tag_detail'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   $(<span class="string">'#tag_comment'</span>).removeClass(<span class="string">'active'</span>);</span><br><span class="line">   $(<span class="keyword">this</span>).addClass(<span class="string">'active'</span>);</span><br><span class="line">   $(<span class="string">'#tab_detail'</span>).show();</span><br><span class="line">   $(<span class="string">'#tab_comment'</span>).hide();</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">'#tag_comment'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   $(<span class="string">'#tag_detail'</span>).removeClass(<span class="string">'active'</span>);</span><br><span class="line">   $(<span class="keyword">this</span>).addClass(<span class="string">'active'</span>);</span><br><span class="line">   $(<span class="string">'#tab_detail'</span>).hide();</span><br><span class="line">   $(<span class="string">'#tab_comment'</span>).show();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong> 测试商品介绍与评论点击事件显示对应内容（商品详情当初在创建表数据时，没有填写，所以显示空）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410151319989.gif" alt></fancybox></p>
+<h1 id="四丶项目部署"><a href="#四丶项目部署" class="headerlink" title="四丶项目部署"></a>四丶项目部署</h1><p>1.使用uwsgi作为项目运行的web服务器</p>
+<p><strong>说明</strong>：在开发环境中运行项目需要在终端上执行python2 manage.py runserver命令，其中runserver就是django给我们提供的web服务器；uwsgi服务器就是遵循WSGI协议的web服务器</p>
+<ul>
+<li><strong>step1</strong> 安装uwsgi服务器</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410160024613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 博主将windows中的dailyfresh项目拷贝到ubuntu桌面，需要在ubuntu中配置项目配置文件settings的mysql数据库为windows中的mysql数据库，因为ubuntu中的mysql数据库表中没有任何数据，需要注意的是windows上的防火墙必须处于关闭状态 ，在windows mysql中需要创建一个用户并且该用户只能使用dailyfresh数据库，即将该用户配置到ubuntu项目settings配置文件中 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on dailyfresh.* to &quot;taogang&quot;@&quot;%&quot; identified by &quot;123456&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step3</strong> 在ubuntu中进行远程连接windows中的mysql </li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410182402506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> ubuntu中配置setting数据库连接</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190410182536805.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li><strong>step5</strong> 在ubuntu中启动项目，进入<a href="http://127.0.0.1:8000/index" target="_blank" rel="noopener">http://127.0.0.1:8000/index</a>后，成功显示出主页内容</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410182837829.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step6</strong> 修改项目settings配置文件中的调试模式以及允许的主机访问为任何一台主机都可以进行访问</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190410182949756.png" alt></p>
+<ul>
+<li><strong>step7</strong> 在项目根目录下创建一个uwsgi.ini配置文件，编写以下内容</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[uwsgi]</span></span><br><span class="line"><span class="comment">#使用nginx连接时使用</span></span><br><span class="line"><span class="comment">#socket=127.0.0.1:8080</span></span><br><span class="line"><span class="comment">#直接做web服务器使用</span></span><br><span class="line"><span class="attr">http</span>=<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8080</span></span><br><span class="line"><span class="comment">#项目目录</span></span><br><span class="line"><span class="attr">chdir</span>=/home/taogang/Desktop/dailyfresh</span><br><span class="line"><span class="comment">#项目中wsgi.py文件的目录，相对于项目目录</span></span><br><span class="line"><span class="attr">wsgi-file</span>=dailyfresh/wsgi.py</span><br><span class="line"><span class="comment"># 工作进程数</span></span><br><span class="line"><span class="attr">processes</span>=<span class="number">4</span></span><br><span class="line"><span class="attr">threads</span>=<span class="number">2</span></span><br><span class="line"><span class="attr">master</span>=<span class="literal">True</span></span><br><span class="line"><span class="attr">pidfile</span>=uwsgi.pid</span><br><span class="line"><span class="attr">daemonize</span>=uwsgi.log</span><br><span class="line"><span class="attr">virtualenv</span>=/home/taogang/.virtualenvs/django_py2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step8</strong> 启动uwsgi</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">启动:uwsgi –-ini 配置文件路径 例如:uwsgi –-ini uwsgi.ini</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step9</strong> 启动uwsgi后，在浏览器输入<a href="http://127.0.0.1:8080/index" target="_blank" rel="noopener">http://127.0.0.1:8080/index</a>后，显示出主页页面，但不能加载静态文件，原因是在settings中配置DEBUG=False导致的，当DEBUG=True时，django服务器会帮我们去加载静态文件，但现在使用uwsgi服务器，该服务器不会帮我们加载静态文件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410192637907.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step10</strong> 停止uwsgi</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">停止:uwsgi --stop uwsgi.pid路径 例如:uwsgi –-stop uwsgi.pid</span><br></pre></td></tr></table></figure>
+
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410193411944.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>2.部署架构图</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410211810515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>3.配置nginx将用户请求转交给uwsgi </p>
+<ul>
+<li><strong>step1</strong> 修改项目根目录下的uwsgi.ini文件，注释掉http请求（即在浏览器输入<a href="http://127.0.0.1:8080/index" target="_blank" rel="noopener">http://127.0.0.1:8080/index</a>不能直接访问），取消socket注释，使用nginx来连接uwsgi</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">#使用nginx连接时使用</span><br><span class="line">socket=127.0.0.1:8080</span><br><span class="line">#直接做web服务器使用</span><br><span class="line">#http=127.0.0.1:8080</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/2019041020251996.png" alt></p>
+<ul>
+<li><strong>step2</strong> 因为没有多余的电脑当做nginx服务器来将请求转发到uwsgi服务器上，所以博主这里打算使用ubuntu中的nginx，进入nginx配置文件，首先博主将之前nginx的配置进行了备份处理，再进行如下编写</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410202352739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> 重启nginx服务以及启动uwsgi服务</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410202618241.png" alt></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410202654612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 在浏览器输入<a href="http://127.0.0.1/index" target="_blank" rel="noopener">http://127.0.0.1/index</a>，因为不输入端口号默认为80端口即也就是在nginx监听端口，在80监听端口中，配置了location / 中包含uwsgi的请求参数，并将请求转给uwsgi服务器127.0.0.1:8080也就是在项目根目录下的uwsgi.ini配置文件中配置的socket地址，uwsgi服务器调用django项目中的application接口，将页面返回给nginx服务器，最后nginx服务器将页面返回给浏览器</li>
+<li><strong>说明</strong>：因为博主在进行项目迁移到ubuntu时，使用python manage.py runserver启动项目后，访问主页并在ubuntu redis数据库中设置了主页的缓存，所以显示了带有静态资源的主页</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019041020364385.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>4.配置nginx处理静态文件</p>
+<ul>
+<li><strong>step1</strong> 在ubuntu中创建static目录用户存放项目使用的静态文件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410213143575.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 修改static目录的权限</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190410213614521.png" alt></p>
+<ul>
+<li><strong>step3</strong> django settings.py中配置收集静态文件路径</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 配置收集静态文件路径</span><br><span class="line">STATIC_ROOT = &apos;/usr/www/dailyfresh/static&apos;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>step4</strong>  收集项目所使用的静态文件 </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py collectstatic</span><br></pre></td></tr></table></figure>
+
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410213831461.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step4</strong> 编写nginx配置文件，指定静态文件的目录</li>
+</ul>
+<p><fancybox><a href="https://img-blog.csdnimg.cn/20190410213954284.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" target="_blank" rel="noopener"></a></fancybox></p>
+<ul>
+<li><strong>step5</strong> 重启nginx服务</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190410214430421.png" alt></p>
+<ul>
+<li><strong>step6</strong> 在火狐浏览器中打开禁用缓存按钮，刷新页面成功加载静态文件资源</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410214722777.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step7</strong> 浏览其他页面是否也能成功加载静态文件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190410234437584.gif" alt></fancybox></p>
+<p>5.通过nginx调度服务器将用户请求转发到其他地址上</p>
+<ul>
+<li><strong>step1</strong> 整个部署架构说明，当用户在浏览器中输入127.0.0.1也就是<a href="http://127.0.0.1:80/，因为在浏览器中默认端口为80，所以写不写无所谓，即访问了" target="_blank" rel="noopener">http://127.0.0.1:80/，因为在浏览器中默认端口为80，所以写不写无所谓，即访问了</a> / 地址，表示用户请求的是网站的静态主页面；当用户在浏览器中输入除了 / 以外的地址，比如127.0.0.1/index，即访问了 /index 地址，表示用户请求的是动态资源主页面，前面博客中写到主页面静态化时，是在虚拟机ubuntu2中使用celery异步生成主页静态页面，通过访问ubuntu2中的nginx服务器的ip+/，匹配nginx服务器中配置的location来获取指定celery异步生成的静态主页index.html文件，最终通过nginx服务器返回给浏览器，浏览器渲染到页面；而现在项目部署需要使用uwsgi服务器来运行项目，而不是用django提供的测试环境服务器，那么就需要另外一台电脑来作为动态资源服务器（ubuntu1），那么就需要使用调度服务器也就是另一台nginx服务器（ubuntu1）来根据用户请求地址的不同分为两种 / 和其他（访问其他就是除了/以外的请求，在项目中就是/index 和/static）来进行调度，用户请求的是 / 则调度器向静态页面服务器（ubuntu2）去获取静态资源数据，如果不是访问 / 则向动态资源服务器（ubuntu1）获取动态资源数据，页面中静态资源的路径为/static下的某个路径即在调度器nginx中则直接去本地/usr/www/dailyfresh/static目录中直接获取文件，需要注意的是在ubuntu1电脑中安装了nginx服务器和uwsgi服务器以及django项目，通过前面进行测试一样，通过nginx服务器来访问uwsgi服务器，然后uwsgi服务器再通过调用django项目的application接口来运行项目，无非就是多添加了一个 / 地址请求静态主页面的服务器，即需要两台ubuntu虚拟机，其中ubuntu1负责调度器以及动态资源服务器使用，而ubuntu2则只是提供静态页面，充当静态页面服务器，因为博主的电脑实在是运行不了两台虚拟机以及本机的windows，所以无法进行演示操作</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190411020130246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 通过上一步的详细说明，那么就需要在ubuntu1中配置nginx服务器（动态页面服务器+调度器）</li>
+<li><strong>说明</strong>：location = / 唯一的当满足请求地址只能是 / 的时候，才能进行匹配转发</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190411015225713.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step3</strong> ubuntu2中配置nginx服务器（静态页面服务器），该配置也就是之前做主页静态化时的配置</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190411015409835.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p>6.nginx配置upstream实现负载均衡</p>
+<ul>
+<li><strong>step1</strong> 最终部署项目流程图</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019041102390316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li><strong>step2</strong> 对于动态资源服务器（应用服务器）可以有多台，即每台都是uwsgi+django，但每台应用服务器配置连接nginx服务器（调度器）的socket端口不同，如第一台配置8080，第二天配置8081，在启动uwsgi时各自执行自己的uwsgi – ini uwsgi.ini；那么就需要在调度器（nginx）中进行如下配置，当用户请求 / 开头的任何地址即请求动态资源，则会upstream指定dailyfresh中均衡拿取地址，进行转发，比如说用户访问主页则是启动了127.0.0.1:8080此uwsgi服务器获取的资源，当用户在主页点击某个商品进行商品详情页时，则调度器（nginx）会将请求转发给127.0.0.1:8081端口的uwsgi服务器，由该服务器来获取商品详情页所需要的资源数据，这样做就能达到负载均衡</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">upstream dailyfresh&#123;</span><br><span class="line">   server 127.0.0.1:8080;</span><br><span class="line">   server 127.0.0.1:8081;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">#gzip  on;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"> </span><br><span class="line">    #charset koi8-r;</span><br><span class="line"> </span><br><span class="line">    #access_log  logs/host.access.log  main;</span><br><span class="line"> </span><br><span class="line">    location /static &#123;</span><br><span class="line">        # 指定静态文件存放的目录</span><br><span class="line">        alias   /usr/www/dailyfresh/static;</span><br><span class="line">    &#125;</span><br><span class="line">    location / &#123;</span><br><span class="line">        # 包含uwsgi的请求参数       </span><br><span class="line">        include   uwsgi_params;</span><br><span class="line">        # 转交请求给uwsgi</span><br><span class="line">        #uwsgi_pass  127.0.0.1:8080;</span><br><span class="line">        uwsgin_pass  dailyfresh;</span><br><span class="line">    location = / &#123;</span><br><span class="line">            # 转发到静态资源服务器</span><br><span class="line">            proxy_pass  http://171.213.28.217;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="五丶项目总结"><a href="#五丶项目总结" class="headerlink" title="五丶项目总结"></a>五丶项目总结</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1.  生鲜类产品  B2C  PC电脑端网页</span><br><span class="line">2.  功能模块：用户模块  商品模块（首页、 搜索、商品） 购物车模块  订单模块（下单、 支付）</span><br><span class="line">3.  用户模块：注册、登录、激活、退出、个人中心、地址</span><br><span class="line">4.  商品模块：首页、详情、列表、搜索（haystack+whoosh）</span><br><span class="line">5.  购物车： 增加、删除、修改、查询</span><br><span class="line">6.  订单模块：确认订单页面、提交订单（下单）、请求支付、查询支付结果、评论</span><br><span class="line">7.  django默认的认证系统 AbstractUser</span><br><span class="line">8.  itsdangerous  生成签名的token （序列化工具 dumps  loads）</span><br><span class="line">9.  邮件 （django提供邮件支持 配置参数  send_mail）</span><br><span class="line">10. celery (重点  整体认识 异步任务)</span><br><span class="line">11. 页面静态化 （缓解压力  celery  nginx）</span><br><span class="line">12. 缓存（缓解压力， 保存的位置、有效期、与数据库的一致性问题）</span><br><span class="line">13. FastDFS (分布式的图片存储服务， 修改了django的默认文件存储系统)</span><br><span class="line">14. 搜索（ whoosh  索引  分词）</span><br><span class="line">15. 购物车redis 哈希 历史记录redis list</span><br><span class="line">16. ajax 前端用ajax请求后端接口</span><br><span class="line">17. 事务</span><br><span class="line">18. 高并发的库存问题 （悲观锁、乐观锁）</span><br><span class="line">19. 支付的使用流程</span><br><span class="line">20. nginx （负载均衡  提供静态文件）</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/89059800" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/89059800</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-07T18:22:02+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Django/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Django</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Django网站实战</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python Web开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/&title=Django项目之Web端电商网站的实战开发（完结） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/&title=Django项目之Web端电商网站的实战开发（完结） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD5klEQVR42u3aOXLDQAwEQP3/0/YHTGoGWLoYtCKXJO/RDCAcn0/8+rl9XX0zeed+teQ89+98nnjhwIEDB471VfdHv3on//T+wsceAA4cOHDgOMRxf40kgJ0Cas+wCbo4cODAgeMNHPep1P2F8xQrwZ0FbBw4cODA8TaONrC1Kd9V0pU8Bhw4cODA8R6OpDiYBNF2nSQAz1Z7vFaKAwcOHDgm8a4u0r3z70fmO3DgwIEDR5AmtSNx+7QqX7/9tL4dDhw4cOBYc7QNnlm5bRP/Z/vm6RkOHDhw4HiCIw+E+ZjCpi202astUNaZKw4cOHDguOXI07B8KG3WENqH83xE43IXHDhw4MCx5jg1jpBs2XZ88h8ELdCXW+DAgQMHjgc42svnRbc8hCdAm1GGYnIQBw4cOHCUDae8GJcXDfdXasNqW6bEgQMHDhxPcLSDBW2wTI6eJI1tATHHmo1Z4MCBAweOK45247wMl1y1bRHNwnDxIwAHDhw4cKw5zhbyZuG55c7pZ6kdDhw4cODYc7SbJS2c/H9XRyzTzg09Dhw4cODIOdrRtFlylRyoDZlJ4a9OIHHgwIEDx4Lj5+grT/Py0mES1NvvFDODOHDgwIHjEMc+NWovkBcN92W+qOGEAwcOHDgWHLPN2mCZrJA/pPydAgsHDhw4cKw5nhhHaFdoy4izHYu9cODAgQPHgiNv8ySDcZs20qws2P4UWE1w4MCBAweOOGfZlPCeKBG2DarZhb98HwcOHDhwjDjyoYTZKEObjM2GHvKfAl++iQMHDhw4DnG0IwWzRC4JivsL57h/fBMHDhw4cKw5ZiW8dshgVhZsi5VJkyl6BwcOHDhwLDjyhfLg1w7MtY2xvOCYnx8HDhw4cJzlaJOuNpInq83Kf7NdLlfGgQMHDhyPcSQBckaWULahfXaqP86DAwcOHDjWHPnIwqbxkxcf8wdTV0DzQicOHDhw4FhwtCW8zUBDkqrNSn75I4wqkThw4MCBY8ExG4+bNZbyYYi2qLdJHS+xcODAgQPHiCNP0majDy3BJjwfaHHhwIEDB45DHLMxtbwkF8X5cpBuVqaMGk44cODAgWPBsRk1yBtI+6NvBinqR4gDBw4cOBYcp0YZEohTgbwtOBbr48CBAweONcemv98OwO1Liu2YQrsXDhw4cOA4xTELrklStA+Tm+Lgan4QBw4cOHCsOdpA1baIZhG+TSPblXHgwIEDxxs48k/zwlweqpO9Vq0pHDhw4MDx7xxPXC8vCO5PEvXicODAgQPHmmPWRsqPlbSXZiXFGf2BthMOHDhw4JhU9oprJBdoITbpWR6kceDAgQPHIY5f6fOkt/tShXQAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/&title=Django项目之Web端电商网站的实战开发（完结） | TG'S BLOG&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（五）/" rel="prev" title="Django项目之Web端电商网站的实战开发（五）">
+                                  
+                                      Django项目之Web端电商网站的实战开发（五）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Django/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django</a> <a class="tag" href="/tags/Django网站实战/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django网站实战</a> <a class="tag" href="/tags/Python-Web开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Web开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Django项目之Web端电商网站的实战开发（完结）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶订单生成"><span class="toc-text">一丶订单生成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶订单支付"><span class="toc-text">二丶订单支付</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶订单评论"><span class="toc-text">三丶订单评论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶项目部署"><span class="toc-text">四丶项目部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶项目总结"><span class="toc-text">五丶项目总结</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

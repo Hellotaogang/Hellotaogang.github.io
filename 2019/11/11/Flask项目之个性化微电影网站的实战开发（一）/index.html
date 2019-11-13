@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Flask项目之个性化微电影网站的实战开发（一） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Flask项目之个性化微电影网站的实战开发（一）' href='/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/images/flask.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/">
+        Flask项目之个性化微电影网站的实战开发（一）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-11</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Flask开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Flask开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <p><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/flask_movie.png" width="900px" height="300px" align><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶叙述"><span style="color:#4ea1db">一丶叙述</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶Windows环境搭建"><span style="color:#4ea1db">二丶Windows环境搭建</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶项目分析丶搭建目录以及模型设计"><span style="color:#4ea1db">三丶项目分析丶搭建目录以及模型设计</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶搭建前台页面"><span style="color:#4ea1db">四丶搭建前台页面</span></a></li>
+<a id="more"></a>
+
+<h1 id="一丶叙述"><a href="#一丶叙述" class="headerlink" title="一丶叙述"></a>一丶叙述</h1><p><strong>1.项目中使用到的知识点</strong></p>
+<ul>
+<li>使用整型丶浮点型丶路径型丶字符串型正则表达式以及路由转换器</li>
+<li>使用get与post请求丶上传文件丶cookie获取与响应丶404页面处理</li>
+<li>使用模板自动转义丶定义过滤器丶定义全局上下文处理器丶Jinjia2语法丶包含丶继承丶定义宏</li>
+<li>使用flask_wtf定义表单模型丶字段类型丶字段验证丶视图处理表单丶模板使用表单</li>
+<li>使用flask_sqlachemy定义数据库模型丶添加数据丶修改数据丶查询数据丶删除数据丶数据库事件丶数据库迁移</li>
+<li>使用蓝图优化项目结构丶实现微电影网站前台与后台业务逻辑</li>
+<li>通过nginx反向代理对视频流媒体限制下载速率丶限制单个ip能发起的播放连接数</li>
+<li>微内核以及flask拓展插件，其中微内核包括werkzug工具箱丶pymysql数据库驱动sqlachemy数据库orm丶wtforms表单验证工具jinja2模板引擎丶flask-script命令行脚本丶functools定义高阶函数；插件包括jwplayer播放器插件丶视频限速限ip访问丶flv以及mp4视频格式支持丶nginx点播实现</li>
+</ul>
+<p><strong>2.环境搭建与工具</strong></p>
+<ul>
+<li>搭建开发环境依赖包丶virtuanlven虚拟化环境的使用</li>
+<li>pycharm编辑器</li>
+</ul>
+<p><strong>3.项目优化与模型设计</strong></p>
+<ul>
+<li>使用flask蓝图Blueprint规划项目结构</li>
+<li>使用flask_sqlachemy定义和业务需求相关的数据库模型</li>
+<li>结合mysql数据库生成项目所需的数据表</li>
+</ul>
+<p><strong>4.前端搭建</strong></p>
+<ul>
+<li>实现前台后台html布局页面搭建</li>
+<li>使用jinjia2引擎</li>
+<li>引入静态资源文件丶404错误页面处理</li>
+</ul>
+<p><strong>5.后端开发</strong></p>
+<ul>
+<li>使用flask sqlachemy结合mysql数据表进行增删改查操作</li>
+<li>flask数据分页查询丶路由装饰器定义丶模板中变量调用丶登录回话机制丶上传文件</li>
+<li>flask wtforms表单验证丶flask自定义应用上下文丶自定义权限权限装饰器对管理系统进行基于角色权限的访问控制</li>
+<li>flask多表关联查询丶关键字模糊查询</li>
+</ul>
+<p><strong>6.网站部署</strong></p>
+<ul>
+<li>实现在centos服务器上搭建nginx+mysql+python环境</li>
+<li>使用nginx反向代理多端口多进程部署微电影网站</li>
+<li>配置nginx流媒体访问限制参数</li>
+</ul>
+<p><strong>7.前台静态主页面效果预览</strong></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019041416332644.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>8.后台管理静态主页面效果预览</strong></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190414163342675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>9.微电影网站组成</strong></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190414165443624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>10.开发及生产环境</strong></p>
+<ul>
+<li>生产环境：Centos7</li>
+<li>开发语言：Python3</li>
+<li>数据库：MySQL</li>
+<li>前端：HTML5及BootStrap框架（<a href="http://adminlte.la998.com/" target="_blank" rel="noopener">AdminLTE</a>：一个基于bootstrap框架的轻量级后台模板）</li>
+<li>Web开发框架：Flask</li>
+<li>Web服务器：Nginx</li>
+<li>编程工具：PyCharm</li>
+</ul>
+<h1 id="二丶Windows环境搭建"><a href="#二丶Windows环境搭建" class="headerlink" title="二丶Windows环境搭建"></a>二丶Windows环境搭建</h1><p><strong>说明</strong>：博主这里使用Python3.6开发语言 数据库Mysql5.7 PyCharm编程工具（这三个就不进行演示了）以及安装虚拟环境</p>
+<ul>
+<li>安装项目虚拟环境</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190414171432204.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>创建虚拟环境</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019041417273376.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>配置项目解释器</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190414181037266.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>安装Flask包成功后，查看当前环境下的包</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190414181411427.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<h1 id="三丶项目分析丶搭建目录以及模型设计"><a href="#三丶项目分析丶搭建目录以及模型设计" class="headerlink" title="三丶项目分析丶搭建目录以及模型设计"></a>三丶项目分析丶搭建目录以及模型设计</h1><p><strong>1.前台项目目录分析</strong></p>
+<p><strong>前台（home）</strong></p>
+<ul>
+<li>数据模型：models.py</li>
+<li>表单处理：home/forms.py</li>
+<li>模板目录：templates/home</li>
+</ul>
+<p><strong>2.后台项目目录分析</strong></p>
+<p><strong>后台（admin）</strong></p>
+<ul>
+<li>数据模型：models.py</li>
+<li>表单处理：admin/forms.py</li>
+<li>模板目录：templates/admin</li>
+<li>静态目录：static</li>
+</ul>
+<p><strong>3.前后台项目目录分析</strong></p>
+<ul>
+<li>manage.py &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;入口启动脚本</li>
+<li>app &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;项目APP</li>
+<li>&ensp;&ensp;&ensp;&ensp;_<em>init_</em>.py &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;初始化文件</li>
+<li>&ensp;&ensp;&ensp;&ensp;models.py &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;数据库模型文件</li>
+<li>&ensp;&ensp;&ensp;&ensp;static &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;静态目录</li>
+<li>&ensp;&ensp;&ensp;&ensp;home/admin &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;前台/后台模块</li>
+<li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;_<em>init_</em>.py &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;初始化文件</li>
+<li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;views.py &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;视图处理文件</li>
+<li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;forms.py &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;表单处理文件</li>
+<li>&ensp;&ensp;&ensp;&ensp;templates &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;模板目录</li>
+<li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;home/admin &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;前台/后台模板</li>
+</ul>
+<p><strong>4.搭建目录</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20190414183811941.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p><strong>5.搭建蓝图</strong></p>
+<ul>
+<li>在home/<strong>init</strong>.py文件中定义蓝图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint</span><br><span class="line">home = Blueprint(<span class="string">"home"</span>, __name__)</span><br><span class="line"><span class="keyword">import</span> app.home.views</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在admin/<strong>init</strong>.py文件中定义蓝图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint</span><br><span class="line">admin = Blueprint(<span class="string">"admin"</span>, __name__)</span><br><span class="line"><span class="keyword">import</span> app.admin.views</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在home/views.py文件中定义视图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> home</span><br><span class="line"><span class="meta">@home.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"&lt;h1 style='color:red'&gt;hello home&lt;/h1&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在admin/views.py文件中定义视图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> admin</span><br><span class="line"><span class="meta">@admin.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"&lt;h1 style='color:green'&gt;hello admin&lt;/h1&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在app/<strong>init</strong>.py文件中创建app对象并使用app对象注册蓝图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.debug = <span class="literal">True</span></span><br><span class="line"><span class="keyword">from</span> app.admin <span class="keyword">import</span> admin <span class="keyword">as</span> admin_blueprint</span><br><span class="line"><span class="keyword">from</span> app.home <span class="keyword">import</span> home <span class="keyword">as</span> home_blueprint</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 注册蓝图</span></span><br><span class="line">app.register_blueprint(admin_blueprint, url_prefix=<span class="string">"/admin"</span>)</span><br><span class="line">app.register_blueprint(home_blueprint)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在manage.py中定义启动脚本</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> app</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行项目后，在浏览器中分别输入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a>以及<a href="http://127.0.0.1:5000/admin/" target="_blank" rel="noopener">http://127.0.0.1:5000/admin/</a></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019041419322872.png" alt></p>
+<p><strong>6.会员及会员登录日志数据模型设计</strong></p>
+<ul>
+<li>创建项目所需数据库</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190414212338546.png" alt></p>
+<ul>
+<li>安装Flask-SQLAlchemy</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flask-sqlalchemy</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装PyMySQL</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pymysql</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义会员数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"user"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    name = db.Column(db.String(<span class="number">100</span>), unique=<span class="literal">True</span>)  <span class="comment"># 昵称</span></span><br><span class="line">    pwd = db.Column(db.String(<span class="number">100</span>))  <span class="comment"># 密码</span></span><br><span class="line">    email = db.Column(db.String(<span class="number">100</span>), unique=<span class="literal">True</span>)  <span class="comment"># 邮箱</span></span><br><span class="line">    phone = db.Column(db.String(<span class="number">11</span>), unique=<span class="literal">True</span>)  <span class="comment"># 电话号码</span></span><br><span class="line">    info = db.Column(db.Text)  <span class="comment"># 个性简介</span></span><br><span class="line">    face = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 头像</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line">    uuid = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 唯一标志符</span></span><br><span class="line">    userlogs = db.relationship(<span class="string">'UserLog'</span>, backref=<span class="string">'user'</span>)  <span class="comment"># 会员日志外键关系</span></span><br><span class="line">    comments = db.relationship(<span class="string">'Comment'</span>, backref=<span class="string">'user'</span>)  <span class="comment"># 评论外键关系关联</span></span><br><span class="line">    moviecols = db.relationship(<span class="string">'MovieCol'</span>, backref=<span class="string">'user'</span>)  <span class="comment"># 电影收藏外键关系关联</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;User:%r&gt;"</span> % self.name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义会员登录日志模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserLog</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"userlog"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    user_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'user.id'</span>))  <span class="comment"># 所属会员</span></span><br><span class="line">    ip = db.Column(db.String(<span class="number">100</span>))  <span class="comment"># 登录IP</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 登录时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;UserLog %r&gt;'</span> % self.id</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.标签丶电影丶上映预告数据模型设计</strong></p>
+<ul>
+<li>定义标签数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tag</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"tag"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)   <span class="comment"># 编号</span></span><br><span class="line">    name = db.Column(db.String(<span class="number">100</span>), unique=<span class="literal">True</span>)   <span class="comment"># 标题</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line">    movies = db.relationship(<span class="string">'Movie'</span>, backref=<span class="string">'tag'</span>)  <span class="comment"># 电影外键关系关联</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Tag %r&gt;'</span> % self.name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义电影数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Movie</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"movie"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    title = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 电影标题</span></span><br><span class="line">    url = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 电影地址</span></span><br><span class="line">    info = db.Column(db.Text)  <span class="comment"># 电影简介</span></span><br><span class="line">    logo = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 电影封面</span></span><br><span class="line">    star = db.Column(db.SmallInteger)  <span class="comment"># 星级</span></span><br><span class="line">    playnum = db.Column(db.BigInteger)  <span class="comment"># 电影播放量</span></span><br><span class="line">    commentnum = db.Column(db.BigInteger)  <span class="comment"># 电影评论量</span></span><br><span class="line">    tag_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'tag.id'</span>))  <span class="comment"># 所属标签</span></span><br><span class="line">    area = db.Column(db.String(<span class="number">255</span>))  <span class="comment"># 地区</span></span><br><span class="line">    release_time = db.Column(db.Date)  <span class="comment"># 发布时间</span></span><br><span class="line">    length = db.Column(db.String(<span class="number">100</span>))  <span class="comment"># 电影长度</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line">    comments = db.relationship(<span class="string">'Comment'</span>, backref=<span class="string">'movie'</span>)  <span class="comment"># 电影评论外键关联</span></span><br><span class="line">    movieclos = db.relationship(<span class="string">'MovieCol'</span>, backref=<span class="string">'movie'</span>)  <span class="comment"># 电影收藏外键关联</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Movie %r&gt;'</span> % self.title</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义上映预告数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Preview</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"preview"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    title = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 电影标题</span></span><br><span class="line">    logo = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 电影封面</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Preview %r&gt;'</span> % self.title</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.评论丶收藏丶权限丶角色丶管理员丶操作日志数据模型设计</strong></p>
+<ul>
+<li>定义评论数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Comment</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"comment"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    content = db.Column(db.Text)  <span class="comment"># 评论内容</span></span><br><span class="line">    movie_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'movie.id'</span>))  <span class="comment"># 所属电影</span></span><br><span class="line">    user_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'user.id'</span>))  <span class="comment"># 所属用户</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Comment %r&gt;'</span> % self.id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义收藏电影数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MovieCol</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"moviecol"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    movie_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'movie.id'</span>))  <span class="comment"># 所属电影</span></span><br><span class="line">    user_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'user.id'</span>))  <span class="comment"># 所属用户</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 最近登录时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;MovieCol %r&gt;'</span> % self.id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义权限数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Auth</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"auth"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    name = db.Column(db.String(<span class="number">100</span>), unique=<span class="literal">True</span>)  <span class="comment"># 名称</span></span><br><span class="line">    url = db.Column(db.String(<span class="number">255</span>), unique=<span class="literal">True</span>)  <span class="comment"># 电影地址</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Auth %r&gt;'</span> % self.name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义角色数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"role"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    name = db.Column(db.String(<span class="number">100</span>), unique=<span class="literal">True</span>)  <span class="comment"># 名称</span></span><br><span class="line">    auths = db.Column(db.String(<span class="number">600</span>)) <span class="comment"># 权限列表</span></span><br><span class="line">    admins = db.relationship(<span class="string">"Admin"</span>, backref=<span class="string">'role'</span>)  <span class="comment"># 管理员外键关系关联</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Role %r&gt;'</span> % self.name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义管理员数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admin</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"admin"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    name = db.Column(db.String(<span class="number">100</span>), unique=<span class="literal">True</span>)  <span class="comment"># 管理员名称</span></span><br><span class="line">    pwd = db.Column(db.String(<span class="number">100</span>))  <span class="comment"># 管理员密码</span></span><br><span class="line">    is_super = db.Column(db.SmallInteger)  <span class="comment"># 是否为超级管理员，0为超级管理员</span></span><br><span class="line">    role_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'role.id'</span>))  <span class="comment"># 所属角色</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line">    adminlogs = db.relationship(<span class="string">'AdminLog'</span>, backref=<span class="string">'admin'</span>)  <span class="comment"># 管理员登录日志外键关系关联</span></span><br><span class="line">    oplogs = db.relationship(<span class="string">'OpLog'</span>, backref=<span class="string">'admin'</span>)  <span class="comment"># 管理员操作日志外键关系关联</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Admin %r&gt;'</span> % self.name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义管理员登录日志数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AdminLog</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"adminlog"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    admin_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'admin.id'</span>))  <span class="comment"># 所属管理员</span></span><br><span class="line">    ip = db.Column(db.String(<span class="number">100</span>))  <span class="comment"># 登录IP</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;AdminLog %r&gt;'</span> % self.id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义操作日志数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OpLog</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"oplog"</span></span><br><span class="line">    id = db.Column(db.Integer, primary_key=<span class="literal">True</span>)  <span class="comment"># 编号</span></span><br><span class="line">    admin_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'admin.id'</span>))  <span class="comment"># 所属管理员</span></span><br><span class="line">    ip = db.Column(db.String(<span class="number">100</span>))  <span class="comment"># 登录IP</span></span><br><span class="line">    reason = db.Column(db.String(<span class="number">600</span>))  <span class="comment"># 操作原因</span></span><br><span class="line">    addtime = db.Column(db.DateTime, index=<span class="literal">True</span>, default=datetime.now)  <span class="comment"># 添加时间</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;OpLog %r&gt;'</span> % self.id</span><br></pre></td></tr></table></figure>
+
+<p><strong>9.生成数据表</strong></p>
+<ul>
+<li>调用db对象中create_all方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    db.create_all()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行models.py文件，提示如下错误</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019041500454159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>解决以上报错，导入pymysql并在配置uri中添加pymysql</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line">app.config[<span class="string">"SQLALCHEMY_DATABASE_URI"</span>] = <span class="string">"mysql+pymysql://root:mysql@127.0.0.1:3306/movie"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再次运行成功</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190415004922348.png" alt></p>
+<ul>
+<li>查看数据库movie下的表</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190415005334618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p><strong>10.添加表数据</strong></p>
+<ul>
+<li>向角色表（role）添加数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># db.create_all()</span></span><br><span class="line">    role = Role(</span><br><span class="line">        name=<span class="string">"超级管理员"</span>,</span><br><span class="line">        auths=<span class="string">""</span></span><br><span class="line">    )</span><br><span class="line">    db.session.add(role)</span><br><span class="line">    db.session.commit()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看role表数据</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190415010056822.png" alt></p>
+<ul>
+<li>向管理员表（admin）添加数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">from</span> werkzeug.security <span class="keyword">import</span> generate_password_hash</span><br><span class="line">    admin = Admin(</span><br><span class="line">        name=<span class="string">"taogangshow"</span>,</span><br><span class="line">        pwd=generate_password_hash(<span class="string">"hellomovie"</span>),</span><br><span class="line">        is_super=<span class="number">0</span>,</span><br><span class="line">        role_id=<span class="number">1</span></span><br><span class="line">    )</span><br><span class="line">    db.session.add(admin)</span><br><span class="line">    db.session.commit()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看admin表数据</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190415010911390.png" alt></p>
+<h1 id="四丶搭建前台页面"><a href="#四丶搭建前台页面" class="headerlink" title="四丶搭建前台页面"></a>四丶搭建前台页面</h1><p><strong>1.会员登录退出页面搭建</strong></p>
+<ul>
+<li>将静态资源文件放在static目录下</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416142539585.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>将tpl/2-movie目录下的nav.html文件拷贝到templates/home目录下并命名为home.html，用作于父模板</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019041613591550.png" alt></p>
+<ul>
+<li>将home.html中的静态文件引入方式全部修改为{{url_for('static', filename='xxx')}}，如下</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"shortcut icon"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('static', filename='base/images/logo.png')&#125;&#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('static', filename='base/css/bootstrap.min.css')&#125;&#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('static', filename='base/css/bootstrap-movie.css')&#125;&#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('static', filename='base/css/animate.css')&#125;&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在内容div容器中挖坑（定义数据块）</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span> <span class="attr">style</span>=<span class="string">"margin-top:76px"</span>&gt;</span></span><br><span class="line">    &#123;% block content%&#125;&#123;% endblock %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates/home目录下新建index.html文件，继承与home.html</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends "/home/home.html" %&#125;</span><br><span class="line">&#123;% block content %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>cdtaogang<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">&#123;% endblock%&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在home/views.py文件中渲染出index.html模板文件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@home.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/index.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动项目，进入<a href="http://127.0.0.1:5000/" target="_blank" rel="noopener">http://127.0.0.1:5000/</a>显示页面</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416142938734.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>在home/views.py文件中定义登录以及退出视图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@home.route('/login/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/login.html"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@home.route('/logout/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logout</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> redirect(url_for(<span class="string">"home.login"</span>))  <span class="comment"># 跳转到登录页</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将tpl/2-movie目录下的login.html文件拷贝到templates/home目录下，其余部分删除只保留内容块继承父模板定义数据块</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416145356272.png" alt></p>
+<ul>
+<li>修改父模板home.html文件中登录和退出连接地址</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"curlink"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.login')&#125;&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-log-in"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"curlink"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.logout')&#125;&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-log-out"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;退出<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试显示登录与退出页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190416150337355.gif" alt></fancybox></p>
+<p><strong>2.会员注册页面搭建</strong></p>
+<ul>
+<li>跟登录一样，首先定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@home.route('/register/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/register.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后模板文件register.html</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416150521548.png" alt></p>
+<ul>
+<li>修改父模板文件home.html中导航栏注册地址</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"curlink"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.register')&#125;&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-plus"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行项目，成功显示注册页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019041615073842.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>3.会员中心页面搭建</strong></p>
+<p><strong>会员中心</strong></p>
+<ul>
+<li>定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 会员中心</span></span><br><span class="line"><span class="meta">@home.route('/user/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/user.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates/home目录下创建menu.html将注册页面中的菜单栏代码复制在该文件中</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416154345414.png" alt></p>
+<ul>
+<li>修改menu.html中代码，添加id属性，用于激活active</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"list-group"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"m-1"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.user')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-user"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;会员中心</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"m-2"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.pwd')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-lock"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;修改密码</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"m-3"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.comments')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-comment"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;评论记录</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"m-4"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.loginlog')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-calendar"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;登录日志</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"m-5"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.moviecol')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-heart"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;收藏电影</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>home.html模板文件中新建数据模块，用于存放注册页面独有的CSS代码</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416163812135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>home.html模板文件底部新建数据模块，用于存放注册页面独有的JS代码</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416163944361.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>在templates/home目录下创建user.html将注册页面中的会员中心代码复制在该文件中，并继承父模板，需要将注册页面菜单栏menu.html文件包含在内容块中，以及填写css和js数据块数据</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416164126162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p><strong>修改密码</strong></p>
+<ul>
+<li>定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改密码</span></span><br><span class="line"><span class="meta">@home.route('/pwd/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pwd</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/pwd.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates/home目录下创建pwd.html将注册页面中的会员中心代码复制在该文件中，同上只需要更改修改密码内容块以及底部js也就是class=”col-md-9”和id属性值，因为除了独有部分不同其余部分相同</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/201904161643349.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p><strong>评论记录</strong></p>
+<ul>
+<li>定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 评论记录</span></span><br><span class="line"><span class="meta">@home.route('/comments/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">comments</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/comments.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates/home目录下创建pwd.html将注册页面中的会员中心代码复制在该文件中，同上只需要更改评论记录内容块以及底部js也就是class=”col-md-9”和id属性值，因为除了独有部分不同其余部分相同</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416164501315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p><strong>登录日志</strong></p>
+<ul>
+<li>定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 登录日志</span></span><br><span class="line"><span class="meta">@home.route('/loginlog/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loginlog</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/loginlog.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates/home目录下创建pwd.html将注册页面中的会员中心代码复制在该文件中，同上只需要更改登录日志内容块以及底部js也就是class=”col-md-9”和id属性值，因为除了独有部分不同其余部分相同</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416164639333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p><strong>收藏电影</strong></p>
+<ul>
+<li>定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 收藏电影</span></span><br><span class="line"><span class="meta">@home.route('/moviecol/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">moviecol</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/moviecol.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates/home目录下创建pwd.html将注册页面中的会员中心代码复制在该文件中，同上只需要更改收藏电影内容块以及底部js也就是class=”col-md-9”和id属性值，因为除了独有部分不同其余部分相同</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019041616471492.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>设定用户登录成功或者注册成功后进入会员中心页面，则在login.html以及register.html模板文件中修改链接地址</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.user')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"btn btn-lg btn-success btn-block"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.user')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"btn btn-lg btn-success btn-block"</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试会员中心页面显示以及登录注册后页面跳转显示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190416170753347.gif" alt></fancybox></p>
+<p><strong>4.电影列表页以及搜索页面搭建</strong></p>
+<p><strong>电影列表页</strong></p>
+<ul>
+<li>定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表</span></span><br><span class="line"><span class="meta">@home.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/index.html"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 动画</span></span><br><span class="line"><span class="meta">@home.route('/animation/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">animation</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/animation.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates/home目录下新建layout.html文件，将home.html内容复制到layout.html文件中，因为列表页面与其他页面不一样，需要单独使用一个父模板，修改layout.html中的数据块，去除div标签</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block content%&#125;&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编辑templates/home目录下的index.html文件，继承与layout.html，并将热门电影以及电影列表放在数据块中</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416180154890.png" alt></p>
+<ul>
+<li>将static/tpl目录下的animation.html文件拷贝到templates/home目录下，用于存放热门电影模块中的幻灯片动画，修改animation.html文件中的地址</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416181418426.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>修改home/index.html文件中动画地址</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">class</span>=<span class="string">"wow fadeIn"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">height</span>=<span class="string">"375px"</span> <span class="attr">frameborder</span>=<span class="string">0</span> <span class="attr">scrolling</span>=<span class="string">no</span> <span class="attr">src</span>=<span class="string">"&#123;&#123;url_for('home.animation')&#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试显示主页</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190416182336966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>搜索页面</strong></p>
+<ul>
+<li>定义视图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@home.route('/search/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/search.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将static/tpl/2-movie目录下的search.html文件拷贝到templates/home的目录下，并保留搜索内容块，其他地方继承home.html模板即可</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416183748183.png" alt></p>
+<ul>
+<li>测试显示搜索页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190416191100741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>5.电影播放页与404页面搭建</strong></p>
+<p><strong>播放页面</strong></p>
+<ul>
+<li>定义视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@home.route('/play/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">play</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/play.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>复制static/tpl/2-movie下的play.html文件到templates/home目录下，完成该页面的继承的数据块，并修改静态资源地址</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190416192247677.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在搜索页面（search.html）收藏电影页面（moviecol.html）以及主页（index.html）中将电影播放地址play.html全部修改为{{url_for('home.play')}}，执行home下的play视图函数名</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 搜索页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.play')&#125;&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"media-object"</span> <span class="attr">src</span>=<span class="string">"holder.js/131x83"</span> <span class="attr">alt</span>=<span class="string">"环太平洋"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 收藏电影页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.play')&#125;&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"media-object"</span> <span class="attr">src</span>=<span class="string">"holder.js/131x83"</span> <span class="attr">alt</span>=<span class="string">"环太平洋"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 主页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url_for('home.play')&#125;&#125;"</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">role</span>=<span class="string">"button"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-play"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>&amp;nbsp;播放<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试视频播放页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190416193547444.gif" alt></fancybox></p>
+<p><strong>404页面搭建</strong></p>
+<ul>
+<li>在app/<strong>init</strong>.py初始化文件中定义404错误机制视图函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(error)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"home/404.html"</span>), <span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>复制static/tpl/4-404目录下的404.html文件到templates/home目录下，并修改模板中的静态资源路径</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190416194657632.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>测试404页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190416195212732.gif" alt></fancybox></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/89297099" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/89297099</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-13T22:31:04+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月13日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python Web开发</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Flask网站实战/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Flask网站实战</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/&title=Flask项目之个性化微电影网站的实战开发（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶叙述
+二丶Windows环境搭建
+三丶项目分析丶搭建目录以及模型设计
+四丶搭建前台页面"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/&title=Flask项目之个性化微电影网站的实战开发（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶叙述
+二丶Windows环境搭建
+三丶项目分析丶搭建目录以及模型设计
+四丶搭建前台页面"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD6ElEQVR42u3dO3LcMBAFQN7/0nLqwOS+NwNaGzQj12oFAo1gNJ8qX1f8/Dw++e/m6//9ebJm/rsHHhw4cODAsT7q85Hufvr8Sb5mgpXQRNeJAwcOHDgOcdxtaBPwEqD2Xe3h8zVx4MCBA8c3cMyCXBKMN4nfjBgHDhw4cHwDR5ImzUp1CUryUxw4cODA8VscszLcLMFrA2peiEyKm8dqpThw4MCBo3tvUZj7/n+/Mt+BAwcOHDjKoYE8iUpCXRtoi6Sr3M/tPnHgwIEDx5ojD0h5apcfbJ+w5a2vYn0cOHDgwLHgyBOhFiLfSsualwXrBhgOHDhw4FhzvD1eMEsIZyN6+fcPAOHAgQMHjse35EMAM4K2kNcOScwS0Q8ZLQ4cOHDgOMTxHMA2baRN4GwvbFglxYEDBw4cRzna1+cJXgt0KmQOrxkHDhw4cKw5No2fdoxgQz8bbkgSwjq/xIEDBw4cj5+3W8xLinmg3aR/eUCNvo8DBw4cOBYc+yJgOwYxC66b9YukEQcOHDhwrDnaRfO20HN4Xg0clAG4XhkHDhw4cCw48rSnHTuYFRw37atZU+qDHw4cOHDgmGdDh//TlyTQtofPg3dejsSBAwcOHG9zXPEzG02YhclhP210Fhw4cODAcYpjNrLQhuFZoM0PubkGHDhw4MCx50g21Dac2hRx9q5ZuvghVOPAgQMHjjVH2xA6m5LN1tk0tIq/NXDgwIEDxwsp3OybCeIsDZtlXquT4sCBAweOUatpNuKWpF5JStYectbuitpUOHDgwIHjKEcetNoRtLyM2K4wu4Db8iIOHDhw4DjEkTeH9m2nNnjnCdhswOLwojhw4MCBI05vnscI8tWS7Z5tjBWhFwcOHDhwrDlODQTkYW/2rvcu40PzCQcOHDhwlBx5qylJ2DYjDm3SeAol6qHhwIEDB45yPm0TAttttaF08xfEsH2FAwcOHDgOceStmiSdmw1DtCv8lE+0Wxw4cODAseCYDa7NjnGquTULrtHV4sCBAweOoxztEMAmzWubUjnBbE0cOHDgwHGWYzagtjlqDp2XC6/HJ7pCHDhw4MCx5mgDWLKhZHPJsxmPSFbGgQMHDhxvcMzaNrON5t/PV5sF5jqjxYEDBw4ck4mCKw9Oq6geF/VmfO36+blw4MCBA0fO0QbXPIlK1syPdyrZu2b3iQMHDhw4So5ZIExSr2FsD4g3ydjt93HgwIEDx3/n2Awx5ECzQJ4XDY8FWhw4cODAcSjQzoA20O+N0/2jOIgDBw4cONYcm0JeHsbao54ansivDQcOHDhw7DnaUlpesJuFw3zldmBiNnKHAwcOHDhijj+nWoXIirlzPgAAAABJRU5ErkJggg=='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/&title=Flask项目之个性化微电影网站的实战开发（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶叙述
+二丶Windows环境搭建
+三丶项目分析丶搭建目录以及模型设计
+四丶搭建前台页面"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/11/Flask项目之个性化微电影网站的实战开发（二）/" rel="prev" title="Flask项目之个性化微电影网站的实战开发（二）">
+                                
+                                    Flask项目之个性化微电影网站的实战开发（二）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Python-Web开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Web开发</a> <a class="tag" href="/tags/Flask/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask</a> <a class="tag" href="/tags/Flask网站实战/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flask网站实战</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/" rel="prev" title="Django项目之Web端电商网站的实战开发（完结）">
+                                  
+                                      Django项目之Web端电商网站的实战开发（完结）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Django/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django</a> <a class="tag" href="/tags/Django网站实战/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django网站实战</a> <a class="tag" href="/tags/Python-Web开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Web开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Flask项目之个性化微电影网站的实战开发（一）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶叙述"><span class="toc-text">一丶叙述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶Windows环境搭建"><span class="toc-text">二丶Windows环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶项目分析丶搭建目录以及模型设计"><span class="toc-text">三丶项目分析丶搭建目录以及模型设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶搭建前台页面"><span class="toc-text">四丶搭建前台页面</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

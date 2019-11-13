@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Django项目于之在线教育平台网站的实战开发（二） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django项目于之在线教育平台网站的实战开发（二）' href='/2019/11/12/Django项目于之在线教育平台网站的实战开发（二）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/12/Django项目于之在线教育平台网站的实战开发（二）/">
+        Django项目于之在线教育平台网站的实战开发（二）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-12</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶用户登录注册功能实现"><span style="color:#4ea1db">一丶用户登录注册功能实现</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶找回密码（忘记密码）"><span style="color:#4ea1db">二丶找回密码（忘记密码）</span></a></li>
+<a id="more"></a>
+
+<h1 id="一丶用户登录注册功能实现"><a href="#一丶用户登录注册功能实现" class="headerlink" title="一丶用户登录注册功能实现"></a>一丶用户登录注册功能实现</h1><p><strong>1.</strong>渲染网站主页面</p>
+<ul>
+<li>在项目根目录下创建static目录，将资源文件拷贝到目录中</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190505152512493.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>将static/html目录中的主页模板index.html文件拷贝到templates模板目录中，并修改代码中引入的静态资源路径，例如下</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190505153206677.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>在settings目录中添加static静态资源目录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS = [os.path.join(BASE_DIR, <span class="string">'static'</span>)]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根级urls中定义主页路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^$'</span>, TemplateView.as_view(template_name=<span class="string">"index.html"</span>), name=<span class="string">"index"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动项目，在浏览器输入<a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a> 则渲染出网站主页</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505153526584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.</strong>渲染登录页以及注册页</p>
+<ul>
+<li>跟主页一样首先拷贝login.html和register.html模板文件到templates目录中，修改静态资源路径（不演示），在根级urls中配置登录页和注册页的路由规则</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># url(r'^admin/', admin.site.urls),</span></span><br><span class="line">    url(<span class="string">r'^xadmin/'</span>, xadmin.site.urls),</span><br><span class="line">    url(<span class="string">r'^$'</span>, TemplateView.as_view(template_name=<span class="string">"index.html"</span>), name=<span class="string">"index"</span>),</span><br><span class="line">    url(<span class="string">r'^login/$'</span>, TemplateView.as_view(template_name=<span class="string">"login.html"</span>), name=<span class="string">"login"</span>),</span><br><span class="line">    url(<span class="string">r'^register/$'</span>, TemplateView.as_view(template_name=<span class="string">"register.html"</span>), name=<span class="string">"register"</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在主页丶登录页以及注册页中将所有涉及到的注册登录链接地址修改如下</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"color:white"</span> <span class="attr">class</span>=<span class="string">"fr registerbtn"</span> <span class="attr">href</span>=<span class="string">"/register/"</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"color:white"</span> <span class="attr">class</span>=<span class="string">"fr loginbtn"</span> <span class="attr">href</span>=<span class="string">"/login/"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试注册登录页面间跳转与显示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505171703848.gif" alt></fancybox></p>
+<p><strong>3.</strong>实现登录功能</p>
+<ul>
+<li>在users/views中定义登录视图函数，视图函数逻辑为首先根据用户请求方式进行不同的逻辑处理，登录逻辑代码简单，需要注意的是，用户进行登录时需要提交表单post请求，获取请求携带参数username和password，django提供了authenticate方法，向数据库对应表发起验证，判断用户填写的用户名和密码是否正确，正确返回对象，不正确返回None；同时提供了login方法，该方法才是完成正常的登录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth <span class="keyword">import</span> authenticate, login</span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user_login</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">"GET"</span>:</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">"POST"</span>:</span><br><span class="line">        user_name = request.POST.get(<span class="string">"username"</span>, <span class="string">""</span>)</span><br><span class="line">        pass_word = request.POST.get(<span class="string">"password"</span>, <span class="string">""</span>)</span><br><span class="line">        user = authenticate(username=user_name, password=pass_word)</span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            login(request, user)</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"index.html"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对应的login.html登录模板中修改form表单请求地址，以及请求方式并且定义csrf</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/login/"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根级urls中，当比配login/ 路由时需要去调用定义的user_login视图函数，而不是渲染模板文件，所以需要进行如下修改</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^login/$'</span>, user_login, name=<span class="string">"login"</span>),</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当登录成功后，即在index主页面不应该显示登录与注册按钮，而是显示出登录成功后的用户信息，所以在主页模板文件中需要进行如下判断，这里需要使用django默认传递的request参数到模板中去掉用user对象中的is_authenticated方法判断用户是否登录成功，说明一点这里还未替换登录成功后显示的用户信息，只是作于判断显示用户信息模块还是登录注册模块</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if request.user.is_authenticated %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"personal"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dl</span> <span class="attr">class</span>=<span class="string">"user fr"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span>bobby<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"down fr"</span> <span class="attr">src</span>=<span class="string">"&#123;% static 'images/top_down.png' %&#125;"</span>/&gt;</span><span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">width</span>=<span class="string">"20"</span> <span class="attr">height</span>=<span class="string">"20"</span> <span class="attr">src</span>=<span class="string">"&#123;% static 'media/image/2016/12/default_big_14.png' %&#125;"</span>/&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"userdetail"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dt</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">width</span>=<span class="string">"80"</span> <span class="attr">height</span>=<span class="string">"80"</span> <span class="attr">src</span>=<span class="string">"&#123;% static 'media/image/2016/12/default_big_14.png' %&#125;"</span>/&gt;</span><span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dd</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">h2</span>&gt;</span>django<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>bobby<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"btn"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"personcenter fl"</span> <span class="attr">href</span>=<span class="string">"usercenter-info.html"</span>&gt;</span>进入个人中心<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"fr"</span> <span class="attr">href</span>=<span class="string">"/logout/"</span>&gt;</span>退出<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% else %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"color:white"</span> <span class="attr">class</span>=<span class="string">"fr registerbtn"</span> <span class="attr">href</span>=<span class="string">"/register/"</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"color:white"</span> <span class="attr">class</span>=<span class="string">"fr loginbtn"</span> <span class="attr">href</span>=<span class="string">"/login/"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试用户登录功能（账号密码为超级管理员），登录成功则跳转到主页并且在主页上不显示登录和注册功能而显示用户信息模块；登录不成功则跳转到登录页</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505180517262.gif" alt></fancybox></p>
+<p><strong>4.</strong>增加邮箱登录 </p>
+<ul>
+<li><font style="color:red">django 提供的authenticate方法只是针对用使用用户名进行登录，当使用邮箱进行登录时，则会出现异常，博主使用Debug模式启动项目，在视图函数中打断点，然后在登录页面输入邮箱和密码后点击登录，则debug显示authenticate方法返回的user的值为None</font></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505181636864.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>要想使用邮箱进行登录，则需要自定义<font style="color:red">authenticate方法</font>即可，首先在settings中设置AUTHENTICATION_BACKENDS为我们自定义的类，而这个类需要继承django.contrib.auth.backends中的ModelBackend类才能去重写父类的authenticate方法，具体实现如下</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomBackend</span><span class="params">(ModelBackend)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request, username=None, password=None, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 使用get查询唯一条件，使用django模型中提供的的Q类对查询条件or查询，通俗来说就是满足username或者email其中一个即可</span></span><br><span class="line">            user = UserProfile.objects.get(Q(username=username) | Q(email=username))</span><br><span class="line">            <span class="keyword">if</span> user.check_password(password):</span><br><span class="line">                <span class="keyword">return</span> user</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在users/views中定义CustomBackend类后，还需要在settings配置AUTHENTICATION_BACKENDS</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AUTHENTICATION_BACKENDS = (</span><br><span class="line">    <span class="string">'users.views.CustomBackend'</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug测试使用邮箱登录成功调用重写的<font style="color:red">authenticate方法</font>，并返回user对象</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505184438767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>当user为None表示用户名或者密码错误，即需要在页面上提示用户错误信息，所以在视图函中返回登录页面时，需要向模板中传递错误信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> user <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    login(request, user)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">"index.html"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>, &#123;<span class="string">"err_msg"</span>:<span class="string">"用户名或密码错误"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>紧接着在登录模板文件中打印出此错误信息</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"error btns login-form-tips"</span> <span class="attr">id</span>=<span class="string">"jsLoginTips"</span>&gt;</span>&#123;&#123; err_msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试邮箱登录以及错误提示显示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019050518554316.gif" alt></fancybox></p>
+<p><strong>5.</strong>使用类视图来区分用户请求（跟前面Djnago 电商项目一样）</p>
+<ul>
+<li>定义类视图并且继承与View类，在类中编写对应的请求方式函数即可</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""登录"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        user_name = request.POST.get(<span class="string">"username"</span>, <span class="string">""</span>)</span><br><span class="line">        pass_word = request.POST.get(<span class="string">"password"</span>, <span class="string">""</span>)</span><br><span class="line">        user = authenticate(username=user_name, password=pass_word)</span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            login(request, user)</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"index.html"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>, &#123;<span class="string">"err_msg"</span>: <span class="string">"用户名或密码错误"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根级urls中需进行如下修改，需导入定义的类视图，并在路由中调用该类的as_views方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^login/$'</span>, LoginView.as_view(), name=<span class="string">"login"</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>6.</strong>在后端中进行登录表单信息验证</p>
+<p><strong>说明</strong>：在用户登录时，为了减少数据库查询操作，那么一个网站会在前端使用js对用户输入的信息进行判断（比如密码长度，是否为空等等）；不管前端有没有进行校验判断，后端也必须进行校验判断</p>
+<ul>
+<li>在users应用下创建forms.py文件，用于校验用户输入的用户名密码是否合法，在文件中进行如下编写</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginFrom</span><span class="params">(forms.Form)</span>:</span></span><br><span class="line">    <span class="string">"""登录表单验证"""</span></span><br><span class="line">    <span class="comment"># username和password变量名要与模板中表单字段名一致</span></span><br><span class="line">    username = forms.CharField(required=<span class="literal">True</span>)</span><br><span class="line">    password = forms.CharField(required=<span class="literal">True</span>, min_length=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在登录类视图post方法中需要判断登录表单信息验证是否正确，当不正确存在错误时则将表单对象传递到登录模板中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">    login_form = LoginFrom(request.POST)  <span class="comment"># 需传递的是字典对象</span></span><br><span class="line">    <span class="keyword">if</span> login_form.is_valid():</span><br><span class="line">        user_name = request.POST.get(<span class="string">"username"</span>, <span class="string">""</span>)</span><br><span class="line">        pass_word = request.POST.get(<span class="string">"password"</span>, <span class="string">""</span>)</span><br><span class="line">        user = authenticate(username=user_name, password=pass_word)</span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            login(request, user)</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"index.html"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>, &#123;<span class="string">"err_msg"</span>: <span class="string">"用户名或密码错误"</span>&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>, &#123;<span class="string">"login_form"</span>: login_form&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不合法登录验证测试（输入密码小于5个字符）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505211346474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>不合法登录验证测试（密码为空）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505211526235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>7.</strong>将表单验证错误信息显示在登录页面中</p>
+<ul>
+<li>在login.html模板中需要进行判断，如果后端传递过来的login_form对象中的errors存在username字段则在用户名所在的标签中添加errorput样式，password所在标签也是同样的</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb20 &#123;% if login_form.errors.username %&#125;errorput&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>用&amp;nbsp;户&amp;nbsp;名<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">id</span>=<span class="string">"account_l"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">"手机号/邮箱"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb8 &#123;% if login_form.errors.password %&#125;errorput&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>密&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"password_l"</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">placeholder</span>=<span class="string">"请输入您的密码"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>显示错误信息，需要循环遍历并且打印显示错误的字段对应错误提示，最初后面打印的error_msg信息与表单验证错误信息是不共存情况，所以写在一起无所谓</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"error btns login-form-tips"</span> <span class="attr">id</span>=<span class="string">"jsLoginTips"</span>&gt;</span>&#123;% for key,error in login_form.errors.items %&#125;&#123;&#123; error &#125;&#125;&#123;% endfor %&#125;&#123;&#123; err_msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>错误信息登录测试</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505214353967.gif" alt></fancybox></p>
+<p><font style="color:red"><strong>8.</strong>Django 如何通过cookie和session来实现用户自动登录</font></p>
+<ul>
+<li>用户第一次登录成功时在cookies中并没有携带名为sessionid的cookie，那么服务器就会根据登录成功的用户名和密码随机生成一段随机字符串，这段字符串是具有过期时间的，然后将这端字符串sessionid返回给浏览器并存在cookies中；当用户下一次请求时就会携带cookies中保存的sessionid给服务器，服务器根据浏览器发送的sessionid，在数据库django_session表中去进行查询，查询到sessionid对应的数据则自动登录，那么在登录成功后，是怎么将sessionid保存到数据库的呢？在LoginView类视图post请求方法中，login(request, user)这行代码中使用django提供的login方法会将用户登录成功的信息数据生成对应的sessionid保存到数据库表django_session的session_key中，当用户登录成功后，会去查询此sessionid取出用户信息的；如何将sessionid的值转换为用户信息取决于视图中的request，而request可以直接去调用user对象是因为settings中配置的’django.contrib.sessions’的app，查看用户登录成功后，访问主页index页面请求的cookies数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190505233909297.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>查看数据库django_sessions表数据，从中可以发现session_key的值与cookies中sessionid的值一致</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190505234008715.png" alt></p>
+<p><strong>9.</strong>实现注册功能</p>
+<ul>
+<li>在前面已经渲染出了注册页面，但这里需要通过类视图中的get方法来对注册模板进行渲染，所以首先需要定义类视图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RegisterView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""注册"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"register.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改根基urls中的注册路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^register/$'</span>, RegisterView.as_view(), name=<span class="string">"register"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在index丶login以及register模板文件中将所有涉及到注册登录链接地址地方进行如下修改</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"color:white"</span> <span class="attr">class</span>=<span class="string">"fr registerbtn"</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'register' %&#125;"</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"color:white"</span> <span class="attr">class</span>=<span class="string">"fr loginbtn"</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'login' %&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在浏览器中输入<a href="http://127.0.0.1:8000/register" target="_blank" rel="noopener">http://127.0.0.1:8000/register</a> 成功渲染出注册页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019050600354441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在注册页面设计到验证码，所以需要安装django 第三方工具包captcha</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506003925520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>安装captcha完成后，紧接需要将captcha注册到app中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">"users"</span>,</span><br><span class="line">    <span class="string">"courses"</span>,</span><br><span class="line">    <span class="string">"organization"</span>,</span><br><span class="line">    <span class="string">"operation"</span>,</span><br><span class="line">    <span class="string">"xadmin"</span>,</span><br><span class="line">    <span class="string">"crispy_forms"</span>,</span><br><span class="line">    <span class="string">"captcha"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根级urls中将captcha.urls包含进来</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'captcha/'</span>,include(<span class="string">'captcha.urls'</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>生成captcha迁移文件并执行迁移，在数据库中生成对应的数据表</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190506005116423.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>查看生成的captcha数据表</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019050600522267.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>如何在注册页面中显示captcha包生成的验证码，首先在users/forms模块中定义注册表单验证，在表单验证码字段中需要从captcha.fields中去导入CaptchaField类来进行验证，验证码错误提示为英文的invalid，所以需要进行转换为中文提示信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RegisterForm</span><span class="params">(forms.Form)</span>:</span></span><br><span class="line">    <span class="string">'''注册表单验证'''</span></span><br><span class="line">    email = forms.EmailField(required=<span class="literal">True</span>)</span><br><span class="line">    password = forms.CharField(required=<span class="literal">True</span>, min_length=<span class="number">5</span>)</span><br><span class="line">    captcha = CaptchaField(error_messages=&#123;<span class="string">'invalid'</span>: <span class="string">'验证码错误'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在类视图get方法中需要创建注册表单验证实例化对象</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RegisterView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""注册"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        register_form = RegisterForm()</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"register.html"</span>, &#123;<span class="string">'register_form'</span>:register_form&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在注册模板文件form表单中验证码标签下需要打印出后端传递的register_form对象的的captcha方法来显示出验证码图片</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"email_register_form"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"&#123;% url 'register' %&#125;"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb20 "</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>邮&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;箱<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span>  <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"id_email"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">placeholder</span>=<span class="string">"请输入您的邮箱地址"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb8 "</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>密&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"id_password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">placeholder</span>=<span class="string">"请输入6-20位非中文字符密码"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb8 captcha1 "</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>验&amp;nbsp;证&amp;nbsp;码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        &#123;&#123; register_form.captcha &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"error btns"</span> <span class="attr">id</span>=<span class="string">"jsEmailTips"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"auto-box marb8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"btn btn-green"</span> <span class="attr">id</span>=<span class="string">"jsEmailRegBtn"</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"注册并登录"</span> /&gt;</span></span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试注册页面验证码显示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506011837416.gif" alt></fancybox></p>
+<ul>
+<li>查看数据表captcha_captchastore生成的验证码数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506012037692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在类视图RegisterView中定义post方法，进行注册表单的验证</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">    register_form = RegisterForm(request.POST)</span><br><span class="line">    <span class="keyword">if</span> register_form.is_valid():</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不合法注册验证（密码小于5）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506014012374.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>不合法注册验证（邮箱密码为空）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506014548942.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>不合法注册验证（验证码错误）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506015459844.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>定义类视图post方法，将用户注册填写的用户名（邮箱）密码保存到数据库中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">    register_form = RegisterForm(request.POST)</span><br><span class="line">    <span class="keyword">if</span> register_form.is_valid():</span><br><span class="line">        user_name = request.POST.get(<span class="string">"email"</span>, <span class="string">""</span>)</span><br><span class="line">        pass_word = request.POST.get(<span class="string">"password"</span>, <span class="string">""</span>)</span><br><span class="line">        user_profile = UserProfile()</span><br><span class="line">        user_profile.username = user_name  <span class="comment"># 用户名</span></span><br><span class="line">        user_profile.email = user_name  <span class="comment"># 邮箱</span></span><br><span class="line">        user_profile.password = make_password(pass_word)  <span class="comment"># 密码</span></span><br><span class="line">        user_profile.save()</span><br></pre></td></tr></table></figure>
+
+<p><strong>10.</strong>发送用户注册激活邮件</p>
+<ul>
+<li>因为使用邮箱注册成功时需要向该邮箱发送激活邮件，对注册用户进行激活处理，所以在项目中需要定义发送邮件工具，即在apps目录下创建utils工具包，在工具包下创建email_send模块，在模块中进行发送邮件代码逻辑处理</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_str</span><span class="params">(randomlength=<span class="number">8</span>)</span>:</span></span><br><span class="line">    <span class="string">"""生成随机字符串"""</span></span><br><span class="line">    str = <span class="string">''</span></span><br><span class="line">    chars = <span class="string">'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'</span></span><br><span class="line">    length = len(chars) - <span class="number">1</span></span><br><span class="line">    random = Random()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(randomlength):</span><br><span class="line">        str+=chars[random.randint(<span class="number">0</span>, length)]</span><br><span class="line">    <span class="keyword">return</span> str</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_register_email</span><span class="params">(email, send_type=<span class="string">"register"</span>)</span>:</span></span><br><span class="line">    <span class="string">"""发送邮件"""</span></span><br><span class="line">    <span class="comment"># 将要发送的随机字符串和邮箱地址以及验证码类型先保存到数据库中</span></span><br><span class="line">    email_record = EmailVerifyRecord()</span><br><span class="line">    code = random_str(<span class="number">16</span>)</span><br><span class="line">    email_record.code = code</span><br><span class="line">    email_record.email = email</span><br><span class="line">    email_record.send_type = send_type</span><br><span class="line">    email_record.save()</span><br><span class="line">    <span class="comment"># 定义发送邮件的标题和内容，根据验证码类型send_type对应发送不同的内容</span></span><br><span class="line">    email_title = <span class="string">""</span></span><br><span class="line">    email_body = <span class="string">""</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> send_type == <span class="string">"register"</span>:</span><br><span class="line">        email_title = <span class="string">"慕学在线网注册激活链接"</span></span><br><span class="line">        email_body = <span class="string">"请点击下面的链接激活你的账号: http://127.0.0.1:8000/active/&#123;0&#125;"</span>.format(code)</span><br><span class="line"> </span><br><span class="line">        send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])</span><br><span class="line">        <span class="keyword">if</span> send_status:</span><br><span class="line">            <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>博主在之前的Django电商项目中注册功能实现邮件激活是通过QQ邮箱进行演示的，而这里博主打算新建个新浪邮箱来进行本项目中账户邮件激活演示，首先进入新浪邮箱开启POP3/SMTP服务如下图配置即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506142606388.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>完成上一步后，需要在settings中配置邮件信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">EMAIL_HOST = <span class="string">"smtp.sina.com"</span></span><br><span class="line">EMAIL_PORT = <span class="number">25</span></span><br><span class="line">EMAIL_HOST_USER = <span class="string">"cdtaogang@sina.com"</span></span><br><span class="line">EMAIL_HOST_PASSWORD = <span class="string">"xxxxx"</span></span><br><span class="line">EMAIL_USE_TLS= <span class="literal">False</span></span><br><span class="line">EMAIL_FROM = <span class="string">"cdtaogang@sina.com"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>回到注册类视图post方法中，调用定义的邮件发送工具包中的send_register_email方法，进行发送注册账号激活邮件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送激活邮件</span></span><br><span class="line">send_register_email(user_name, <span class="string">"register"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug运行项目打断点测试邮件发送是否成功，Debug到post函数中发送调用send_register_email方法时并没有出错</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506145018477.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>继续Debug查看工具包中的send_register_email方法中调用send_email方法，返回为1表示发送成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506145408237.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>此时查看邮箱已收到邮件，整个注册发送激活邮件逻辑正确</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506145542978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>查看数据库userprofile表信息，注册用户成功；因为UserProfile模型类继承的是django user用户类，所以默认is_active为激活状态，正常来说为0未激活，在后面代码逻辑中会进行设置的</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190506150825880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>当注册成功后则跳转到登录页，失败则跳转到注册页</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">    register_form = RegisterForm(request.POST)</span><br><span class="line">    <span class="keyword">if</span> register_form.is_valid():</span><br><span class="line">        user_name = request.POST.get(<span class="string">"email"</span>, <span class="string">""</span>)</span><br><span class="line">        pass_word = request.POST.get(<span class="string">"password"</span>, <span class="string">""</span>)</span><br><span class="line">        user_profile = UserProfile()</span><br><span class="line">        user_profile.username = user_name  <span class="comment"># 用户名</span></span><br><span class="line">        user_profile.email = user_name  <span class="comment"># 邮箱</span></span><br><span class="line">        user_profile.password = make_password(pass_word)  <span class="comment"># 密码</span></span><br><span class="line">        user_profile.save()</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 发送激活邮件</span></span><br><span class="line">        send_register_email(user_name, <span class="string">"register"</span>)</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"register.html"</span>,&#123;<span class="string">"register_form"</span>: register_form&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>11.</strong>将注册表单错误信息显示在页面中</p>
+<ul>
+<li>跟登录功能一样，在注册模板中当存在不合法表单提交时打印出对应的错误提示，并对其input框添加红框样式显示；这里给邮箱框和密码框设定了value值为当用户输入不合法时，则在输入框中显示上一次的输入</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"email_register_form"</span> <span class="attr">novalidate</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"&#123;% url 'register' %&#125;"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb20 &#123;% if register_form.errors.email %&#125;errorput&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>邮&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;箱<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span>  <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"id_email"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123; register_form.email.value &#125;&#125;"</span> <span class="attr">placeholder</span>=<span class="string">"请输入您的邮箱地址"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb8 &#123;% if register_form.errors.password %&#125;errorput&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>密&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"id_password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123; register_form.password.value &#125;&#125;"</span> <span class="attr">placeholder</span>=<span class="string">"请输入5-20位非中文字符密码"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb8 captcha1 &#123;% if register_form.errors.captcha %&#125;errorput&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>验&amp;nbsp;证&amp;nbsp;码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        &#123;&#123; register_form.captcha &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"error btns"</span> <span class="attr">id</span>=<span class="string">"jsEmailTips"</span>&gt;</span>&#123;% for key,error in register_form.errors.items %&#125;&#123;&#123; error &#125;&#125;&#123;% endfor %&#125;&#123;&#123; err_msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"auto-box marb8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"btn btn-green"</span> <span class="attr">id</span>=<span class="string">"jsEmailRegBtn"</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"注册并登录"</span> /&gt;</span></span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注册功能提交错误表达测试</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506152653449.gif" alt></fancybox></p>
+<p><strong>12.</strong>定义账户激活类视图，完成账户的激活</p>
+<ul>
+<li>在注册类视图post方法中需要设置用户的激活状态为False，表示未激活</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_profile.is_active = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在users/views中定义账户激活类视图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AciveUserView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""账户激活"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, active_code)</span>:</span></span><br><span class="line">        <span class="comment"># 根据邮件中的链接地址获取地址中的随机字符串到数据库emailverifyrecord表中获取此数据</span></span><br><span class="line">        all_records = EmailVerifyRecord.objects.filter(code=active_code)</span><br><span class="line">        <span class="comment"># 如果查询到数据则进行遍历获取record对象中的email，再根据email到用户信息表中查询user对象，设置此对象的is_active字段为True(激活)</span></span><br><span class="line">        <span class="comment"># 最后返回到登录页面</span></span><br><span class="line">        <span class="keyword">if</span> all_records:</span><br><span class="line">            <span class="keyword">for</span> record <span class="keyword">in</span> all_records:</span><br><span class="line">                email = record.email</span><br><span class="line">                user = UserProfile.objects.get(email=email)</span><br><span class="line">                user.is_active = <span class="literal">True</span></span><br><span class="line">                user.save()</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根级urls中定义账户激活的路由，（）进行获取正则匹配到的参数保存到active_code中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^active/(?P&lt;active_code&gt;.*)/$'</span>,AciveUserView.as_view(), name=<span class="string">"user_active"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在登录类视图post方法中则需要判断当前用户的is_active字段的值是否为True</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">    login_form = LoginFrom(request.POST)  <span class="comment"># 需传递的是字典对象</span></span><br><span class="line">    <span class="keyword">if</span> login_form.is_valid():</span><br><span class="line">        user_name = request.POST.get(<span class="string">"username"</span>, <span class="string">""</span>)</span><br><span class="line">        pass_word = request.POST.get(<span class="string">"password"</span>, <span class="string">""</span>)</span><br><span class="line">        user = authenticate(username=user_name, password=pass_word)</span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> user.is_active:</span><br><span class="line">                login(request, user)</span><br><span class="line">                <span class="keyword">return</span> render(request, <span class="string">"index.html"</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>, &#123;<span class="string">"err_msg"</span>: <span class="string">"用户未激活"</span>&#125;)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>, &#123;<span class="string">"err_msg"</span>: <span class="string">"用户名或密码错误"</span>&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>, &#123;<span class="string">"login_form"</span>: login_form&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除userprofile用户表和emailverifyrecord邮箱验证表<a href="mailto:cdtaogang@sina.com" target="_blank" rel="noopener">cdtaogang@sina.com</a>账户信息（因为之前还未设置用户注册时is_active字段为False），重新进行注册登录验证</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190506164013119.png" alt></p>
+<ul>
+<li>还是使用之前的新浪邮箱进行注册，注册成功后查看数据表userprofile信息中is_active字段显示为0</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190506165738982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>登录以上注册账户进行测试，则提示账户未激活</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506164917636.gif" alt></fancybox></p>
+<ul>
+<li>查看邮件中激活邮件，访问激活链接地址，调用激活类视图，对此注册用户进行激活，最后跳转到登录页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506170018261.gif" alt></fancybox></p>
+<ul>
+<li>查看数据表userprofile信息</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190506165819577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<p><strong>13.</strong>完善注册功能</p>
+<ul>
+<li>一个邮箱只能允许被注册一次，即在注册类视图post方法中需要将用户填写的邮箱拿到后台数据库中进行查询，如果查询到说明此邮箱已经被注册过了，那么就返回错误信息提示，并返回注册页面，需要注意的是注册模板中需要register_form值，所以需要进行传递，不传递则，不会提示错误信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 判断邮箱是否已经注册过</span></span><br><span class="line"><span class="keyword">if</span> UserProfile.objects.filter(email=user_name):</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">"register.html"</span>, &#123;<span class="string">"register_form"</span>: register_form, <span class="string">"err_msg"</span>: <span class="string">"此邮箱已被注册过"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试使用已经注册成功的邮箱进行二次注册</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506172727459.gif" alt></fancybox></p>
+<ul>
+<li>在激活链接视图中当激活链接中的active_code不存在时，则返回错误页面信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AciveUserView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""账户激活"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, active_code)</span>:</span></span><br><span class="line">        <span class="comment"># 根据邮件中的链接地址获取地址中的随机字符串到数据库emailverifyrecord表中获取此数据</span></span><br><span class="line">        all_records = EmailVerifyRecord.objects.filter(code=active_code)</span><br><span class="line">        <span class="comment"># 如果查询到数据则进行遍历获取record对象中的email，再根据email到用户信息表中查询user对象，设置此对象的is_active字段为True(激活)</span></span><br><span class="line">        <span class="comment"># 最后返回到登录页面</span></span><br><span class="line">        <span class="keyword">if</span> all_records:</span><br><span class="line">            <span class="keyword">for</span> record <span class="keyword">in</span> all_records:</span><br><span class="line">                email = record.email</span><br><span class="line">                user = UserProfile.objects.get(email=email)</span><br><span class="line">                user.is_active = <span class="literal">True</span></span><br><span class="line">                user.save()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"active_fail.html"</span>)</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在templates目录下创建active_fail模板文件，在该文件中可自定义页面数据，主要是为了提示用户链接地址错误不存在之类的</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"txtbox"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>对不起，您请求的页面不存在、或已被删除、或暂时不可用<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"paddingbox"</span>&gt;</span>请点击以下链接继续浏览网页<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"cursor:pointer"</span> ο<span class="attr">nclick</span>=<span class="string">"history.back()"</span>&gt;</span>返回上一页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'index' %&#125;"</span>&gt;</span>返回网站首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试访问错误的激活链接地址（为了方便演示，换了火狐浏览器）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506174625598.gif" alt></fancybox></p>
+<h1 id="二丶找回密码（忘记密码）"><a href="#二丶找回密码（忘记密码）" class="headerlink" title="二丶找回密码（忘记密码）"></a>二丶找回密码（忘记密码）</h1><p><strong>1.</strong>显示忘记密码页面</p>
+<ul>
+<li>定义忘记密码类视图get函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ForgetPwdView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""找回密码"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"forgetpwd.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根级urls中配置路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^forget/$'</span>, ForgetPwdView.as_view(), name=<span class="string">"forget_pwd"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将static目录下的forgetpwd.html模板文件拷贝到templates目录下，然后在login模板文件中修改忘记密码链接地址</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"fr"</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'forget_pwd' %&#125;"</span>&gt;</span>忘记密码？<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试显示忘记密码页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506182636982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>修改forgetpwd模板文件中的静态资源链接地址，再次刷新页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506183224728.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.</strong>在忘记密码页面显示验证码图片</p>
+<ul>
+<li>定义忘记密码form表单验证（跟注册表单验证逻辑一样）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ForgetForm</span><span class="params">(forms.Form)</span>:</span></span><br><span class="line">    <span class="string">"""忘记密码表单验证"""</span></span><br><span class="line">    email = forms.EmailField(required=<span class="literal">True</span>)</span><br><span class="line">    captcha = CaptchaField(error_messages=&#123;<span class="string">'invalid'</span>: <span class="string">'验证码错误'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在类视图get方法中需要传递表单验证实例化对象到模板中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request)</span>:</span></span><br><span class="line">    forget_form = ForgetForm()</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">"forgetpwd.html"</span>, &#123;<span class="string">"forget_form"</span>: forget_form&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在forgetpwd模板中，打印验证码图片</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group captcha1 marb38"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>验&amp;nbsp;证&amp;nbsp;码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    &#123;&#123; forget_form.captcha &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>刷新页面，则成功显示出图片验证码</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506184403986.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>3.</strong>发送重置密码邮件</p>
+<ul>
+<li>在类视图中定义post方法，实现重置密码（代码逻辑与注册一样）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">    forget_form = ForgetForm(request.POST)</span><br><span class="line">    <span class="keyword">if</span> forget_form.is_valid():</span><br><span class="line">        email = request.POST.get(<span class="string">"email"</span>, <span class="string">""</span>)</span><br><span class="line">        send_register_email(email, <span class="string">"forget"</span>)</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"send_success.html"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"forgetpwd.html"</span>, &#123;<span class="string">"forget_form"</span>: forget_form&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在forgetpwd模板文件中首先定义表单的请求方式以及地址，然后打印显示错误提示信息和显示错误红框以及在输入框中显示错误输入的邮箱地址（和register模板一样）</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"jsFindPwdForm"</span> <span class="attr">novalidate</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"&#123;% url 'forget_pwd' %&#125;"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group marb20 &#123;% if register_form.errors.email %&#125;errorput&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>帐&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;号<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"account"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123; register_form.email.value &#125;&#125;"</span> <span class="attr">placeholder</span>=<span class="string">"邮箱"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group captcha1 marb38 &#123;% if register_form.errors.captcha %&#125;errorput&#123;% endif %&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>验&amp;nbsp;证&amp;nbsp;码<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        &#123;&#123; forget_form.captcha &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"error btns"</span> <span class="attr">id</span>=<span class="string">"jsForgetTips"</span>&gt;</span>&#123;% for key,error in forget_form.errors.items %&#125;&#123;&#123; error &#125;&#125;&#123;% endfor %&#125;&#123;&#123; err_msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sms_type"</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"btn btn-green"</span> <span class="attr">id</span>=<span class="string">"jsFindPwdBtn"</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"form-p"</span> <span class="attr">style</span>=<span class="string">"bottom:40px;"</span>&gt;</span>您还可以<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"login.html"</span>&gt;</span> [直接登录]<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在email_send模块send_register_email方法中需要定义发送重置密码的链接地址</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> send_type == <span class="string">"forget"</span>:</span><br><span class="line">    email_title = <span class="string">"慕学在线网注册密码重置链接"</span></span><br><span class="line">    email_body = <span class="string">"请点击下面的链接重置密码: http://127.0.0.1:8000/reset/&#123;0&#125;"</span>.format(code)</span><br><span class="line"> </span><br><span class="line">    send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])</span><br><span class="line">    <span class="keyword">if</span> send_status:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>邮件发送成功后则需要提示用户发送成功，所以需要在templates目录下创建视图方法中返回的send_success模板文件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"font-size: 25px;font-style:inherit;color: #3f4724"</span>&gt;</span>邮件发送成功，请查收<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"text-decoration: none"</span> <span class="attr">href</span>=<span class="string">"https://mail.sina.com.cn/"</span>&gt;</span>登录我的邮箱<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug测试忘记密码发送邮件成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506201446298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>同时Debug测试完成后，则在页面上渲染出send_success模板</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190506201655943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>点击登录我的邮箱，查看邮件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506201750514.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>4.</strong>访问重置密码链接地址跳转到密码重置页面</p>
+<ul>
+<li>首先定义重置密码类视图get方法（与注册账户激活逻辑大同小异），获取到用户邮箱后，则跳转到密码重置的页面（password_rest.html）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResetView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""重置密码"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, active_code)</span>:</span></span><br><span class="line">        <span class="comment"># 根据邮件中的链接地址获取地址中的随机字符串到数据库emailverifyrecord表中获取此数据</span></span><br><span class="line">        all_records = EmailVerifyRecord.objects.filter(code=active_code)</span><br><span class="line">        <span class="comment"># 如果查询到数据则进行遍历获取record对象中的email，返回密码重置页面，并将email传递给模板</span></span><br><span class="line">        <span class="comment"># 最后返回到登录页面</span></span><br><span class="line">        <span class="keyword">if</span> all_records:</span><br><span class="line">            <span class="keyword">for</span> record <span class="keyword">in</span> all_records:</span><br><span class="line">                email = record.email</span><br><span class="line">                <span class="keyword">return</span> render(request, <span class="string">"password_reset.html"</span>, &#123;<span class="string">"email"</span>:email&#125;)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"active_fail.html"</span>)</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将static目录下的password_rest.html模板拷贝到templates目录下，修改模板资源路径这个就不再说了，之前已经演示过了，只需要将类视图传递过来的email，隐藏打印在input标签中</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"reset_password_form"</span> <span class="attr">action</span>=<span class="string">""</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">""</span>&gt;</span>新 密 码 ：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password1"</span> <span class="attr">id</span>=<span class="string">"pwd"</span> <span class="attr">placeholder</span>=<span class="string">"5-20位非中文字符"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123; email &#125;&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">""</span>&gt;</span>确定密码：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password2"</span> <span class="attr">id</span>=<span class="string">"repwd"</span> <span class="attr">placeholder</span>=<span class="string">"5-20位非中文字符"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug断点测试访问重置密码链接地址<a href="http://127.0.0.1:8000/reset/iY9fgEJkd4bVJXSL" target="_blank" rel="noopener">http://127.0.0.1:8000/reset/iY9fgEJkd4bVJXSL</a>是否跳转到密码重置页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506210337150.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>Debug断点测试完成后，页面成功跳转至密码修改页面（password_rest.html）</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506210545424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>5.</strong>密码修改功能实现</p>
+<ul>
+<li>因为密码修改页面，也是form表单提交，所以需要在forms中定义修改密码表单验证（需要注意的是忘记密码是一个表单，同样修改密码也是一个表单，两个表单都是单独页面）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ModifyPwdForm</span><span class="params">(forms.Form)</span>:</span></span><br><span class="line">    <span class="string">"""修改密码表单验证"""</span></span><br><span class="line">    password1 = forms.CharField(required=<span class="literal">True</span>, min_length=<span class="number">5</span>)</span><br><span class="line">    password2 = forms.CharField(required=<span class="literal">True</span>, min_length=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义修改密码类视图post方法，完成密码修改功能逻辑，需要注意的是为什么不在重置密码类视图ResetView下直接定义post方法，因为该类视图的路由规则中需要传递active_code，所以这里需要另外定义类视图来完成修改密码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ModifyPwdView</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="string">"""修改密码"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        modify_form = ModifyPwdForm(request.POST)</span><br><span class="line">        <span class="keyword">if</span> modify_form.is_valid():</span><br><span class="line">            pwd1 = request.POST.get(<span class="string">"password1"</span>, <span class="string">""</span>)</span><br><span class="line">            pwd2 = request.POST.get(<span class="string">"password2"</span>, <span class="string">""</span>)</span><br><span class="line">            <span class="comment"># 该email为模板中隐藏的input标签</span></span><br><span class="line">            email = request.POST.get(<span class="string">"email"</span>, <span class="string">""</span>)</span><br><span class="line">            <span class="comment"># 当用户两次密码不一致则提示错误信息到页面，一致时则通过用户名也就是邮箱来获取用户信息user对象，设置对象中的密码为用户填写的密码</span></span><br><span class="line">            <span class="comment"># 最后返回到登录页面</span></span><br><span class="line">            <span class="keyword">if</span> pwd1 != pwd2:</span><br><span class="line">                <span class="keyword">return</span> render(request, <span class="string">"password_reset.html"</span>, &#123;<span class="string">"email"</span>:email, <span class="string">"msg"</span>:<span class="string">"密码不一致"</span>&#125;)</span><br><span class="line">            user = UserProfile.objects.get(email=email)</span><br><span class="line">            user.password = make_password(pwd2)</span><br><span class="line">            user.save()</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"login.html"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 表单验证不通过，则需要获取email邮箱地址，返回给password_reset模板，以及表单对象好用作于密码修改表单错误信息打印</span></span><br><span class="line">            email = request.POST.get(<span class="string">"email"</span>, <span class="string">""</span>)</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">"password_reset.html"</span>, &#123;<span class="string">"email"</span>:email, <span class="string">"modify_form"</span>:modify_form&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在根级urls中配置路由</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^modify_pwd/$'</span>, ModifyPwdView.as_view(), name=<span class="string">"modify_pwd"</span>),</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>紧接着在password_rest模板中，定义表单的请求方式以及地址</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"reset_password_form"</span> <span class="attr">action</span>=<span class="string">"&#123;% url 'modify_pwd' %&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug测试密码修改功能，测试密码修改成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506215204509.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>Debug测试完成后，页面跳转到登录页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506215907389.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>6.</strong>密码修改功能完整测试</p>
+<p><strong>说明</strong>：由于时间过长所以制作成两部分的动图</p>
+<ul>
+<li>第一部分完成重置密码邮件的发送</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506221428898.gif" alt></fancybox></p>
+<ul>
+<li>第二部分访问重置密码链接地址完成密码修改并进行登录</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190506221813182.gif" alt></fancybox></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/89844432" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/89844432</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-13T22:38:40+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月13日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Django/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Django</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Django网站实战</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python Web开发</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/12/Django项目于之在线教育平台网站的实战开发（二）/&title=Django项目于之在线教育平台网站的实战开发（二） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶用户登录注册功能实现
+二丶找回密码（忘记密码）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/12/Django项目于之在线教育平台网站的实战开发（二）/&title=Django项目于之在线教育平台网站的实战开发（二） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶用户登录注册功能实现
+二丶找回密码（忘记密码）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD5UlEQVR42u3aQXLbMBAEQP3/0841KUvUzC6o6NA8qVg2ADYPw13g8Yivn7+u33d+3//9v69+vxrn1bzJel6t5NiFAwcOHDjiR71+yGSChCnn24yZ0D95Ihw4cODAcYjj1YMlk7WBej1XG5yb0MWBAwcOHN/A0cbh/vFyvnz9OHDgwIHjOznaa9Ojm3X5cODAgQPH/+JImoOz7aK2tGsjPFnVLb1SHDhw4MAxz6xo0+ibf99yvgMHDhw4cMThtAndtixMNrGi0mtfXuLAgQMHjkOduvYA3KwA2wT8ZoX1+Dhw4MCB42aOpN02e4B2qylvROYfCgcyHAcOHDhwlBs2mzbibPy88Tcr/N4A4cCBAweOBcfwMNmhWE0I8hnbQw9P7uDAgQMHjkMcZ8NvH8N5PA+LtOu2IA4cOHDguIEj30bKg23fRmxHGx5lwIEDBw4ca47N4YM2Dq9B8xfTHqGIPilw4MCBA8eaI2/GJQ3EZInXId2WcG2RGQHhwIEDB44Fx6YZlywoL/buOzyRQD9mbwMHDhw4cATl3B1NtzwmzyKujmvgwIEDB44FR/6ndwTnrKg7tU4cOHDgwPEZjk2TLi+Z8g2n9hhEG+rFsQYcOHDgwHE57yYm89ZhS9mOnxCsvjhw4MCBA0fJ0T7GPnQ3s+drqF8DDhw4cOD4CMepRmE7/r54y3//U8LhwIEDB44FR14y5ZtD1w24TWB/pnTEgQMHDhynapbH4moLqtmWVX7nQHMQBw4cOHAc4sgny4OzjcZ9VOev5MnJDhw4cODAcYjj+k/zEq59pA3TLLBfjo8DBw4cOA5xJE29WegW5dOiWZlvMr2ZHQcOHDhwrDlmBw5moTtr5CXBXJdqyXEKHDhw4MBxG0dSku35Zu2/9sUUrDhw4MCB4yjHZrLNEbo2pJNCcQaEAwcOHDhOceStwFkRlbTq9ochZi8DBw4cOHDsOfKhT7XtWqzkgyDfNnuzfhw4cODAseZo9/HbwMvLs7ZI2xR++ecCDhw4cOBoOWbbSMmy8rhtt6NOjflkhThw4MCB4xBHUmjlj90eUNsUcjlTFM84cODAgWPNsWkRtkfl9otOVtu2F3HgwIEDx1mOn/Jqy60k3vL7m42xaBwcOHDgwLHmyK+8jZhPmYf0ZhMrHxMHDhw4cJziyMM1Px/RHlZLCsg2LNvSEQcOHDhwnOXIg2qW3rNiafZ6Nk+NAwcOHDg+z5EfcUi2ppKYTF5D28o8FrQ4cODAgeMox2y0NlBPtQUjARw4cODAcYhjH1d5NObzthtgs8TEgQMHDhxnOdpW2j6Ac4i2CJxtVuHAgQMHjkMcfwCNZgAy5LbSyQAAAABJRU5ErkJggg=='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/12/Django项目于之在线教育平台网站的实战开发（二）/&title=Django项目于之在线教育平台网站的实战开发（二） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶用户登录注册功能实现
+二丶找回密码（忘记密码）"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/12/Django项目于之在线教育平台网站的实战开发（一）/" rel="prev" title="Django项目于之在线教育平台网站的实战开发（一）">
+                                  
+                                      Django项目于之在线教育平台网站的实战开发（一）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Django/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django</a> <a class="tag" href="/tags/Django网站实战/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django网站实战</a> <a class="tag" href="/tags/Python-Web开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Web开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Django项目于之在线教育平台网站的实战开发（二）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶用户登录注册功能实现"><span class="toc-text">一丶用户登录注册功能实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶找回密码（忘记密码）"><span class="toc-text">二丶找回密码（忘记密码）</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

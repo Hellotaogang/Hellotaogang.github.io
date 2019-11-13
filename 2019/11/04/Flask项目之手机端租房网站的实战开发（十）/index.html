@@ -346,7 +346,7 @@
             
   <div class='new-meta-item author'>
     
-      <a href="https://hellotaogang.github.io/" rel="nofollow">
+      <a href="/" rel="nofollow">
         
           <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
         
@@ -414,7 +414,18 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h1 id="一丶区县信息前端编写"><a href="#一丶区县信息前端编写" class="headerlink" title="一丶区县信息前端编写"></a>一丶区县信息前端编写</h1><p>1.分析，当用户进入发布新房源，页面加载完毕即向后端发送请求拿取数据库中的区域信息数据，显示在页面上所在区县栏</p>
+        <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶区县信息前端编写"><span style="color:#4ea1db">一丶区县信息前端编写</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶发布新房源后端接口编写"><span style="color:#4ea1db">二丶发布新房源后端接口编写</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶发布新房源前端编写"><span style="color:#4ea1db">三丶发布新房源前端编写</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶测试接口"><span style="color:#4ea1db">四丶测试接口</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶celery的使用"><span style="color:#4ea1db">五丶celery的使用</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶测试celery"><span style="color:#4ea1db">六丶测试celery</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#七丶celery以目录形式创建"><span style="color:#4ea1db">七丶celery以目录形式创建</span></a></li>
+<a id="more"></a>
+
+<h1 id="一丶区县信息前端编写"><a href="#一丶区县信息前端编写" class="headerlink" title="一丶区县信息前端编写"></a>一丶区县信息前端编写</h1><p>1.分析，当用户进入发布新房源，页面加载完毕即向后端发送请求拿取数据库中的区域信息数据，显示在页面上所在区县栏</p>
 <p><fancybox><img src="https://img-blog.csdnimg.cn/20190116183638471.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <p>2.所以需在此页面newhouse.js中进行如下编写</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当页面加载完成时，想后端获取区县信息</span></span><br><span class="line">$.<span class="keyword">get</span>("/api/v1.0/areas", function (resp) &#123;</span><br><span class="line">    <span class="keyword">if</span> (resp.errno == <span class="string">"0"</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> areas = resp.data;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;areas.length; i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> area = areas[i]</span><br><span class="line">            $(<span class="string">"#area-id"</span>).append(<span class="string">'&lt;option value="'</span>+area.aid+<span class="string">'"&gt;'</span>+area.aname+<span class="string">'&lt;/option&gt;'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        alert(resp.errmsg)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="string">"json"</span>)</span><br></pre></td></tr></table></figure>
@@ -617,7 +628,7 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">this</span>).ajaxSubmit(&#123;</span><br><span class="line">    url:<span class="string">"/api/v1.0/houses/image"</span>,</span><br><span class="line">    type:<span class="string">"post"</span>,</span><br><span class="line">    dataType:<span class="string">"json"</span>,</span><br><span class="line">    headers:&#123;</span><br><span class="line">        <span class="string">"X-CSRFToken"</span>: getCookie(<span class="string">"csrf_token"</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    success:<span class="function"><span class="keyword">function</span> (<span class="params">resp</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(resp.errno == <span class="string">"4101"</span>)&#123;</span><br><span class="line">            location.href = <span class="string">"/login.html"</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (resp.errno == <span class="string">"0"</span>)&#123;</span><br><span class="line">            <span class="comment">// 往class 为 house-image-cons div标签下去添加img标签</span></span><br><span class="line">            $(<span class="string">".house-image-cons"</span>).append(<span class="string">'&lt;img src="'</span> + resp.data.image_url+<span class="string">'"&gt;'</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            alert(resp.errmsg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>四丶测试接口<br>1.运行项目，清除浏览器缓存，刷新网页，进入发布房源，博主这里使用的FS截图工具进行滚动窗口截图</p>
+<h1 id="四丶测试接口"><a href="#四丶测试接口" class="headerlink" title="四丶测试接口"></a>四丶测试接口</h1><p>1.运行项目，清除浏览器缓存，刷新网页，进入发布房源，博主这里使用的FS截图工具进行滚动窗口截图</p>
 <p><fancybox><img src="https://img-blog.csdnimg.cn/20190118170036647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
 <p>2.填写房屋信息</p>
 <p><fancybox><img src="https://img-blog.csdnimg.cn/20190118170831661.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
@@ -752,10 +763,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-04T21:26:59+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-13T20:58:27+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2019年11月4日</p>
+    <p>更新于 2019年11月13日</p>
   </a>
 </div>
 
@@ -777,7 +788,15 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（十）/&title=Flask项目之手机端租房网站的实战开发（十） | TG'S BLOG&summary="
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（十）/&title=Flask项目之手机端租房网站的实战开发（十） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶区县信息前端编写
+二丶发布新房源后端接口编写
+三丶发布新房源前端编写
+四丶测试接口
+五丶celery的使用
+六丶测试celery
+七丶celery以目录形式创建"
           
           >
           
@@ -789,7 +808,15 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（十）/&title=Flask项目之手机端租房网站的实战开发（十） | TG'S BLOG&summary="
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（十）/&title=Flask项目之手机端租房网站的实战开发（十） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶区县信息前端编写
+二丶发布新房源后端接口编写
+三丶发布新房源前端编写
+四丶测试接口
+五丶celery的使用
+六丶测试celery
+七丶celery以目录形式创建"
           
           >
           
@@ -809,7 +836,15 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（十）/&title=Flask项目之手机端租房网站的实战开发（十） | TG'S BLOG&summary="
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/04/Flask项目之手机端租房网站的实战开发（十）/&title=Flask项目之手机端租房网站的实战开发（十） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶区县信息前端编写
+二丶发布新房源后端接口编写
+三丶发布新房源前端编写
+四丶测试接口
+五丶celery的使用
+六丶测试celery
+七丶celery以目录形式创建"
           
           >
           
@@ -938,7 +973,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶区县信息前端编写"><span class="toc-text">一丶区县信息前端编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶发布新房源后端接口编写"><span class="toc-text">二丶发布新房源后端接口编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶发布新房源前端编写"><span class="toc-text">三丶发布新房源前端编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶celery的使用"><span class="toc-text">五丶celery的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶测试celery"><span class="toc-text">六丶测试celery</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七丶celery以目录形式创建"><span class="toc-text">七丶celery以目录形式创建</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶区县信息前端编写"><span class="toc-text">一丶区县信息前端编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶发布新房源后端接口编写"><span class="toc-text">二丶发布新房源后端接口编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶发布新房源前端编写"><span class="toc-text">三丶发布新房源前端编写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶测试接口"><span class="toc-text">四丶测试接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶celery的使用"><span class="toc-text">五丶celery的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶测试celery"><span class="toc-text">六丶测试celery</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七丶celery以目录形式创建"><span class="toc-text">七丶celery以目录形式创建</span></a></li></ol>
     </div>
   </section>
 

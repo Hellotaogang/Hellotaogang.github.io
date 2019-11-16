@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Django与Elasticsearch交互打造搜索引擎网站（一） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django与Elasticsearch交互打造搜索引擎网站（一）' href='/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/">
+        Django与Elasticsearch交互打造搜索引擎网站（一）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <p><fancybox><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django_search.png" width="900px" height="300px" align></fancybox><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶叙述"><span style="color:#4ea1db">一丶叙述</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶elasticsearch-rtf的安装与测试"><span style="color:#4ea1db">二丶elasticsearch-rtf的安装与测试</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶elasticsearch-head插件以及kibana的安装"><span style="color:#4ea1db">三丶elasticsearch-head插件以及kibana的安装</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶elasticsearch搜索引擎的使用"><span style="color:#4ea1db">四丶elasticsearch搜索引擎的使用</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶使用scrapy爬取知名技术文章网站"><span style="color:#4ea1db">五丶使用scrapy爬取知名技术文章网站</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶将scrapy爬取到的数据写入到elasticsearch中"><span style="color:#4ea1db">六丶将scrapy爬取到的数据写入到elasticsearch中</span></a></li>
+<a id="more"></a>
+
+<h1 id="一丶叙述"><a href="#一丶叙述" class="headerlink" title="一丶叙述"></a>一丶叙述</h1><p><strong>1.项目介绍</strong></p>
+<p>通过scrapy爬取<a href="http://blog.jobbole.com/all-posts/" target="_blank" rel="noopener">伯乐在线</a>网站的全部文章数据通过<a href="https://github.com/elastic/elasticsearch-dsl-py" target="_blank" rel="noopener">elasticsearch_dsl</a>工具将数据写入到<a href="https://github.com/elastic/elasticsearch" target="_blank" rel="noopener">elasticsearch</a>中；再使用django开发一个搜索网站并且与elasticsearch进行数据交互来打造出一个高大上的搜索引擎网站。</p>
+<p><strong>2.项目展示</strong></p>
+<ul>
+<li>搜索引擎网站首页页面展示，当输入不完整的关键字时，会自动补全以及会显示出搜索建议</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190604201315810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>搜索结果页面显示，会对搜索的内容进行分词处理，并且在文章列表中会对分词后的字段进行高亮标红显示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190604201456947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>动态效果展示，点击在搜索框输入python时的自动补全提示内容跳转到搜索结果列表页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190604201601817.gif" alt></fancybox></p>
+<ul>
+<li>动态效果展示，直接在搜索框输入python后点击搜索按钮，跳转到搜索结果列表页，并在主页我的搜索项中显示搜索历史</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190604203425606.gif" alt></fancybox></p>
+<ul>
+<li>在搜索结果页面同样有个搜索框，同样跟主页一样进行关键字搜索</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019060421505589.gif" alt></fancybox></p>
+<p><strong>3.什么是ElasticSearch</strong></p>
+<p>ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。</p>
+<p>我们建立一个网站或应用程序，并要添加搜索功能，但是想要完成搜索工作的创建是非常困难的。我们希望搜索解决方案要运行速度快，我们希望能有一个零配置和一个完全免费的搜索模式，我们希望能够简单地使用JSON通过HTTP来索引数据，我们希望我们的搜索服务器始终可用，我们希望能够从一台开始并扩展到数百台，我们要实时搜索，我们要简单的多租户，我们希望建立一个云的解决方案。因此我们利用Elasticsearch来解决所有这些问题及可能出现的更多其它问题。</p>
+<p><strong>4.什么是Elasticsearch-RTF</strong></p>
+<p>RTF是Ready To Fly的缩写，在航模里面，表示无需自己组装零件即可直接上手即飞的航空模型，Elasticsearch-RTF是针对中文的一个发行版，即使用最新稳定的elasticsearch版本，并且帮你下载测试好对应的插件，如中文分词插件等，目的是让你可以下载下来就可以直接的使用（虽然es已经很简单了，但是很多新手还是需要去花时间去找配置，中间的过程其实很痛苦），当然等你对这些都熟悉了之后，你完全可以自己去diy了，跟linux的众多发行版是一个意思。</p>
+<h1 id="二丶elasticsearch-rtf的安装与测试"><a href="#二丶elasticsearch-rtf的安装与测试" class="headerlink" title="二丶elasticsearch-rtf的安装与测试"></a>二丶elasticsearch-rtf的安装与测试</h1><p><strong>1.</strong>安装elasticsearch-rtf</p>
+<ul>
+<li>在github上搜索<a href="https://github.com/medcl/elasticsearch-rtf" target="_blank" rel="noopener">elasticsearch-rtf</a>，选择第一个点击进入如下页面下载即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531182204644.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>将下载好的elasticsearch-5.1.1.zip包，进行解压，需要注意的是解压的目录名称不能带中文，否则运行elasticsearch则会报错</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531182415546.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>因为elasticsearch是由java进行开发的，所以要运行elasticsearch则需要先安装java jdk8+；因为博主以前就安装过，所以这里不进行演示，网上有很多教程，安装完jdk后，在cmd窗口输入java -version则显示出安装成功后的jdk版本信息</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190531183422563.png" alt></p>
+<ul>
+<li>在cmd中进入解压的elasticsearch文件bin目录下，执行elasticsearch.bat批处理文件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531182808384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.</strong>测试</p>
+<ul>
+<li>在浏览器中访问上图日志中的ip及端口<a href="http://127.0.0.1:9200/" target="_blank" rel="noopener">http://127.0.0.1:9200/</a>，成功则出现如下页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531183033385.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="三丶elasticsearch-head插件以及kibana的安装"><a href="#三丶elasticsearch-head插件以及kibana的安装" class="headerlink" title="三丶elasticsearch-head插件以及kibana的安装"></a>三丶elasticsearch-head插件以及kibana的安装</h1><p><strong>1.</strong>elasticsearch-head插件安装</p>
+<ul>
+<li>在github上搜索<a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">elasticsearch-head</a>，选择第一个点击进入如下页面下载即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019053118455098.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>博主这里直接使用git命令将elassearch-head下载下来，也可以直接在如上页面点击download进行下载</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531184925426.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>cd进入elassearch-head目录后，使用npm命令进行安装，需要注意的是npm命令就好比python中的pip一样，要想使用npm命令则需要下载安装windows版本的Node.js，安装Node.js成功后就可以直接使用npm命令了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531190027961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行elasticsearch-head插件，运行成功后，访问<a href="http://localhost:9100/" target="_blank" rel="noopener">http://localhost:9100/</a>页面</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531190348305.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531190419945.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在elasticsearch-head插件页面无法连接<a href="http://127.0.0.1:9200/" target="_blank" rel="noopener">http://127.0.0.1:9200/</a>地址，如上图显示集群健康值:未连接，需要在elasticsearch解压文件config目录下elasticsearch.yml配置文件添加如下配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br><span class="line">http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE</span><br><span class="line">http.cors.allow-headers: &quot;X-Requested-With, Content-Type, Content-Length, X-User&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重启elasticsearch，回到<a href="http://localhost:9100/elasticsearch-head" target="_blank" rel="noopener">http://localhost:9100/elasticsearch-head</a>插件页面测试连接<a href="http://127.0.0.1:9200/" target="_blank" rel="noopener">http://127.0.0.1:9200/</a>接口，点击右上角的信息菜单选择信息则看到访问<a href="http://127.0.0.1:9200/" target="_blank" rel="noopener">http://127.0.0.1:9200/</a>接口所显示内容</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531192517438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.kibana的安装</strong></p>
+<ul>
+<li>下载与elastsearch一致版本的<a href="https://www.elastic.co/cn/downloads/past-releases/kibana-5-1-1" target="_blank" rel="noopener">kibana</a>，否则会出错</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531193952107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>下载成功后进行解压，然后打开cmd窗口进入解压文件bin目录下，执行kibana.bat批处理文件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190531194645302.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在浏览器访问日志中监听的ip端口<a href="http://localhost:5601/" target="_blank" rel="noopener">http://localhost:5601/</a></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019053119481480.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="四丶elasticsearch搜索引擎的使用"><a href="#四丶elasticsearch搜索引擎的使用" class="headerlink" title="四丶elasticsearch搜索引擎的使用"></a>四丶elasticsearch搜索引擎的使用</h1><p><strong>说明：</strong>什么是Kibana：Kibana是一个针对Elasticsearch的开源分析及可视化平台，用来搜索、查看交互存储在Elasticsearch索引中的数据。使用Kibana，可以通过各种图表进行高级数据分析及展示；举例说明就好比mysql数据库的工具navicat一样</p>
+<p><strong>1.</strong>elasticsearch基本的索引和文档CRUD操作</p>
+<ul>
+<li>启动Kibana服务</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601150730229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在浏览器中访问<a href="http://127.0.0.1:5601" target="_blank" rel="noopener">http://127.0.0.1:5601</a>则进行Kibana可视化页面，在页面中选择Dev-Tools可以创建索引以及对查询索引的配置</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601151206558.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>如上图创建lagou索引后，回到elasticsearch-head工具页面，刷新后则出现创建的lagou索引</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019060115153262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>修改lagou索引配置</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601152355394.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>获取所有的索引信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601153432347.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>向索引中保存文档（向数据库添加表数据），注重说明一下可以将索引看做成数据库，type看作成数据表下的表后面跟着表的id，即PUT lagou/job/1，当添加数据时不指明id则也能添加成功能，系统会默认将id生成一个uuid的值</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601154523450.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>回到elasticsearch-head页面，点击数据浏览选择lagou就能看到在Kibana中添加的数据信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601155049385.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>获取lagou下的job表数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601155602996.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>获取lagou下的job表某个字段以及多个字段的数据，需要注意的是,后面不能留空格</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601160027993.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>修改lagou下的job表id为1数据，也是使用PUT进行修改，这种修改时覆盖式的修改</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601160423488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用POST修改lagou下的job表id为1的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601160913591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>删除lagou/job表下id为1的所有数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601161439497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>删除lagou索引 </li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601161738645.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.</strong>elasticsearch的mget和bulk批量操作</p>
+<ul>
+<li>在使用mget查询之前需要添加些查询数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">PUT testdb/job1/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job1_1&quot;</span><br><span class="line">&#125;</span><br><span class="line">PUT testdb/job1/2</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job1_2&quot;</span><br><span class="line">&#125;</span><br><span class="line">PUT testdb/job2/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job2_1&quot;</span><br><span class="line">&#125;</span><br><span class="line">PUT testdb/job2/2</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job2_2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看添加后的索引数据信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601163154917.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用mget查询多个条件数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601163820753.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>当index一致时，就可以进行如下查询</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GET testdb/_mget</span><br><span class="line">&#123;</span><br><span class="line">  &quot;docs&quot;:[</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_type&quot;:&quot;job1&quot;,</span><br><span class="line">      &quot;_id&quot;:1</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_type&quot;:&quot;job2&quot;,</span><br><span class="line">      &quot;_id&quot;:2</span><br><span class="line">    &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>以此类推当index和type相同都是job1时只有id不同的情况下，可以进行如下查询</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601164559154.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用bulk批量操作，添加lagou索引并在其下创建job1和job2两个type以及对应的id</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601170922445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>3.</strong>elasticsearch的mapping映射管理</p>
+<p><strong>说明：</strong>关于elasticsearch的mapping的概念可以百度进行了解</p>
+<ul>
+<li>为了方便演示创建索引的映射，博主需要将之前创建的索引全部删除</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601173232871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>创建索引映射</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601175524887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>向创建好的索引映射中插入数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601175637419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>获取索引下的mapping</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601175834955.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>获取集群下的所有mapping</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601180042865.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>4.</strong>elasticsearch的简单查询</p>
+<ul>
+<li>删除lagou索引，然后创建新的lagou索引并添加映射</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601181622731.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>向索引中添加查询数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601182837143.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用match匹配查询title字段包含python开发的数据，在创建索引映射时title字段使用的是ik_max_word，该工具会对此字段不管大小写都会转换成小写并且会对title字段进行中英文分词处理，所以在使用match进行匹配查询时，就会查询到如下两条数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601183849211.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>而使用term进行查询时，会根据传入的title的值也就是python开发进行全局匹配不会进行分词处理，通俗来说在数据title字段内容必须不多不少是”python开发”才能查询到数据，所以如下没有查询到数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601184423574.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用terms进行查询，对满足数组中的任何内容的title字段数据就会查询出来</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601184838820.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>控制查询数据返回数量，实际匹配出两条数据，但form从0开始取只往后取一个，即结果只显示出一条数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601185700667.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用match_all查询所有数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601190127458.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用match_phrase查询，会将查询的内容进行分词，slop表示的是分词之间的长度，也就是说python和总监之间的长度，要满足该长度内才能查询出数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019060119093148.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>multi_match查询，指定在title和desc字段中查询包含python的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601204034808.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>指定返回title以及company_name字段数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601204511794.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>通过sort把结果排序</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190601205059688.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>range范围查询comments大于等于1000小于等于2000的数据，boost表示权重</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019060209324094.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用range对时间范围进行查询</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602093757527.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>5.</strong>elasticsearch的bool组合查询</p>
+<p><strong>说明</strong> bool组合查询包括：must丶should丶must_not丶filter来完成</p>
+<ul>
+<li>bool组合查询的格式如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bool:&#123;</span><br><span class="line">  &quot;must&quot;:[],</span><br><span class="line">  &quot;should&quot;:[],</span><br><span class="line">  &quot;must_not&quot;:[],</span><br><span class="line">  &quot;filter&quot;:[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除之前的索引，重新创建测试数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602100151654.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>从查询到的所有数据中筛选出salary为2000的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602101051615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用ik_max_word查看分析器解析的结果</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602102008588.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用ik_smart查看分析器解析结果</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602102553367.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>组合过滤查询薪资等于2000或者工作为Python的数据并且满足薪水不为3000的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602104124236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>嵌套查询工作为python或者工作为django并且工资为3000的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602104918289.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>过滤空和非空数据，首先创建测试数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602105555324.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>查询tags字段不为null的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019060210590515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>整个在Kibana中的操作命令如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br></pre></td><td class="code"><pre><span class="line"># 创建lagou索引</span><br><span class="line">PUT lagou</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;index&quot;:&#123;</span><br><span class="line">      &quot;number_of_shards&quot;:5,</span><br><span class="line">      &quot;number_of_replicas&quot;:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 获取lagou的配置</span><br><span class="line">GET lagou/_settings</span><br><span class="line"># 获取所有索引的配置</span><br><span class="line">GET _all/_settings</span><br><span class="line"># 获取kibana和lagou索引配置</span><br><span class="line">GET .kibana,lagou/_settings</span><br><span class="line"># 修改lagou索引的配置,shards一旦设置了值就无法修改</span><br><span class="line">PUT lagou/_settings</span><br><span class="line">&#123;</span><br><span class="line">  &quot;number_of_replicas&quot;: &quot;3&quot;</span><br><span class="line">&#125;</span><br><span class="line"># 获取所有的索引信息</span><br><span class="line">GET _all</span><br><span class="line"># 向索引中保存文档</span><br><span class="line">PUT lagou/job/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;Python分布式爬虫打造搜索引擎&quot;,</span><br><span class="line">  &quot;min_salary&quot;:15000,</span><br><span class="line">  &quot;city&quot;:&quot;成都&quot;,</span><br><span class="line">  &quot;company&quot;:&#123;</span><br><span class="line">    &quot;name&quot;:&quot;百度&quot;,</span><br><span class="line">    &quot;company_add&quot;:&quot;天府软件园&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;publish_date&quot;:&quot;2019-06-01&quot;,</span><br><span class="line">  &quot;comments&quot;:20</span><br><span class="line">&#125;</span><br><span class="line"># 获取lagou下的job表数据</span><br><span class="line">GET lagou/job/1</span><br><span class="line"># 获取lagou下的job表某个字段的数据</span><br><span class="line">GET lagou/job/1?_source=title</span><br><span class="line"># 获取lagou下的job表多个字段的数据</span><br><span class="line">GET lagou/job/1?_source=title,city</span><br><span class="line">#使用PUT修改lagou下的job表id为1的数据</span><br><span class="line">PUT lagou/job/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;Python分布式爬虫打造搜索引擎&quot;,</span><br><span class="line">  &quot;min_salary&quot;:20000,</span><br><span class="line">  &quot;city&quot;:&quot;成都&quot;,</span><br><span class="line">  &quot;company&quot;:&#123;</span><br><span class="line">    &quot;name&quot;:&quot;百度&quot;,</span><br><span class="line">    &quot;company_add&quot;:&quot;天府软件园&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;publish_date&quot;:&quot;2019-06-01&quot;,</span><br><span class="line">  &quot;comments&quot;:20</span><br><span class="line">&#125;</span><br><span class="line"># 使用POST修改lagou下的job表id为1的数据</span><br><span class="line">POST lagou/job/1/_update</span><br><span class="line">&#123;</span><br><span class="line">  &quot;doc&quot;: &#123;</span><br><span class="line">   &quot;comments&quot;:50 </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 删除lagou/job表下id为1的所有数据</span><br><span class="line">DELETE lagou/job/1</span><br><span class="line"># 删除lagou索引 </span><br><span class="line">DELETE lagou</span><br><span class="line"> </span><br><span class="line">PUT testdb/job1/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job1_1&quot;</span><br><span class="line">&#125;</span><br><span class="line">PUT testdb/job1/2</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job1_2&quot;</span><br><span class="line">&#125;</span><br><span class="line">PUT testdb/job2/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job2_1&quot;</span><br><span class="line">&#125;</span><br><span class="line">PUT testdb/job2/2</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;test_job2_2&quot;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 使用mget查询多个条件数据</span><br><span class="line">GET _mget</span><br><span class="line">&#123;</span><br><span class="line">  &quot;docs&quot;:[</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_index&quot;:&quot;testdb&quot;,</span><br><span class="line">      &quot;_type&quot;:&quot;job1&quot;,</span><br><span class="line">      &quot;_id&quot;:1</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_index&quot;:&quot;testdb&quot;,</span><br><span class="line">      &quot;_type&quot;:&quot;job2&quot;,</span><br><span class="line">      &quot;_id&quot;:2</span><br><span class="line">    &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"># 当index一致时，就可以进行如下查询</span><br><span class="line">GET testdb/_mget</span><br><span class="line">&#123;</span><br><span class="line">  &quot;docs&quot;:[</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_type&quot;:&quot;job1&quot;,</span><br><span class="line">      &quot;_id&quot;:1</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_type&quot;:&quot;job2&quot;,</span><br><span class="line">      &quot;_id&quot;:2</span><br><span class="line">    &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"># 当index和type相同都是job1时只有id不同</span><br><span class="line">GET testdb/job1/_mget</span><br><span class="line">&#123;</span><br><span class="line">  &quot;docs&quot;:[</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_id&quot;:1</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;_id&quot;:2</span><br><span class="line">    &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"># 使用bulk批量操作</span><br><span class="line">POST _bulk</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_index&quot;:&quot;lagou&quot;, &quot;_type&quot;:&quot;job1&quot;, &quot;_id&quot;:1&#125;&#125;</span><br><span class="line">&#123;&quot;title&quot;:&quot;Python分布式爬虫打造搜索引擎&quot;, &quot;min_salary&quot;:16000,&quot;city&quot;:&quot;成都&quot;,&quot;comany&quot;:&#123;&quot;name&quot;:&quot;百度&quot;,&quot;company_addr&quot;:&quot;天府软件A园&quot;&#125;,&quot;publish_date&quot;:&quot;2019-06-01&quot;,&quot;comments&quot;:15&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_index&quot;:&quot;lagou&quot;, &quot;_type&quot;:&quot;job2&quot;, &quot;_id&quot;:2&#125;&#125;</span><br><span class="line">&#123;&quot;title&quot;:&quot;Django Web开发&quot;, &quot;min_salary&quot;:20000,&quot;city&quot;:&quot;成都&quot;,&quot;comany&quot;:&#123;&quot;name&quot;:&quot;腾讯&quot;,&quot;company_addr&quot;:&quot;天府软件B园&quot;&#125;,&quot;publish_date&quot;:&quot;2019-05-20&quot;,&quot;comments&quot;:30&#125;</span><br><span class="line"> </span><br><span class="line"># 创建索引映射   </span><br><span class="line">PUT lagou</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;job&quot;:&#123;</span><br><span class="line">      &quot;properties&quot;: &#123;</span><br><span class="line">        &quot;title&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;min_salary&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;city&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;company&quot;:&#123;</span><br><span class="line">          &quot;properties&quot;: &#123;</span><br><span class="line">            &quot;name&quot;:&#123;</span><br><span class="line">              &quot;type&quot;:&quot;text&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;company_addr&quot;:&#123;</span><br><span class="line">              &quot;type&quot;:&quot;text&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;employee_count&quot;:&#123;</span><br><span class="line">              &quot;type&quot;:&quot;integer&quot;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;publish_date&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;date&quot;,</span><br><span class="line">          &quot;format&quot;: &quot;yyyy-MM-dd&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;comments&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 向索引插入数据</span><br><span class="line">PUT lagou/job/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;Python分布式爬虫打造搜索引擎&quot;,</span><br><span class="line">  &quot;min_salary&quot;:20000,</span><br><span class="line">  &quot;city&quot;:&quot;成都&quot;,</span><br><span class="line">  &quot;company&quot;:&#123;</span><br><span class="line">    &quot;name&quot;:&quot;百度&quot;,</span><br><span class="line">    &quot;company_add&quot;:&quot;天府软件园&quot;,</span><br><span class="line">    &quot;employee&quot;:200</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;publish_date&quot;:&quot;2019-06-01&quot;,</span><br><span class="line">  &quot;comments&quot;:20</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 获取索引下的mapping</span><br><span class="line">GET lagou/_mapping</span><br><span class="line"> </span><br><span class="line"># 获取集群下的所有mapping</span><br><span class="line">GET _all/_mapping</span><br><span class="line"> </span><br><span class="line"># 添加映射</span><br><span class="line">PUT lagou</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;job&quot;:&#123;</span><br><span class="line">      &quot;properties&quot;: &#123;</span><br><span class="line">        &quot;title&quot;:&#123;</span><br><span class="line">          &quot;store&quot;: true,</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">          &quot;analyzer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;company_name&quot;:&#123;</span><br><span class="line">          &quot;store&quot;: true,</span><br><span class="line">          &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;desc&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;text&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;comments&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;integer&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;add_time&quot;:&#123;</span><br><span class="line">          &quot;type&quot;: &quot;date&quot;,</span><br><span class="line">          &quot;format&quot;: &quot;yyyy-MM-dd&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 向索引中添加查询数据</span><br><span class="line">POST lagou/job/</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;Django Web开发工程师&quot;,</span><br><span class="line">  &quot;company_name&quot;:&quot;阿里巴巴网络技术有限公司&quot;,</span><br><span class="line">  &quot;desc&quot;:&quot;精通Python&quot;,</span><br><span class="line">  &quot;comments&quot;:1200,</span><br><span class="line">  &quot;add_time&quot;:&quot;2019-02-14&quot;</span><br><span class="line">&#125;</span><br><span class="line">POST lagou/job/</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;数据挖掘工程师&quot;,</span><br><span class="line">  &quot;company_name&quot;:&quot;百度在线网络技术有限公司&quot;,</span><br><span class="line">  &quot;desc&quot;:&quot;10年工作经验&quot;,</span><br><span class="line">  &quot;comments&quot;:1000,</span><br><span class="line">  &quot;add_time&quot;:&quot;2019-03-16&quot;</span><br><span class="line">&#125;</span><br><span class="line">POST lagou/job/</span><br><span class="line">&#123;</span><br><span class="line">  &quot;title&quot;:&quot;Python人工智能技术总监&quot;,</span><br><span class="line">  &quot;company_name&quot;:&quot;华为技术有限公司&quot;,</span><br><span class="line">  &quot;desc&quot;:&quot;能分析和解决疑难问题&quot;,</span><br><span class="line">  &quot;comments&quot;:3000,</span><br><span class="line">  &quot;add_time&quot;:&quot;2019-06-18&quot;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 使用match查询</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;title&quot;: &quot;python开发&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 使用term查询</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;term&quot;: &#123;</span><br><span class="line">      &quot;title&quot;: &quot;python开发&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 使用terms查询</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;terms&quot;: &#123;</span><br><span class="line">      &quot;title&quot;: [&quot;智能&quot;, &quot;挖掘&quot;, &quot;web&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 控制查询数据返回数量</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;title&quot;: &quot;工程师&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;from&quot;: 0,</span><br><span class="line">  &quot;size&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># match_all查询所有数据</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># match_phrase查询</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_phrase&quot;: &#123;</span><br><span class="line">      &quot;title&quot;:&#123;</span><br><span class="line">        &quot;query&quot;: &quot;python总监&quot;,</span><br><span class="line">        &quot;slop&quot;:6</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># multi_match查询,指定在title和desc字段中查询</span><br><span class="line">#包含python的数据</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;multi_match&quot;: &#123;</span><br><span class="line">      &quot;query&quot;: &quot;python&quot;,</span><br><span class="line">      &quot;fields&quot;: [&quot;title&quot;, &quot;desc&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 指定返回的哪些字段数据</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;stored_fields&quot;: [&quot;title&quot;, &quot;company_name&quot;],</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;title&quot;: &quot;pythona&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 通过sort把结果排序</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;sort&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;comments&quot;: &#123;</span><br><span class="line">        &quot;order&quot;: &quot;desc&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"># range范围查询</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;range&quot;: &#123;</span><br><span class="line">      &quot;comments&quot;: &#123;</span><br><span class="line">        &quot;gte&quot;: 1000,</span><br><span class="line">        &quot;lte&quot;: 2000,</span><br><span class="line">        &quot;boost&quot;: 1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 使用range对时间范围进行查询</span><br><span class="line">GET lagou/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;range&quot;: &#123;</span><br><span class="line">      &quot;add_time&quot;: &#123;</span><br><span class="line">        &quot;gte&quot;: &quot;2019-01-01&quot;,</span><br><span class="line">        &quot;lte&quot;: &quot;now&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># bool查询 </span><br><span class="line">#bool:&#123;</span><br><span class="line">#  &quot;must&quot;:[],</span><br><span class="line">#  &quot;should&quot;:[],</span><br><span class="line">#  &quot;must_not&quot;:[],</span><br><span class="line">#  &quot;filter&quot;:[]</span><br><span class="line">#&#125;</span><br><span class="line"># 建立测试数据</span><br><span class="line">POST lagou/testjob/_bulk</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:1&#125;&#125;</span><br><span class="line">&#123;&quot;salary&quot;:1000, &quot;title&quot;:&quot;Python&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:2&#125;&#125;</span><br><span class="line">&#123;&quot;salary&quot;:2000, &quot;title&quot;:&quot;Django&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:3&#125;&#125;</span><br><span class="line">&#123;&quot;salary&quot;:3000, &quot;title&quot;:&quot;Flask&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:4&#125;&#125;</span><br><span class="line">&#123;&quot;salary&quot;:4000, &quot;title&quot;:&quot;Scrapy&quot;&#125;</span><br><span class="line"> </span><br><span class="line"># 从查询到的所有数据中筛选出salary为2000的数据</span><br><span class="line"># 对应数据库查询语句为</span><br><span class="line"># select * from testjob where salary=2000;</span><br><span class="line">GET lagou/testjob/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must&quot;: [</span><br><span class="line">        &#123;&quot;match_all&quot;: &#123;&#125;&#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;term&quot;: &#123;</span><br><span class="line">          &quot;salary&quot;: &quot;2000&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 查看分析器解析的结果</span><br><span class="line">GET _analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;analyzer&quot;: &quot;ik_max_word&quot;,</span><br><span class="line">  &quot;text&quot;: &quot;Python Web开发工程师&quot;</span><br><span class="line">&#125;</span><br><span class="line"># 查看分析器解析的结果</span><br><span class="line">GET _analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">  &quot;text&quot;: &quot;Python Web开发工程师&quot;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 组合过滤查询薪资等于2000或者工作为Python的数据并且满足薪水不为3000的数据</span><br><span class="line"># select * from testjob where (salary=2000 or title=&quot;Python&quot;) and (salary !=3000);</span><br><span class="line"> </span><br><span class="line">GET lagou/testjob/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;should&quot;: [</span><br><span class="line">        &#123;&quot;term&quot;: &#123;</span><br><span class="line">          &quot;salary&quot;: &#123;</span><br><span class="line">            &quot;value&quot;: &quot;2000&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123;&quot;term&quot;: &#123;</span><br><span class="line">          &quot;title&quot;: &#123;</span><br><span class="line">            &quot;value&quot;: &quot;python&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;must_not&quot;: [</span><br><span class="line">        &#123;&quot;term&quot;: &#123;</span><br><span class="line">          &quot;salary&quot;: &#123;</span><br><span class="line">            &quot;value&quot;: &quot;3000&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># 嵌套查询工作为python或者工作为django并且工资为3000的数据</span><br><span class="line"># select * from testjob where title=&quot;python&quot; or (title=&quot;django&quot; and salary=3000)</span><br><span class="line"> </span><br><span class="line">GET lagou/testjob/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;should&quot;: [</span><br><span class="line">        &#123;&quot;term&quot;: &#123;</span><br><span class="line">          &quot;title&quot;: &#123;</span><br><span class="line">            &quot;value&quot;: &quot;python&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123;&quot;bool&quot;: &#123;</span><br><span class="line">          &quot;must&quot;: [</span><br><span class="line">            &#123;&quot;term&quot;: &#123;</span><br><span class="line">              &quot;title&quot;: &#123;</span><br><span class="line">                &quot;value&quot;: &quot;django&quot;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;&#125;,</span><br><span class="line">            &#123;&quot;term&quot;: &#123;</span><br><span class="line">              &quot;salary&quot;: &#123;</span><br><span class="line">                &quot;value&quot;: &quot;3000&quot;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;&#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 过滤空和非空数据，首先创建测试数据</span><br><span class="line">POST lagou/testjob2/_bulk</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:1&#125;&#125;</span><br><span class="line">&#123;&quot;tags&quot;:[&quot;search&quot;]&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:2&#125;&#125;</span><br><span class="line">&#123;&quot;tags&quot;:[&quot;search&quot;, &quot;python&quot;]&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:3&#125;&#125;</span><br><span class="line">&#123;&quot;other_field&quot;:[&quot;some data&quot;]&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:4&#125;&#125;</span><br><span class="line">&#123;&quot;tags&quot;:null&#125;</span><br><span class="line">&#123;&quot;index&quot;:&#123;&quot;_id&quot;:5&#125;&#125;</span><br><span class="line">&#123;&quot;tags&quot;:[&quot;search&quot;, null]&#125;</span><br><span class="line"> </span><br><span class="line"># 查询tags字段不为null的数据</span><br><span class="line"># select tags from testjob2 where tags is not null;</span><br><span class="line">GET lagou/testjob2/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;exists&quot;: &#123;</span><br><span class="line">          &quot;field&quot;: &quot;tags&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="五丶使用scrapy爬取知名技术文章网站"><a href="#五丶使用scrapy爬取知名技术文章网站" class="headerlink" title="五丶使用scrapy爬取知名技术文章网站"></a>五丶使用scrapy爬取知名技术文章网站</h1><p><strong>1.</strong>创建爬虫项目虚拟环境</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602111031851.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.</strong>进入虚拟环境安装scrapy以及requests</p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602111313892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602112518257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>3.</strong>创建scrapy项目</p>
+<ul>
+<li>在cmd终端中执行scrapy startproject ArticleSpider即创建scrapy 爬虫项目ArticleSpider</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602113111938.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在Pycharm中打开ArticleSpider项目</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602113446291.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>创建jobbole爬虫文件</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190602120927566.png" alt></p>
+<ul>
+<li>即在项目spider目录下生成jobbole.py文件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602120955367.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>4.</strong>运行scrapy项目测试是否能够运行成功</p>
+<ul>
+<li>在终端执行scrapy crawl jobbole命令，结果报错了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602121332628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>对于windows系统而言报这个错是正常的，使用pip命令安装pypiwin32包即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602121628766.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>安装成功后再次运行则启动scrapy成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602143947242.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>5.</strong>爬取<a href="http://blog.jobbole.com/114690/" target="_blank" rel="noopener">伯乐在线</a>网站的某篇文章</p>
+<ul>
+<li>在网站全部文章分类中爬取该篇文章</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602195658961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>博主这里使用xpath来匹配要爬取的文章的标题丶发布时间丶标签丶文章内容丶点赞数丶收藏数以及评论数</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602195906673.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>因为Pycharm未提供scrapy模板，要想使用Debug进行断点测试，需要在项目根目录下创建main.py文件，文件代码如下，也就是执行爬虫的命令scrapy crawl jobbole</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.cmdline <span class="keyword">import</span> execute</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">sys.path.append(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line">execute([<span class="string">"scrapy"</span>, <span class="string">"crawl"</span>, <span class="string">"jobbole"</span>])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在jobbole.py文件parse方法中使用xpath匹配获取标题丶发布时间丶标签丶文章内容丶点赞数丶收藏数以及评论数数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">    <span class="comment"># 标题</span></span><br><span class="line">    title = response.xpath(<span class="string">"//div[@class='entry-header']/h1/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 发表时间</span></span><br><span class="line">    create_date = response.xpath(<span class="string">"//p[@class='entry-meta-hide-on-mobile']/text()"</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">" ·"</span>, <span class="string">""</span>)</span><br><span class="line">    <span class="comment"># 点赞数</span></span><br><span class="line">    praise_num = response.xpath(<span class="string">"//h10/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 收藏数</span></span><br><span class="line">    fav_nums = response.xpath(<span class="string">"//span[contains(@class, 'bookmark-btn')]/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 使用re正则匹配获取收藏数</span></span><br><span class="line">    match_re = re.match(<span class="string">".*(\d+).*"</span>, fav_nums)</span><br><span class="line">    <span class="keyword">if</span> match_re:</span><br><span class="line">        fav_nums = match_re.group(<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 评论数</span></span><br><span class="line">    comment_nums = response.xpath(<span class="string">"//span[contains(@class, 'hide-on-480')]/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 使用re正则匹配获取评论数</span></span><br><span class="line">    match_re = re.match(<span class="string">".*(\d+).*"</span>, comment_nums)</span><br><span class="line">    <span class="keyword">if</span> match_re:</span><br><span class="line">        comment_nums = match_re.group(<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 文章内容</span></span><br><span class="line">    content = response.xpath(<span class="string">"//div[@class='entry']"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 获取文章的tag标签</span></span><br><span class="line">    tag_list = response.xpath(<span class="string">"//p[@class='entry-meta-hide-on-mobile']/a/text()"</span>).extract()</span><br><span class="line">    <span class="comment"># 使用列表生成式过滤评论标签</span></span><br><span class="line">    tag_list = [element <span class="keyword">for</span> element <span class="keyword">in</span> tag_list <span class="keyword">if</span> <span class="keyword">not</span> element.strip().endswith(<span class="string">'评论'</span>)]</span><br><span class="line">    tags = <span class="string">','</span>.join(tag_list)</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>因为是爬取某一篇文章，所以在jobbole.py中的start_urls需要修改成要爬取的文章地址</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start_urls = [&apos;http://blog.jobbole.com/114690/&apos;]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug运行main.py文件，断点测试获取数据成功且正确</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602200826716.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>6.</strong>爬取伯乐在线网站中的所有文章</p>
+<ul>
+<li>首先在<a href="http://blog.jobbole.com/all-posts/" target="_blank" rel="noopener">http://blog.jobbole.com/all-posts/</a> 伯乐在线网站所有文章页面使用xpath 谷歌插件来获取页面中的20篇文章的url地址</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602203545952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在Terminal终端中通过scrapy shell 命令测试获取所有文章页面的数据，并使用xpath来获取页面中文章url地址，命令为scrapy shell <a href="http://blog.jobbole.com/all-posts/" target="_blank" rel="noopener">http://blog.jobbole.com/all-posts/</a></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602203817335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>当获取到列表页中20篇文章的url后，当scrapy进行页面数据下载后，需要回调给parse_detail方法进行页面字段的提取操作，这是第一步，第二步就是获取列表下一页的页面数据在parse函数中只要next_url提取存在，则会将此页面数据交给parse函数进行处理依次类推重复循环直到news_url不存在</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobboleSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'jobbole'</span></span><br><span class="line">    allowed_domains = [<span class="string">'blog.jobbole.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://blog.jobbole.com/all-posts/'</span>]</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        1.获取所有文章列表页中文章的url并交给解析函数对具体字段进行解析</span></span><br><span class="line"><span class="string">        2.获取列表页下一页的url地址并交给scrapy进行页面数据下载，下载完后交给parse函数进行字段获取</span></span><br><span class="line"><span class="string">        :param response:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 1.获取列表页中所有文章url</span></span><br><span class="line">        post_urls = response.xpath(<span class="string">"//div[@class='post floated-thumb']/div[@class='post-thumb']/a/@href"</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> post_url <span class="keyword">in</span> post_urls:</span><br><span class="line">            <span class="comment"># 为了防止有些文章链接不带域名前缀，所以需要对对链接地址进行域名凭借，需使用urllib提供的parse工具中的urljoin方法</span></span><br><span class="line">            <span class="comment"># 使用scrapy提供的Request类，将获取的文章内容通过callback回调函数交给parse_detail方法对页面内容字段进行获取</span></span><br><span class="line">            <span class="keyword">yield</span> Request(url=parse.urljoin(response.url, post_url), callback=self.parse_detail)</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 2.获取列表页下一页的url地址并交给scrapy进行页面数据下载</span></span><br><span class="line">        next_url = response.xpath(<span class="string">"//a[@class='next page-numbers']/@href"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">if</span> next_url:</span><br><span class="line">            <span class="keyword">yield</span> Request(url=parse.urljoin(response.url, next_url), callback=self.parse)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_detail</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="string">"""获取文章详情页中的字段数据"""</span></span><br><span class="line">        <span class="comment"># 标题</span></span><br><span class="line">        title = response.xpath(<span class="string">"//div[@class='entry-header']/h1/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 发表时间</span></span><br><span class="line">        create_date = response.xpath(<span class="string">"//p[@class='entry-meta-hide-on-mobile']/text()"</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">" ·"</span>, <span class="string">""</span>)</span><br><span class="line">        <span class="comment"># 点赞数</span></span><br><span class="line">        praise_num = response.xpath(<span class="string">"//h10/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 收藏数</span></span><br><span class="line">        fav_nums = response.xpath(<span class="string">"//span[contains(@class, 'bookmark-btn')]/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 使用re正则匹配获取收藏数</span></span><br><span class="line">        match_re = re.match(<span class="string">".*(\d+).*"</span>, fav_nums)</span><br><span class="line">        <span class="keyword">if</span> match_re:</span><br><span class="line">            fav_nums = match_re.group(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 评论数</span></span><br><span class="line">        comment_nums = response.xpath(<span class="string">"//span[contains(@class, 'hide-on-480')]/text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 使用re正则匹配获取评论数</span></span><br><span class="line">        match_re = re.match(<span class="string">".*(\d+).*"</span>, comment_nums)</span><br><span class="line">        <span class="keyword">if</span> match_re:</span><br><span class="line">            comment_nums = match_re.group(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 文章内容</span></span><br><span class="line">        content = response.xpath(<span class="string">"//div[@class='entry']"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 获取文章的tag标签</span></span><br><span class="line">        tag_list = response.xpath(<span class="string">"//p[@class='entry-meta-hide-on-mobile']/a/text()"</span>).extract()</span><br><span class="line">        <span class="comment"># 使用列表生成式过滤评论标签</span></span><br><span class="line">        tag_list = [element <span class="keyword">for</span> element <span class="keyword">in</span> tag_list <span class="keyword">if</span> <span class="keyword">not</span> element.strip().endswith(<span class="string">'评论'</span>)]</span><br><span class="line">        tags = <span class="string">','</span>.join(tag_list)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug测试是否成功爬取文章指定字段数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602211242281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在上图中红框提取的评论数显示的不是数字而是评论，访问该篇文章，发现该文章并没有评论</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602211527259.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>回到代码中对评论数和收藏数正则匹配不成功时需要进行逻辑判断，不存在默认为0</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">match_re = re.match(<span class="string">".*(\d+).*"</span>, fav_nums)</span><br><span class="line"><span class="keyword">if</span> match_re:</span><br><span class="line">    fav_nums = int(match_re.group(<span class="number">1</span>))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    fav_nums = <span class="number">0</span></span><br><span class="line"> </span><br><span class="line">match_re = re.match(<span class="string">".*(\d+).*"</span>, comment_nums)</span><br><span class="line"><span class="keyword">if</span> match_re:</span><br><span class="line">    comment_nums = int(match_re.group(<span class="number">1</span>))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    comment_nums = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再次测试则显示评论数为0</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190602212014688.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>7.</strong>将爬取的数据保存到本地项目中</p>
+<p><strong>分析：</strong>除了需要提取文章详情里面的字段内容外，在文章列表页中每篇文章的封面图的URL地址也是需要进行提取的</p>
+<ul>
+<li>因为文章的链接地址与封面图片地址都在a标签节点之下，所以需要修改之前的代码获取a节点列表，再通过遍历获取每一个a节点，在根据a节点来匹配获取文章地址以及封面图地址</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603092422863.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在parse_detail方法中获取response中meta字典属性中cover_image_url的值</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603094150483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在items文件中定义数据模型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobBoleArticleItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    title = scrapy.Field()</span><br><span class="line">    create_date = scrapy.Field()</span><br><span class="line">    url = scrapy.Field()</span><br><span class="line">    url_object_id = scrapy.Field()</span><br><span class="line">    cover_image_url = scrapy.Field()</span><br><span class="line">    cover_image_path = scrapy.Field()</span><br><span class="line">    praise_nums = scrapy.Field()</span><br><span class="line">    comment_nums = scrapy.Field()</span><br><span class="line">    fav_nums = scrapy.Field()</span><br><span class="line">    tags = scrapy.Field()</span><br><span class="line">    content = scrapy.Field()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在jobbole文件parse_detail方法中将提取的数据保存到items对应字段中</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 将提取到的字段数据传递给items中</span><br><span class="line">article = JobBoleArticleItem()</span><br><span class="line">article[&apos;title&apos;] = title</span><br><span class="line">article[&apos;create_date&apos;] = create_date</span><br><span class="line">article[&apos;url&apos;] = response.url</span><br><span class="line">article[&apos;cover_image_url&apos;] =  cover_image_url</span><br><span class="line">article[&apos;praise_nums&apos;] = praise_nums</span><br><span class="line">article[&apos;comment_nums&apos;] = comment_nums</span><br><span class="line">article[&apos;fav_nums&apos;] = fav_nums</span><br><span class="line">article[&apos;tags&apos;] = tags</span><br><span class="line">article[&apos;content&apos;] = content</span><br><span class="line">yield article</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在settings中配置使用pipelines数据管道文件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">'ArticleSpider.pipelines.ArticlespiderPipeline'</span>: <span class="number">300</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug测试在pipelines中获取item数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603103051314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>需要将封面图片下载到项目根目录下的images目录下，首先需要在根目录下新建images目录，用于存放下载的封面图；然后需要在settings中pipeline配置中添加scrapy提供的图片下载的管道类ImagesPipeline；紧接着需要settings中指定items中的cover_image_url字段为图片下载地址，最后一步就是settings中指定图片下载后保存的目录路径images</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603110133543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>直接run运行main.py文件启动scrapy爬虫项目，结果提示如下错误</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603110310624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>因为PIL属于pillow包下的模块，所以安装pillow即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603110700157.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>重新run运行项目，结果又报错了，原因是使用scrapy的ImagesPipeline类，会将settings中配置的IMAGES_URLS_FIELD的值也就是封面图地址数据当作列表数据，但在代码中设置的article[‘cover_image_url’]的值不是列表数据，所以就出现如下异常错误</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603110944749.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>即在parse_detail函数中将提取的cover_image_url变量修改列表数据即可</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">article[&apos;cover_image_url&apos;] =  [cover_image_url]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重新启动项目，则成功下载文章封面图到images目录下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603111909670.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在下载图片的时候也需要将图片保存的路径保存起来，需要继承scrapy提供的ImagesPipeline类，并重新父类的item_completed方法在方法中将遍历获取的图片路径保存到items中cover_image_path字段中，首先需要在pipelines文件中定义ArticleImagePipeline类完成逻辑</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticleImagePipeline</span><span class="params">(ImagesPipeline)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">item_completed</span><span class="params">(self, results, item, info)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">"cover_image_url"</span> <span class="keyword">in</span> item:</span><br><span class="line">            <span class="keyword">for</span> ok, value <span class="keyword">in</span> results:</span><br><span class="line">                image_file_path = value[<span class="string">"path"</span>]</span><br><span class="line">            item[<span class="string">"cover_image_path"</span>] = image_file_path</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>紧接着在settings中修改管道文件配置为上面定义的管道类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   &apos;ArticleSpider.pipelines.ArticlespiderPipeline&apos;: 300,</span><br><span class="line">   # &apos;scrapy.pipelines.images.ImagesPipeline&apos;: 1,</span><br><span class="line">   &apos;ArticleSpider.pipelines.ArticleImagePipeline&apos;: 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug断点测试在执行ArticlespiderPipeline管道类中时是否获取到cover_image_path图片存放路径，说明因为在以上settings中配置的继承scrapy的ImagesPipeline类的管道类ArticleImagePipeline的优先级为1，所以程序在执行管道文件时是先将image_file_path的值也就是图片路径保存到item实例对象的cover_image_path字段中的</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019060312103698.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>接下来在items字段中只差url_object_id的值了，这个值是将response.url也就是文章的地址通过hashlib库中的md5对象的update方法将文章url转换成唯一且长度一致的值，在项目目录下创建utils包并在该包下创建common.py文件，文件代码如下</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_md5</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> isinstance(url, str):</span><br><span class="line">        url = url.encode(<span class="string">"utf-8"</span>)</span><br><span class="line">    m = hashlib.md5()</span><br><span class="line">    m.update(url)</span><br><span class="line">    <span class="keyword">return</span> m.hexdigest()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> (get_md5(<span class="string">"http://jobbole.com"</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行以上代码，则将<a href="http://jobbole.com转换成唯一标识符" target="_blank" rel="noopener">http://jobbole.com转换成唯一标识符</a></li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603122652804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在parse_detail函数中设置url_object_id的值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">article[<span class="string">'url_object_id'</span>] = get_md5(response.url)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug测试items中是否存在url_object_id的值</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603123218195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>将文章详情页中提取的字段数据保存到本地，需要在pipelines文件中定义管道类将item数据保存到本地文件中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonWithEncodingPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment">#自定义json文件的导出</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.file = codecs.open(<span class="string">'article.json'</span>, <span class="string">'w'</span>, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        lines = json.dumps(dict(item), ensure_ascii=<span class="literal">False</span>) + <span class="string">"\n"</span></span><br><span class="line">        self.file.write(lines)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">spider_closed</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        self.file.close()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在settings中配置以上管道文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   &apos;ArticleSpider.pipelines.JsonWithEncodingPipeline&apos;:2,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.ArticlespiderPipeline&apos;: 300,</span><br><span class="line">   # &apos;scrapy.pipelines.images.ImagesPipeline&apos;: 1,</span><br><span class="line">   &apos;ArticleSpider.pipelines.ArticleImagePipeline&apos;: 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行项目，在下项目根目录成功创建article.json文件，并将爬取到的字段数据写入到文件中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603125807178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>还有一种方法就是使用scrapy提供的JsonItemExporter类实例对象的exporting方法将item数据写入到文件对象中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonExporterPipleline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment">#调用scrapy提供的json export导出json文件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.file = open(<span class="string">'articleexport.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        self.exporter = JsonItemExporter(self.file, encoding=<span class="string">"utf-8"</span>, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line">        self.exporter.start_exporting()</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        self.exporter.finish_exporting()</span><br><span class="line">        self.file.close()</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        self.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在settings配置文件中配置以上管道类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   &apos;ArticleSpider.pipelines.JsonExporterPipleline&apos;:2,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.JsonWithEncodingPipeline&apos;:2,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.ArticlespiderPipeline&apos;: 300,</span><br><span class="line">   # &apos;scrapy.pipelines.images.ImagesPipeline&apos;: 1,</span><br><span class="line">   &apos;ArticleSpider.pipelines.ArticleImagePipeline&apos;: 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行项目，在下项目根目录成功创建articleexport.json文件，并将爬取到的字段数据写入到文件中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603130301333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>8.</strong>将爬取的数据保存到数据库中</p>
+<ul>
+<li>在mysql数据库中创建数据库以及表</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603164953998.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>需要在parse_detail方法中对create_date字段数据转换成date格式的数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    create_date = datetime.datetime.strptime(create_date, <span class="string">"%Y/%m/%d"</span>).date()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    create_date = datetime.datetime.now().date()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装mysqlclient驱动包</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019060314515676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在管道文件中编写存储数据到mysql的管道类</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment">#采用同步的机制写入mysql</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.conn = MySQLdb.connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'mysql'</span>, <span class="string">'article_spider'</span>, charset=<span class="string">"utf8"</span>, use_unicode=<span class="literal">True</span>)</span><br><span class="line">        self.cursor = self.conn.cursor()</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        insert_sql = <span class="string">"""insert into article(url_object_id, title, url, create_date, fav_nums)VALUES (%s, %s, %s, %s, %s)"""</span></span><br><span class="line">        self.cursor.execute(insert_sql, (item[<span class="string">"url_object_id"</span>], item[<span class="string">"title"</span>], item[<span class="string">"url"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"fav_nums"</span>]))</span><br><span class="line">        self.conn.commit()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在settings中配置以上管道类，为了演示将数据保存到mysql数据库所以博主这里将图片管道文件注释掉了</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   &apos;ArticleSpider.pipelines.JsonExporterPipleline&apos;:2,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.JsonWithEncodingPipeline&apos;:2,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.ArticlespiderPipeline&apos;: 300,</span><br><span class="line">   # &apos;scrapy.pipelines.images.ImagesPipeline&apos;: 1,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.ArticleImagePipeline&apos;: 1,</span><br><span class="line">   &apos;ArticleSpider.pipelines.MysqlPipeline&apos;: 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug断点测试是否将要保存到数据库的字段数据成功保存到数据库</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603165606967.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用Navicat工具打开article表数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603165714518.png" alt></fancybox></p>
+<ul>
+<li>退出Debug模式直接run运行后，在Navicat工具中查看爬取的字段数据，由于文章太多所以只爬取一定时间的文字字段数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603172349254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>当爬取的数据量比较大时，可以使用异步方式将数据写入到数据库中，首先需要在pipelines文件中定义MysqlTwistedPipeline类，逻辑代码如下</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlTwistedPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, dbpool)</span>:</span></span><br><span class="line">        self.dbpool = dbpool</span><br><span class="line"> </span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_settings</span><span class="params">(cls, settings)</span>:</span></span><br><span class="line">        dbparms = dict(</span><br><span class="line">            host = settings[<span class="string">"MYSQL_HOST"</span>],</span><br><span class="line">            db = settings[<span class="string">"MYSQL_DBNAME"</span>],</span><br><span class="line">            user = settings[<span class="string">"MYSQL_USER"</span>],</span><br><span class="line">            passwd = settings[<span class="string">"MYSQL_PASSWORD"</span>],</span><br><span class="line">            charset=<span class="string">'utf8'</span>,</span><br><span class="line">            cursorclass=MySQLdb.cursors.DictCursor,</span><br><span class="line">            use_unicode=<span class="literal">True</span>,</span><br><span class="line">        )</span><br><span class="line">        dbpool = adbapi.ConnectionPool(<span class="string">"MySQLdb"</span>, **dbparms)</span><br><span class="line">        <span class="keyword">return</span> cls(dbpool)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment"># 使用twisted将mysql插入变成异步执行</span></span><br><span class="line">        query = self.dbpool.runInteraction(self.do_insert, item)</span><br><span class="line">        query.addErrback(self.handle_error, item, spider)  <span class="comment"># 处理异常</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_error</span><span class="params">(self, failure, item, spider)</span>:</span></span><br><span class="line">        <span class="comment"># 处理异步插入的异常</span></span><br><span class="line">        print(failure)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_insert</span><span class="params">(self, cursor, item)</span>:</span></span><br><span class="line">        insert_sql = <span class="string">"""insert into article(url_object_id, title, url, create_date, fav_nums)VALUES (%s, %s, %s, %s, %s)"""</span></span><br><span class="line">        cursor.execute(insert_sql, (item[<span class="string">"url_object_id"</span>], item[<span class="string">"title"</span>], item[<span class="string">"url"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"fav_nums"</span>]))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在settings配置文件中配置连接mysql数据库的配置项</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MYSQL_HOST = &quot;localhost&quot;</span><br><span class="line">MYSQL_DBNAME = &quot;article_spider&quot;</span><br><span class="line">MYSQL_USER = &quot;root&quot;</span><br><span class="line">MYSQL_PASSWORD = &quot;mysql&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在settings中配置定义异步写入数据库数据的管道类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   # &apos;ArticleSpider.pipelines.JsonExporterPipleline&apos;:2,</span><br><span class="line">   &apos;ArticleSpider.pipelines.JsonWithEncodingPipeline&apos;:2,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.ArticlespiderPipeline&apos;: 300,</span><br><span class="line">   # &apos;scrapy.pipelines.images.ImagesPipeline&apos;: 1,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.ArticleImagePipeline&apos;: 1,</span><br><span class="line">   # &apos;ArticleSpider.pipelines.MysqlPipeline&apos;: 1,</span><br><span class="line">   &apos;ArticleSpider.pipelines.MysqlTwistedPipeline&apos;: 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="六丶将scrapy爬取到的数据写入到elasticsearch中"><a href="#六丶将scrapy爬取到的数据写入到elasticsearch中" class="headerlink" title="六丶将scrapy爬取到的数据写入到elasticsearch中"></a>六丶将scrapy爬取到的数据写入到elasticsearch中</h1><p><font style="color:red"><strong>重点：</strong></font>因为博主使用的Elasticsearch版本为5.1.1，所以在安装elasticsearch-dsl工具的版本应该在5.0.0,&lt;6.0.0之间，最新的elasticsearch-dsl版本为7.0，该最新版本与前面版本做了一些修改所涉及的代码以及用法都不一样，参考github上的文档即可<a href="https://github.com/elastic/elasticsearch-dsl-py" target="_blank" rel="noopener">https://github.com/elastic/elasticsearch-dsl-py</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Elasticsearch 7.x</span><br><span class="line">elasticsearch-dsl&gt;=7.0.0,&lt;8.0.0</span><br><span class="line"> </span><br><span class="line"># Elasticsearch 6.x</span><br><span class="line">elasticsearch-dsl&gt;=6.0.0,&lt;7.0.0</span><br><span class="line"> </span><br><span class="line"># Elasticsearch 5.x</span><br><span class="line">elasticsearch-dsl&gt;=5.0.0,&lt;6.0.0</span><br><span class="line"> </span><br><span class="line"># Elasticsearch 2.x</span><br><span class="line">elasticsearch-dsl&gt;=2.0.0,&lt;3.0.0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装elasticsearch-dsl</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603185723491.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在项目models下创建es_types.py文件，在文件中创建索引mapping</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">__author__ = <span class="string">'cdtaogang'</span></span><br><span class="line">__date__ = <span class="string">'2019/6/2 12:45'</span></span><br><span class="line"><span class="keyword">from</span> elasticsearch_dsl <span class="keyword">import</span> DocType, Date, Nested, Boolean, analyzer,Completion, Keyword, Text, Integer</span><br><span class="line"><span class="keyword">from</span> elasticsearch_dsl.connections <span class="keyword">import</span> connections</span><br><span class="line">connections.create_connection(hosts=[<span class="string">"localhost"</span>])</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticleType</span><span class="params">(DocType)</span>:</span></span><br><span class="line">    title = Text(analyzer=<span class="string">"ik_max_word"</span>)</span><br><span class="line">    create_date = Date()</span><br><span class="line">    url = Keyword()</span><br><span class="line">    url_object_id = Keyword()</span><br><span class="line">    cover_image_url = Keyword()</span><br><span class="line">    cover_image_path = Keyword()</span><br><span class="line">    praise_nums = Integer()</span><br><span class="line">    comment_nums = Integer()</span><br><span class="line">    fav_nums = Integer()</span><br><span class="line">    tags = Text(analyzer=<span class="string">"ik_max_word"</span>)</span><br><span class="line">    content = Text(analyzer=<span class="string">"ik_max_word"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        index = <span class="string">"jobbole"</span></span><br><span class="line">        doc_type = <span class="string">"article"</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ArticleType.init()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行es_types.py文件</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603192800724.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>回到elasticsearch-head可视化页面，成功生成jobbole索引</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603192836353.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在pipelines文件中定义管道类ElasticsearchPipeline将数据写入到es中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ElasticsearchPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment"># 将数据写入到es中</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        article = ArticleType()</span><br><span class="line">        article.title = item[<span class="string">'title'</span>]</span><br><span class="line">        article.create_date = item[<span class="string">'create_date'</span>]</span><br><span class="line">        article.url = item[<span class="string">'url'</span>]</span><br><span class="line">        article.meta.id = item[<span class="string">'url_object_id'</span>]</span><br><span class="line">        article.cover_image_url = item[<span class="string">'cover_image_url'</span>]</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"cover_image_path"</span> <span class="keyword">in</span> item:</span><br><span class="line">            article.cover_image_path = item[<span class="string">'cover_image_path'</span>]</span><br><span class="line">        article.praise_nums = item[<span class="string">'praise_nums'</span>]</span><br><span class="line">        article.comment_nums = item[<span class="string">'comment_nums'</span>]</span><br><span class="line">        article.fav_nums = item[<span class="string">'fav_nums'</span>]</span><br><span class="line">        article.tags = item[<span class="string">'tags'</span>]</span><br><span class="line">        article.content = remove_tags(item[<span class="string">'content'</span>])</span><br><span class="line"> </span><br><span class="line">        article.save()</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Debug断点测试没有任何报错</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603193808969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在elasticsearch-head页面中查看jobbole索引的doc数据，成功将爬取的数据写入到es中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603193955883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在Kibana页面中对jobbole索引doc内容的tags标签进行匹配搜索，是否能够搜索出来此篇文章内容</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603194343404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>退出Debug，运行项目一段时间，爬取大量数据并写入到es中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190603194724840.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/90720889" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/90720889</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-16T11:37:16+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月16日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ElasticSearch/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>ElasticSearch</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python-Scrapy分布式爬虫/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Python Scrapy分布式爬虫</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/数据抓取/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>数据抓取</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Django-网站搭建/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Django 网站搭建</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/&title=Django与Elasticsearch交互打造搜索引擎网站（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶叙述
+二丶elasticsearch-rtf的安装与测试
+三丶elasticsearch-head插件以及kibana的安装
+四丶elasticsearch搜索引擎的使用
+五丶使用scrapy爬取知名技术文章网站
+六丶将scrapy爬取到的数据写入到elasticsearch中"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/&title=Django与Elasticsearch交互打造搜索引擎网站（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶叙述
+二丶elasticsearch-rtf的安装与测试
+三丶elasticsearch-head插件以及kibana的安装
+四丶elasticsearch搜索引擎的使用
+五丶使用scrapy爬取知名技术文章网站
+六丶将scrapy爬取到的数据写入到elasticsearch中"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD5ElEQVR42u3aS1IjUQwEQO5/aWY7BBhXSTKwSFYObLr7pReFPm9v8c/7fz+ffzN7N/nk589//1eP7nL8gwMHDhw44qPOjvfokMmRHj3PDL398r54Bhw4cODAccSRPFYbw7MU+x4lfzd/Hhw4cODA8bscV8GWkCXVVhLkOHDgwIHjL3Mk5dO+W3l7VBw4cODA8fMcVyOcWTxvAnjT3MSBAwcOHK/g2B/y779+yX4HDhw4cOAoh0DtotssUNv1uHYMVpwOBw4cOHCsOfJAag9z9V9AXubNyjMcOHDgwHHLkTfRzmKsbPa1IZqc4iETDhw4cOA44siZ2tdtTG6uOaP8cBccOHDgwLHmyIOzbQUWFWQ87kpah3nZ9qSixYEDBw4cI4428F7RksvHWsndkyAvuqQ4cODAgWPEsT9qwjqL8M3xkt98UdHiwIEDB44FRxJabck0W1x4dazWxSQOHDhw4Bhx5KsAecsv+WS+P9B+frWihwMHDhw41hztyCeJt/1gaf+3s8DGgQMHDhx7jrzFlgdh3gq8pTkoFHHgwIEDx03PLVpcyAOvvdpsZJU8wzCwceDAgQPHgiNfMmijN3n0DVY+dspbijhw4MCBY8+R3L690NX4p4XIw7UYquHAgQMHjlOONjLb0M2X8/Jm4sG0DQcOHDhwLDhmhVB7gP3rHHf2PB+agzhw4MCBY8GRHK8N2s1IabOUcLwhiAMHDhw41iXcrOZrG3Z58y4P2tmxDwZOOHDgwIEj3jfOC6rZOOdqSSJ/N7ovDhw4cOBYc7TxmbcIZ2Szxl9y97axiAMHDhw4Nhz7tYB2+eBqWWFWwj25Ow4cOHDgWHAkZdsmJmerCbOvof2Svrg+Dhw4cOBYcyQROFw4G8Vw3rbL24v1l4EDBw4cONYc+eXaR0+acTl6jnswdsKBAwcOHIuFhs2QZha3m6POmoBFlxQHDhw4cKw5WqBNMy657yykZ6t1H66JAwcOHDjWHG3KtOOiZES0WZXbL9XVKY0DBw4cOL79fRJL7YHzEJ0tJWz+OXjyGgcOHDhwHHHkY5tZOZdcP2/55devB104cODAgWPNcVV0zYqonKltDq7uggMHDhw4Fhzv5c/seMlgKV+n2DQ3n/wVDhw4cOBYc2wOkx+yDezNUkV+/dk1ceDAgQNHwtGGa1vsJe+2pWA7Hiu+fxw4cODAccRxFVS3CZ8faTOIwoEDBw4cv8vRRmw+OsqLw/ZeRXMTBw4cOHD8AY7klvmS9AyrbU0+mcXhwIEDB441R9IcbKPudtHtqol5NnbCgQMHDhzrhYbZw10VXa/45KyxiAMHDhw4HnD8A9q3FUfVLUAZAAAAAElFTkSuQmCC'>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/&title=Django与Elasticsearch交互打造搜索引擎网站（一） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+一丶叙述
+二丶elasticsearch-rtf的安装与测试
+三丶elasticsearch-head插件以及kibana的安装
+四丶elasticsearch搜索引擎的使用
+五丶使用scrapy爬取知名技术文章网站
+六丶将scrapy爬取到的数据写入到elasticsearch中"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（二）/" rel="prev" title="Django与Elasticsearch交互打造搜索引擎网站（二）">
+                                
+                                    Django与Elasticsearch交互打造搜索引擎网站（二）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/ElasticSearch/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> ElasticSearch</a> <a class="tag" href="/tags/Python-Scrapy分布式爬虫/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Scrapy分布式爬虫</a> <a class="tag" href="/tags/数据抓取/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数据抓取</a> <a class="tag" href="/tags/Django-网站搭建/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django 网站搭建</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/15/Django项目于之在线教育平台网站的实战开发（完结）/" rel="prev" title="Django项目于之在线教育平台网站的实战开发（完结）">
+                                  
+                                      Django项目于之在线教育平台网站的实战开发（完结）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Python/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python</a> <a class="tag" href="/tags/Django/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django</a> <a class="tag" href="/tags/Django网站实战/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Django网站实战</a> <a class="tag" href="/tags/Python-Web开发/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Python Web开发</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Django与Elasticsearch交互打造搜索引擎网站（一）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一丶叙述"><span class="toc-text">一丶叙述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二丶elasticsearch-rtf的安装与测试"><span class="toc-text">二丶elasticsearch-rtf的安装与测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三丶elasticsearch-head插件以及kibana的安装"><span class="toc-text">三丶elasticsearch-head插件以及kibana的安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶elasticsearch搜索引擎的使用"><span class="toc-text">四丶elasticsearch搜索引擎的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶使用scrapy爬取知名技术文章网站"><span class="toc-text">五丶使用scrapy爬取知名技术文章网站</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶将scrapy爬取到的数据写入到elasticsearch中"><span class="toc-text">六丶将scrapy爬取到的数据写入到elasticsearch中</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>

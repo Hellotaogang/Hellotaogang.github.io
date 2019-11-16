@@ -351,6 +351,698 @@
   <section class='meta'>
     
     
+      <a title='Django与Elasticsearch交互打造搜索引擎网站（二）' href='/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（二）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（二）/">
+      Django与Elasticsearch交互打造搜索引擎网站（二）
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶Django搭建搜索网站"><span style="color:#4ea1db">一丶Django搭建搜索网站</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶通过scrapyd部署scrapy爬虫"><span style="color:#4ea1db">二丶通过scrapyd部署scrapy爬虫</span></a></li>
+      
+        <div class="readmore">
+          <a href="/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（二）/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/ElasticSearch/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> ElasticSearch</a>
+        
+          <a href="/tags/Python-Scrapy分布式爬虫/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Scrapy分布式爬虫</a>
+        
+          <a href="/tags/数据抓取/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 数据抓取</a>
+        
+          <a href="/tags/Django-网站搭建/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django 网站搭建</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django与Elasticsearch交互打造搜索引擎网站（一）' href='/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/">
+      Django与Elasticsearch交互打造搜索引擎网站（一）
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p><fancybox><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django_search.png" width="900px" height="300px" align></fancybox><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶叙述"><span style="color:#4ea1db">一丶叙述</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶elasticsearch-rtf的安装与测试"><span style="color:#4ea1db">二丶elasticsearch-rtf的安装与测试</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶elasticsearch-head插件以及kibana的安装"><span style="color:#4ea1db">三丶elasticsearch-head插件以及kibana的安装</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶elasticsearch搜索引擎的使用"><span style="color:#4ea1db">四丶elasticsearch搜索引擎的使用</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶使用scrapy爬取知名技术文章网站"><span style="color:#4ea1db">五丶使用scrapy爬取知名技术文章网站</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶将scrapy爬取到的数据写入到elasticsearch中"><span style="color:#4ea1db">六丶将scrapy爬取到的数据写入到elasticsearch中</span></a></li>
+      
+        <div class="readmore">
+          <a href="/2019/11/16/Django与Elasticsearch交互打造搜索引擎网站（一）/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/ElasticSearch/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> ElasticSearch</a>
+        
+          <a href="/tags/Python-Scrapy分布式爬虫/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Scrapy分布式爬虫</a>
+        
+          <a href="/tags/数据抓取/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 数据抓取</a>
+        
+          <a href="/tags/Django-网站搭建/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django 网站搭建</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django项目于之在线教育平台网站的实战开发（完结）' href='/2019/11/15/Django项目于之在线教育平台网站的实战开发（完结）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/11/15/Django项目于之在线教育平台网站的实战开发（完结）/">
+      Django项目于之在线教育平台网站的实战开发（完结）
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-15</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶常见web攻击及防范"><span style="color:#4ea1db">一丶常见web攻击及防范</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶Xadmin多种配置"><span style="color:#4ea1db">二丶Xadmin多种配置</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶Xadmin插件开发（富文本编辑器）"><span style="color:#4ea1db">三丶Xadmin插件开发（富文本编辑器）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶Xadmin插件开发（导出excel）"><span style="color:#4ea1db">四丶Xadmin插件开发（导出excel）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶项目部署上线"><span style="color:#4ea1db">五丶项目部署上线</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶项目总结"><span style="color:#4ea1db">六丶项目总结</span></a></li>
+      
+        <div class="readmore">
+          <a href="/2019/11/15/Django项目于之在线教育平台网站的实战开发（完结）/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
+        
+          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
+        
+          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
+        
+          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django项目于之在线教育平台网站的实战开发（五）' href='/2019/11/15/Django项目于之在线教育平台网站的实战开发（五）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/11/15/Django项目于之在线教育平台网站的实战开发（五）/">
+      Django项目于之在线教育平台网站的实战开发（五）
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-15</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶全局搜索功能"><span style="color:#4ea1db">一丶全局搜索功能</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶用户个人中心（个人资料）"><span style="color:#4ea1db">二丶用户个人中心（个人资料）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶用户个人中心（我的课程） "><span style="color:#4ea1db">三丶用户个人中心（我的课程）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶用户个人中心（我的收藏） "><span style="color:#4ea1db">四丶用户个人中心（我的收藏）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶用户个人中心（我的消息）"><span style="color:#4ea1db">五丶用户个人中心（我的消息）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶用户个人中心（退出）"><span style="color:#4ea1db">六丶用户个人中心（退出）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#七丶 首页、全局功能细节和404以及500页面配置"><span style="color:#4ea1db">七丶 首页、全局功能细节和404以及500页面配置</span></a></li>
+      
+        <div class="readmore">
+          <a href="/2019/11/15/Django项目于之在线教育平台网站的实战开发（五）/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
+        
+          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
+        
+          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
+        
+          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django项目于之在线教育平台网站的实战开发（四）' href='/2019/11/15/Django项目于之在线教育平台网站的实战开发（四）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/11/15/Django项目于之在线教育平台网站的实战开发（四）/">
+      Django项目于之在线教育平台网站的实战开发（四）
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-15</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶公开课（详情页）"><span style="color:#4ea1db">一丶公开课（详情页）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶公开课（开始学习））"><span style="color:#4ea1db">二丶公开课（开始学习）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶公开课（课程评论） "><span style="color:#4ea1db">三丶公开课（课程评论）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶公开课（课程播放） "><span style="color:#4ea1db">四丶公开课（课程播放）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶授课教师（列表页）"><span style="color:#4ea1db">五丶授课教师（列表页）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶授课教师（详情页）"><span style="color:#4ea1db">六丶授课教师（详情页）</span></a></li>
+      
+        <div class="readmore">
+          <a href="/2019/11/15/Django项目于之在线教育平台网站的实战开发（四）/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
+        
+          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
+        
+          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
+        
+          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+      <a title='Django项目于之在线教育平台网站的实战开发（三）' href='/2019/11/14/Django项目于之在线教育平台网站的实战开发（三）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/11/14/Django项目于之在线教育平台网站的实战开发（三）/">
+      Django项目于之在线教育平台网站的实战开发（三）
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-14</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Django开发/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Django开发</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶授课机构（列表页）"><span style="color:#4ea1db">一丶授课机构（列表页）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶授课机构（用户咨询）"><span style="color:#4ea1db">二丶授课机构（用户咨询）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶授课机构（详情页） "><span style="color:#4ea1db">三丶授课机构（详情页） </span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶授课机构（用户收藏） "><span style="color:#4ea1db">四丶授课机构（用户收藏）</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶公开课（列表页）"><span style="color:#4ea1db">五丶公开课（列表页）</span></a></li>
+      
+        <div class="readmore">
+          <a href="/2019/11/14/Django项目于之在线教育平台网站的实战开发（三）/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
+        
+          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
+        
+          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
+        
+          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
       <a title='Django项目于之在线教育平台网站的实战开发（二）' href='/2019/11/12/Django项目于之在线教育平台网站的实战开发（二）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/django.png'></a>
     
     <div class="meta" id="header-meta">
@@ -534,7 +1226,7 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/djnago_edu.png" width="900px" height="300px" align><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+      <p><fancybox><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/djnago_edu.png" width="900px" height="300px" align></fancybox><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
 <div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
 <li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶叙述"><span style="color:#4ea1db">一丶叙述</span></a></li>
 <li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶Windows环境搭建"><span style="color:#4ea1db">二丶Windows环境搭建</span></a></li>
@@ -805,698 +1497,6 @@
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-      <a title='Flask项目之个性化微电影网站的实战开发（二）' href='/2019/11/11/Flask项目之个性化微电影网站的实战开发（二）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/images/flask.png'></a>
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/11/11/Flask项目之个性化微电影网站的实战开发（二）/">
-      Flask项目之个性化微电影网站的实战开发（二）
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    
-      <a href="/" rel="nofollow">
-        
-          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
-        
-        <p>cdtaogang</p>
-      </a>
-    
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-11-11</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Flask开发/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Flask开发</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
-<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶搭建后台页面"><span style="color:#4ea1db">一丶搭建后台页面</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶后台管理（管理员登录及退出）"><span style="color:#4ea1db">二丶后台管理（管理员登录及退出）</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶后台管理（标签管理）"><span style="color:#4ea1db">三丶后台管理（标签管理）</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶后台管理（电影管理）"><span style="color:#4ea1db">四丶后台管理（电影管理）</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶后台管理（预告管理）"><span style="color:#4ea1db">五丶后台管理（预告管理）</span></a></li>
-      
-        <div class="readmore">
-          <a href="/2019/11/11/Flask项目之个性化微电影网站的实战开发（二）/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
-        
-          <a href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Flask</a>
-        
-          <a href="/tags/Flask网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Flask网站实战</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-      <a title='Flask项目之个性化微电影网站的实战开发（一）' href='/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.3/images/flask.png'></a>
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/">
-      Flask项目之个性化微电影网站的实战开发（一）
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    
-      <a href="/" rel="nofollow">
-        
-          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
-        
-        <p>cdtaogang</p>
-      </a>
-    
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-11-11</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Flask开发/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Flask开发</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p><img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/flask_movie.png" width="900px" height="300px" align><br>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
-<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶叙述"><span style="color:#4ea1db">一丶叙述</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶Windows环境搭建"><span style="color:#4ea1db">二丶Windows环境搭建</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶项目分析丶搭建目录以及模型设计"><span style="color:#4ea1db">三丶项目分析丶搭建目录以及模型设计</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶搭建前台页面"><span style="color:#4ea1db">四丶搭建前台页面</span></a></li>
-      
-        <div class="readmore">
-          <a href="/2019/11/11/Flask项目之个性化微电影网站的实战开发（一）/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
-        
-          <a href="/tags/Flask/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Flask</a>
-        
-          <a href="/tags/Flask网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Flask网站实战</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-      <a title='Django项目之Web端电商网站的实战开发（完结）' href='/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.2/images/django.png'></a>
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/">
-      Django项目之Web端电商网站的实战开发（完结）
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    
-      <a href="/" rel="nofollow">
-        
-          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
-        
-        <p>cdtaogang</p>
-      </a>
-    
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-11-07</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Django开发/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Django开发</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
-<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶订单生成"><span style="color:#4ea1db">一丶订单生成</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶订单支付"><span style="color:#4ea1db">二丶订单支付</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶订单评论"><span style="color:#4ea1db">三丶订单评论</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶项目部署"><span style="color:#4ea1db">四丶项目部署</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶项目总结"><span style="color:#4ea1db">五丶项目总结</span></a></li>
-      
-        <div class="readmore">
-          <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（完结）/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
-        
-          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
-        
-          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-      <a title='Django项目之Web端电商网站的实战开发（五）' href='/2019/11/07/Django项目之Web端电商网站的实战开发（五）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.2/images/django.png'></a>
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（五）/">
-      Django项目之Web端电商网站的实战开发（五）
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    
-      <a href="/" rel="nofollow">
-        
-          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
-        
-        <p>cdtaogang</p>
-      </a>
-    
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-11-07</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Django开发/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Django开发</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
-<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶天天生鲜详情页"><span style="color:#4ea1db">一丶天天生鲜详情页</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶天天生鲜列表页"><span style="color:#4ea1db">二丶天天生鲜列表页</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶天天生鲜商品搜索"><span style="color:#4ea1db">三丶天天生鲜商品搜索</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶添加商品到购物车"><span style="color:#4ea1db">四丶添加商品到购物车</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶天天生鲜我的购物车页"><span style="color:#4ea1db">五丶天天生鲜我的购物车页</span></a></li>
-      
-        <div class="readmore">
-          <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（五）/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
-        
-          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
-        
-          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-      <a title='Django项目之Web端电商网站的实战开发（四）' href='/2019/11/07/Django项目之Web端电商网站的实战开发（四）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.2/images/django.png'></a>
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（四）/">
-      Django项目之Web端电商网站的实战开发（四）
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    
-      <a href="/" rel="nofollow">
-        
-          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
-        
-        <p>cdtaogang</p>
-      </a>
-    
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-11-07</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Django开发/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Django开发</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
-<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶Windows环境下安装FastDFS_Client"><span style="color:#4ea1db">一丶Windows环境下安装FastDFS_Client</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶Django二次开发对接FastDFS"><span style="color:#4ea1db">二丶Django二次开发对接FastDFS</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶天天生鲜首页"><span style="color:#4ea1db">三丶天天生鲜首页</span></a></li>
-      
-        <div class="readmore">
-          <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（四）/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
-        
-          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
-        
-          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-      <a title='Django项目之Web端电商网站的实战开发（三）' href='/2019/11/07/Django项目之Web端电商网站的实战开发（三）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.2/images/django.png'></a>
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（三）/">
-      Django项目之Web端电商网站的实战开发（三）
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    
-      <a href="/" rel="nofollow">
-        
-          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
-        
-        <p>cdtaogang</p>
-      </a>
-    
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-11-07</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/Django开发/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Django开发</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
-<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#一丶模板文件继承"><span style="color:#4ea1db">一丶模板文件继承</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#二丶用户中心页面显示"><span style="color:#4ea1db">二丶用户中心页面显示</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#三丶登录验证以及登录后跳转的地址"><span style="color:#4ea1db">三丶登录验证以及登录后跳转的地址</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶封装login_required方法"><span style="color:#4ea1db">四丶封装login_required方法</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶登录后显示用户名以及退出登录"><span style="color:#4ea1db">五丶登录后显示用户名以及退出登录</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶用户中心-地址"><span style="color:#4ea1db">六丶用户中心-地址</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#七丶用户中心-信息"><span style="color:#4ea1db">七丶用户中心-信息</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#八丶分布式文件系统FastDFS"><span style="color:#4ea1db">八丶分布式文件系统FastDFS</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#九丶Nginx配置FastDFS使用的安装和配置"><span style="color:#4ea1db">九丶Nginx配置FastDFS使用的安装和配置</span></a></li>
-<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#十丶Python与FastDFS进行交互"><span style="color:#4ea1db">十丶Python与FastDFS进行交互</span></a></li>
-      
-        <div class="readmore">
-          <a href="/2019/11/07/Django项目之Web端电商网站的实战开发（三）/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Python/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python</a>
-        
-          <a href="/tags/Django/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django</a>
-        
-          <a href="/tags/Django网站实战/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Django网站实战</a>
-        
-          <a href="/tags/Python-Web开发/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> Python Web开发</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1506,7 +1506,7 @@
         <div class="prev-next">
           
           <p class="current">
-            1 / 3
+            1 / 4
           </p>
           
             <a class="next" rel="next" href="/archives/2019/11/page/2/">
@@ -1823,7 +1823,7 @@
     <div class='content pure'>
       <ul class="entry">
         
-          <li><a class="flat-box" title="/categories/Django开发/" href="/categories/Django开发/"><div class='name'>Django开发</div><div class='badge'>(8)</div></a></li>
+          <li><a class="flat-box" title="/categories/Django开发/" href="/categories/Django开发/"><div class='name'>Django开发</div><div class='badge'>(14)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Flask开发/" href="/categories/Flask开发/"><div class='name'>Flask开发</div><div class='badge'>(19)</div></a></li>
         
@@ -1883,7 +1883,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/tags/Django/" style="font-size: 17.33px; color: #828282">Django</a> <a href="/tags/Django网站实战/" style="font-size: 17.33px; color: #828282">Django网站实战</a> <a href="/tags/Flask/" style="font-size: 22.33px; color: #606060">Flask</a> <a href="/tags/Flask网站实战/" style="font-size: 15.67px; color: #8e8e8e">Flask网站实战</a> <a href="/tags/Flask网站实战开发/" style="font-size: 20.67px; color: #6c6c6c">Flask网站实战开发</a> <a href="/tags/Python/" style="font-size: 24px; color: #555">Python</a> <a href="/tags/Python-Web开发/" style="font-size: 19px; color: #777">Python Web开发</a> <a href="/tags/微信公众号/" style="font-size: 15.67px; color: #8e8e8e">微信公众号</a> <a href="/tags/微信开发/" style="font-size: 15.67px; color: #8e8e8e">微信开发</a> <a href="/tags/手机端租房网站开发/" style="font-size: 20.67px; color: #6c6c6c">手机端租房网站开发</a> <a href="/tags/测试流程/" style="font-size: 14px; color: #999">测试流程</a> <a href="/tags/用例方法/" style="font-size: 14px; color: #999">用例方法</a> <a href="/tags/用例步骤/" style="font-size: 14px; color: #999">用例步骤</a> <a href="/tags/用例特性/" style="font-size: 14px; color: #999">用例特性</a> <a href="/tags/用例要素/" style="font-size: 14px; color: #999">用例要素</a>
+      <a href="/tags/Django/" style="font-size: 18.29px; color: #7c7c7c">Django</a> <a href="/tags/Django-网站搭建/" style="font-size: 15.43px; color: #8f8f8f">Django 网站搭建</a> <a href="/tags/Django网站实战/" style="font-size: 18.29px; color: #7c7c7c">Django网站实战</a> <a href="/tags/ElasticSearch/" style="font-size: 15.43px; color: #8f8f8f">ElasticSearch</a> <a href="/tags/Flask/" style="font-size: 22.57px; color: #5f5f5f">Flask</a> <a href="/tags/Flask网站实战/" style="font-size: 16.86px; color: #868686">Flask网站实战</a> <a href="/tags/Flask网站实战开发/" style="font-size: 19.71px; color: #727272">Flask网站实战开发</a> <a href="/tags/Python/" style="font-size: 24px; color: #555">Python</a> <a href="/tags/Python-Scrapy分布式爬虫/" style="font-size: 15.43px; color: #8f8f8f">Python Scrapy分布式爬虫</a> <a href="/tags/Python-Web开发/" style="font-size: 21.14px; color: #686868">Python Web开发</a> <a href="/tags/微信公众号/" style="font-size: 16.86px; color: #868686">微信公众号</a> <a href="/tags/微信开发/" style="font-size: 16.86px; color: #868686">微信开发</a> <a href="/tags/手机端租房网站开发/" style="font-size: 19.71px; color: #727272">手机端租房网站开发</a> <a href="/tags/数据抓取/" style="font-size: 15.43px; color: #8f8f8f">数据抓取</a> <a href="/tags/测试流程/" style="font-size: 14px; color: #999">测试流程</a> <a href="/tags/用例方法/" style="font-size: 14px; color: #999">用例方法</a> <a href="/tags/用例步骤/" style="font-size: 14px; color: #999">用例步骤</a> <a href="/tags/用例特性/" style="font-size: 14px; color: #999">用例特性</a> <a href="/tags/用例要素/" style="font-size: 14px; color: #999">用例要素</a>
     </div>
   </section>
 

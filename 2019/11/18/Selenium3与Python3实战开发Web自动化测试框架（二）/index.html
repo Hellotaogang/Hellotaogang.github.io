@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Selenium3与Python3实战开发Web自动化测试框架（二） | TG&#39;S BLOG</title>
+  
+  
+  <meta name="description" content="该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.3/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <img class='logo' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.6/images/logo_2.png'/>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-home fa-fw'></i>&nbsp;主页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/love/"
+            
+              rel="nofollow"
+            
+            
+            id="love">
+            <i class='fas fa-heart fa-fw'></i>&nbsp;记录
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/"
+            
+              rel="nofollow"
+            
+            
+            id="about">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          TG'S BLOG
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-home fa-fw'></i>&nbsp;主页
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-tags fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/love/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="love">
+									<i class='fas fa-heart fa-fw'></i>&nbsp;记录
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/about/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="about">
+									<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/blog/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="blogarchives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/projects/"
+                
+                
+                id="projects">
+								<i class='fas fa-code-branch fa-fw'></i>&nbsp;开源项目
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="friends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/"
+                
+                  rel="nofollow"
+                
+                
+                id="https:xaoxuu.comwikimaterial-x">
+								<i class='fas fa-book fa-fw'></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+      <a title='Selenium3与Python3实战开发Web自动化测试框架（二）' href='/2019/11/18/Selenium3与Python3实战开发Web自动化测试框架（二）/'><img class='thumbnail' src='https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.6.5/images/selenium.png'></a>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/11/18/Selenium3与Python3实战开发Web自动化测试框架（二）/">
+        Selenium3与Python3实战开发Web自动化测试框架（二）
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="/" rel="nofollow">
+        
+          <img src="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4.3/images/avatar_4.png">
+        
+        <p>cdtaogang</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-18</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/自动化测试框架/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>自动化测试框架</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <p>该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！<br><font style="color:red">温馨提示：需要项目源码的朋友，请添加博主微信进行获取！</font></p>
+<div style="color:#fb651b"><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#四丶Unittest介绍及项目实战中的运用"><span style="color:#4ea1db">四丶Unittest介绍及项目实战中的运用</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#五丶数据驱动的介绍及使用"><span style="color:#4ea1db">五丶数据驱动的介绍及使用</span></a></li>
+<li class="toc-item toc-level-1"><a style=" text-decoration:none;" href="#六丶关键字模型的介绍及运用"><span style="color:#4ea1db">六丶关键字模型的介绍及运用</span></a></li>
+<a id="more"></a>
+
+<h1 id="四丶Unittest介绍及项目实战中的运用"><a href="#四丶Unittest介绍及项目实战中的运用" class="headerlink" title="四丶Unittest介绍及项目实战中的运用"></a>四丶Unittest介绍及项目实战中的运用</h1><p><strong>1.unittest介绍及运用</strong></p>
+<ul>
+<li>在case包下创建一个unittest_case模块，编写如下代码，在继承unittest模块的TestCase类时，需要定义以test开头的方法才能在运行unittest测试代码时被调用执行</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">__author__ = <span class="string">'cdtaogang'</span></span><br><span class="line">__date__ = <span class="string">'2019/7/3 18:48'</span></span><br><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstCase_02</span><span class="params">(unittest.TestCase)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_01</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"test_01"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_02</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"test_02"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"say_hello"</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行以上代码，结果已说明一切，只调用了以test开头的方法</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190703194811788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.unittest前置条件和后置条件</strong></p>
+<ul>
+<li>每当执行一条case前都会先去调用setUp方法，case执行完成后又会去调用tearDown方法；根据这个特性就可以与first_case中的po模型结合解决之前遗留的注册页面输入框内容清空的问题</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190703200946263.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>3.unittest和po模型结合梳理执行所有case</strong></p>
+<p><strong>说明：</strong><font style="color:red">在first_case模块中让FirstCase类继承unittest.TestCase类，这样的话就可以定义setUp方法来完成创建一个全局的driver，因为其特性可以在执行每条case时候会去执行setUp方法即打开一个新的浏览器窗口，这样的话就解决了同意浏览器执行多条case时，输入框内容不清空的问题，然后再在FirstCase类中定义tearDown方法来关闭浏览器窗口，最后在执行case的时候就不需要main函数，因为我们的FirstCase类继承于unittest.TestCase类并且我们的测试方法均以test开头的，只需要在if <strong>name</strong> == ‘<strong>main</strong>‘:中调用unittest.main()方法即可，堪称完美</font></p>
+<ul>
+<li>unittest和po模型结合结合后，first_case模块中的代码如下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190704020800724.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行代码，成功测试5个case，测试结果正确，说明一下测试结果，博主测试的数据全是回到错误提示信息，所以在以下无的结果中4个提示的是注册失败了，此条case执行成功，注册失败对应的case为test_register_success该测试条件为测试注册页面中是否存在获取得到注册功能的元素，不存在则表示注册成功反之则表示注册失败，因为验证码这块还没有加入代码中所以test_register_success这个case肯定是注册失败的</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190704021100273.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>为了验证打印”注册成功，此条case执行失败”即表示注册页面没有要测试的错误提示信息，所以博主将test_register_username_error这个case传入的注册数据中的name的数据改为正确格式的数据，则就会出现调用get_error_msg方法返回的text值为None，说明页面没有该错误提示信息元素了，需要注意的通过get_element获取不到页面元素时则返回None，那么在get_error_msg方法中去调用element对象的text方法则会提示错误，因为None没有任何方法，所以在get_error_msg中需要进行异常处理，当出现异常则表示无法找到页面中错误提示信息的元素，即text=None，代码如下</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_error_msg</span><span class="params">(self, info, error_msg)</span>:</span></span><br><span class="line">    <span class="string">"""获取错误信息"""</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> info == <span class="string">"email_error"</span>:</span><br><span class="line">            text = self.reg_page.get_user_email_error_element().text</span><br><span class="line">        <span class="keyword">elif</span> info == <span class="string">"username_error"</span>:</span><br><span class="line">            text = self.reg_page.get_user_name_error_element().text</span><br><span class="line">        <span class="keyword">elif</span> info == <span class="string">"password_error"</span>:</span><br><span class="line">            text = self.reg_page.get_password_error_element().text</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            text = self.reg_page.get_captcha_code_error_element().text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        text = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">return</span> text</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>紧接着在first_case模块中的test_register_username_error方法中将传递的name值改为正确格式的数据，运行代码后，在测试结果中成功打印出”注册成功，此条case执行失败”即表示测试的用户名数据注册成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190704023719289.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>4.unittest容器的使用</strong></p>
+<ul>
+<li>使用装饰器来管理测试类中定义的方法</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019070611524466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行代码后，从结果可以看出setUpClass方法是在所有case执行前执行，tearDownClass方法则是在所有case执行之后才执行</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706115756137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>使用unittest容器，只执行想要执行的case，只需要添加test_02到容器中，最后运行容器即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706120321856.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行代码后，成功的只执行test_02的case</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706120423179.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>5.unittest用例执行顺序及case跳过</strong></p>
+<ul>
+<li>case执行顺序，默认是以字母或者数字的升序进行执行的，如下在代码中添加test_03查看执行顺序</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706121852419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>通过容器来控制执行的顺序</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706122019524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>如不想执行test_03这条case，可以使用unittest.skip方法进行case的跳过</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706123512567.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>6.如何大批量运行case文件</strong></p>
+<ul>
+<li>如在case包下创建一个unittest_case02.py模块，模块中有与unittest_case同样的case，如何同时运行两个模块中的case</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706124836376.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>要想一次运行case包下的多个模块中的case，需要在case目录下创建一个名为run_case.py模块，编写如下代码，在代码中首先需要获取当前case所在的路径，然后通过discover方法去case路径下去将以unittest_开头.py结尾的文件放到defaultTestLoader容器中，最后通过run方法运行容器中的case</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706131613798.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行代码后，成功的将unittest_case.py以及unittest_case02.py模块中的case全部运行</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706132123732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>7.项目中如何运用assert</strong></p>
+<ul>
+<li>在first_case.py项目文件中，通过assert断言判断register_busniess模块中检查错误提示信息元素返回的是否是False，如果返回的是True表示的是页面中的检查的该输入框没有错误信息，那么断言就会提示True is not false，当返回的是False表示页面存在错误信息，则断言成功不会打印任何信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706140935263.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行项目，在test_register_username_error以及test_register_success这两个case很明显返回的是True，第一个是传递的username合法导致页面检测不到错误信息元素即返回True，第二个是检验页面中是否存在注册这两个字value，因为验证码肯定还没有融入项目中，传递的验证码肯定是错误的，那么页面中是存在注册按钮的，即register_success方法返回的是True，也就是检验到了页面注册元素的，所以这两个case都是报错并提示True is not false</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706141514121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>8.项目中如何生成测试报告</strong></p>
+<ul>
+<li>要想生成Html测试报告，则需要安装HtmlTestRunner，下载此HtmlTestRunner.py文件，将其拷贝到项目环境site-packages目录下即可，需要说明的是HtmlTestRunner.py是由py2编写的，需要对其源码进行修改然后才能在py3环境中使用，博主在上个项目中<a href="https://blog.csdn.net/qq_41782425/article/details/91841130#%E4%BA%94%E4%B8%B6unittest%E4%BD%BF%E7%94%A8" target="_blank" rel="noopener">Python接口自动化测试框架实战开发（一）</a>有详细说明</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706162831269.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>然后在代码中将测试结果通过HtmlTestRunner写入到项目report/first_case.html文件中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706181132280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行项目first_case.py文件，查看运行结果，显示OK</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706181351748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>打开report/first_case.html文件，查看html测试报告成功，博主将HtmlTestRunner源码进行一些修改，看到如下的样式</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706181626618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>9.项目中case运行失败截图low方法设计与封装</strong></p>
+<ul>
+<li>在上一步中通过HtmlTestRunner将测试报告写入到html文件中，但是无法看到当时在注册页面输入的数据，所以需要在代码中通过driver进行截图，这样一来当case测试失败时，查看截图就知道当时具体情况了，当页面元素查找不到时，即抛出异常此时进行截图查看当时注册时的信息，所以在get_element方法中进行截图处理，代码如下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706194552703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>为了测试通过get_element方法获取不到错误信息元素时，在first_case模块中则需要测试用户名错误信息这个case，因为这个case传递的用户名是合法的，所以再执行get_element方法时则会抛出异常，截取图片数据并命名为value值也就是ini配置文件中的错误元素id的值，保存到项目目录下的images目录中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706194907569.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行项目，查看images目录下的截图数据，与预期的输入的数据一致，为合法用户名</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706195032635.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>10.项目中python3如何封装失败自动截图方法</strong></p>
+<ul>
+<li>在get_element方法中通过捕获异常来触发截图，这样是比较low的，为了高效完成自动截图，可以设定当程序运行过程中出现异常时，则进行截图，那么就可以放在tearDown方法中进行代码逻辑处理，遍历获取错误异常数据，当error不为空时，则说明出现了项目中某个测试方法中出现异常了，即进行截图处理</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706201510262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在if <strong>name</strong> == ‘<strong>main</strong>‘启动代码中将所有的case添加到容器中进行测试，这5个case在之前的步骤中已经说过很多次了很测试用户名以及注册成功这一块断言都是失败的这两个case返回的都是True，而断言是以False作比较，所以会截取这两个case注册时的图片</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706203034590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行项目后，查看images下的图片，一个是检查用户名的错误提示信息元素，另一个是检查页面中是否有注册</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706203339388.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>查看first_case.html测试报告</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706203753748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>11.完整得case流程集合破解验证码</strong></p>
+<p><strong>说明：</strong>在上一篇博客中通过ShowapiRequest.py接口对截取的验证码图片进行验证码识别，其中关于整个验证码这块的代码逻辑为；第一部分通过selenium保存注册页面的图片到本地，再通过driver获取验证码块在注册页面的坐标，其次通过Image.py模块中的crop方法对保存的注册页面的图片进行验证码的裁剪，最后将裁剪的验证码保存到本地；第二部分通过验证码识别网站提供的sdk工具也就是ShowapiRequest.py模块提供的方法，对指定验证码图片进行识别，然后将返回的json格式转换为字典，从字典中获取result键的值也就是识别出来的二维码值，最终返回出去</p>
+<ul>
+<li>在utils目录下创建get_captcha.py文件用于封装获取验证码方法，从之前的register_code.py文件中将其中验证码的获取以及识别的两个方法拷贝到get_captcha.py文件中，进行如下修改</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706233146989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>然后在register_handle.py处理层代码中找到验证码发送的核心方法send_user_captcha，在该方法中实例化get_captcha.py模块中的GetCaptcha类，并调用其获取验证码图片以及识别验证码图片的两个方法，需要注意的是这两个方法需要传递保存验证码图片以及识别验证码图片的路径filename</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706233535219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在register_handle.py对获取页面注册按钮的文本值也就是value值进行容错处理，若注册成功则会提示None类型没有text</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190707001838140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>紧接着在register_business.py模块中将之前传递的code形参，全部更改为filename</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190707002638105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>跟着在first_case模块中定义setUpClass类方法来完成全局变量filename的路径</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190706234243564.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>最后在5个case中只有test_register_captcha_error和最后一个test_register_success的测试条件为正确但不一定注册成功，因为验证码不可能百分百正确，其余的3个case测试数据都是不正确的；换句话来说就是其余3个case在调用get_error_msg方法中都能查找到页面错误信息元素，不会出现异常返回None，则最终返回到断言时的值为False，那么表示断言成功，而test_register_captcha_error和最后一个test_register_success这两个case都是取决于验证码，test_register_success这个case如果找不到页面注册二字，则表示注册成功，即在调用get_register_button_text方法时返回None，则调用register_success方法返回False，那么就代表注册成功，相反检查到页面存在注册二字，则返回True，那么就代码注册失败</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190707003938698.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行项目，毫无疑问除了test_register_captcha_error和最后一个test_register_success这两个case其余三个肯定是断言成功，而这两个case可能断言成功取决于核心因素验证码是否识别成功，test_register_captcha_error这个case断言成功则表示注册失败，case执行成功；而test_register_success这个case断言成功表示注册成功，断言失败则表示注册失败</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190707004312314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>根据以上测试结果可以看出，4个case断言成功，则除了前三个case，最后一个case断言成功则表示注册成功了，而验证码这个case断言失败，应该是注册成功了，其实并不是，原因是用户名相同导致的，我们先看以下html版的测试报告，报告上的结果与编辑器打印结果一致</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190707004716279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>现在查看test_register_captcha_error和test_register_success这两个case的截图，其余三个都是断言成功则截图都是指定测试元素错误，主要是看test_register_captcha_error这个case断言失败了按理说是注册成功，但是其实并不是，大家看截图就一目了然了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190707005047173.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="五丶数据驱动的介绍及使用"><a href="#五丶数据驱动的介绍及使用" class="headerlink" title="五丶数据驱动的介绍及使用"></a>五丶数据驱动的介绍及使用</h1><p><strong>1.数据驱动介绍及简单使用</strong></p>
+<ul>
+<li>数据驱动无非就是以数据作为导向对结果进行处理，通俗来说就是参数化，在项目register_business模块中检测注册页面的错误元素的方法中的形参都是一样的，这样看来代码还是比较low的，即需要安装python中的ddt模块，来使用数据驱动</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710091515199.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在case目录下创建data_test.py模块，用于将数据驱动在unittest测试类中的简单使用，编写如下代码</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710092511650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行data_test.py模块，查看结果，从结果中可以看出执行了三个case，但是代码中只写了一个case，这就是ddt来完成数据驱动代码复用的效果</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710092721466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.项目中如何构思设计数据驱动结构</strong></p>
+<ul>
+<li>首先分析first_case以及register_business模块中的代码的调用和参数，在first_case模块中通过传递不同的参数来调用register_business模块中的不同的方法来检测判断页面中是否存在错误信息元素，即每个case所需的参数包括邮箱丶用户名丶密码丶验证码丶错误定位元素丶错误提示信息；在case目录下创建first_ddt_case模块来完成ddt在项目中的设计，即在first_ddt_case模块中编写如下代码，完成参数的铺垫</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710095356570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>3.项目中实现数据驱动，重构case及business</strong></p>
+<ul>
+<li>在first_ddt_case模块中，使用ddt数据驱动重构case，完成测试注册页面邮箱地址的合法性</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019071011223767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在first_ddt_case模块中定义的测试方法test_register_case中调用了register_business模块中的register_func方法，所以在需要在register_business模块中去定义该方法，如下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019071011091030.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在执行first_ddt_case模块之前需要将register_handle模块中的send_user_captcha方法进行如下修改，为什么要修改，原因是在最开始first_ddt_case模块中调用register_func方法传递的参数captcha，为固定值”captcha”，那么就会导致send_user_captcha接收的参数filename为”captcha”，原本该参数filename的值为保存图片以及验证码的路径地址，即在保存验证码图片的时候就会出现异常错误，导致case无法正常运行</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710111418853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行first_ddt_case模块，查看运行结果，如测试条件所示，最后一个case因为输入正确的邮箱地址，所以提示邮件检测不成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710112459417.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>4.项目中数据驱动实战并重构</strong></p>
+<ul>
+<li>将测试结果结合HtmlTestRunner写入到html文件中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710114900420.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行代码后，打开report/first_case_2.html文件，查看测试报告，与预期结果一致</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710115045529.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在get_error_msg获取页面错误信息元素方法中根据传递的info参数来判断是获取哪个input的错误元素，需要将try中的判断参数修改成与LocalElement.ini文件中的键保持一致</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710115428253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>最后在first_ddt_case模块中data数据中传递的error_element的值email_error修改成user_email_error，这样代码的连贯性就很强</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710115728130.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>5.项目中如何以文件的形式实现数据驱动</strong></p>
+<ul>
+<li>在config目录下创建一个名为case的xls文档，编写用于测试case所需的测试数据，这样做的话就比较方便我们修改测试的数据而不再代码中进行修改，如下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710164906713.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>6.如何按照数据驱动格式获取excel内容</strong></p>
+<ul>
+<li>在python中要操作excel文档，则需要安装xlrd这个库</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190710125842102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>然后在utils目录下创建op_excel.py文件，编写如下代码，并打印出excel表中每行的数据，关于操作excel文档的方法在上个项目中有详细介绍，这里就不多说了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710165040293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>最后将获取到excel文档中的每列数据添加到result列表中，最后再进行返回</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710165127881.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>7.项目中以文件的形式实现数据驱动</strong></p>
+<ul>
+<li>在first_ddt_case模块中从工具包utils中导入OpExcel类并调用get_data方法获取excel文档数据，将数据通过数据驱动赋值给对应的变量</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710164009879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行代码后，查看运行结果，根据测试条件除了第二条case是测试成功的，其他都是测试失败，因为只有第二条case的邮箱地址格式是错误的</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710165601432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>打开first_case_2.html查看测试结果报告，与代码运行结果一致</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710165648430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<h1 id="六丶关键字模型的介绍及运用"><a href="#六丶关键字模型的介绍及运用" class="headerlink" title="六丶关键字模型的介绍及运用"></a>六丶关键字模型的介绍及运用</h1><p><strong>1.项目中如何设计关键字模型</strong></p>
+<ul>
+<li>在乐学网站不管是注册页面还是登录页面无非就是输入数据点击注册或者登录，由此可以设计关键字模型表</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190710192505111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>2.重构封装操作excel的方法</strong></p>
+<ul>
+<li>在op_excel.py模块中，定义获取excel表行数方法，然后在get_data方法for循环中直接调用get_lines方法得到excel行数以此进行遍历，再定义get_col_value方法获取第4行第三列的数据，最后打印出来</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711110815693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>3.封装写入实际结果方法,优化程序健壮性</strong></p>
+<ul>
+<li>在keyword表中，添加实际结果这一列，在实际测试工作中肯定测试文档中应该存在此列</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711113009680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在op_excel模块中定义一个方法向表中实际结果列写入数据，需要注意的是在运行代码前需要关闭keyword文档，不然会抛出异常</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711113147577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>再次打开keyword文档查看是否向第三行第7列写入测试数据test</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711113343574.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>回到op_excel模块中，向方法中添加容错处理</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711115654146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>调用get_col_value方法获取单元格数据，传递不存在的行和列，通过以上的容错处理，成功返回None</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711121050170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>4.二次封装webdriver里的方法</strong></p>
+<ul>
+<li>在项目目录下创建名为keyword的python包，在包下创建action_method.py模块用于封装excel表中webdriver驱动的方法包括获取driver丶打开浏览器丶获取url地址丶获取元素丶输入元素丶点击元素丶等待时间以及关闭driver</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711155533135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>5.如何将封装方法和excel数据结合思路分析</strong></p>
+<ul>
+<li>首先修正一下excel表中的数据，增加每行case是否执行的列，将操作的元素对应修改为LocalElement.ini配置文件中的键一致，如下所示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711165117537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在case目录下创建keyword_case.py模块用于将上一步中封装的方法与excel表数据进行结合，在代码中需要实现如下逻辑</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711131420384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>6.关键字模型主程序从思想到代码的实现</strong></p>
+<ul>
+<li>在keyword_case.py模块中完成代码实现，也就是将上一步中的逻辑注释以代码进行实现</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711155917712.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>7.项目中运行关键字模型流程梳理及常见错误解决</strong></p>
+<ul>
+<li>首先为了验证代码是否写的有问题，直接运行keyword_case.py文件，查看运行结果</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711144626152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>出现以上错误提示的原因是，在Python3中keyword是python的关键字包，所以在给包命名时应避免使用关键字进行命名，而我们在项目目录下却创建了keyword的包，所以在keyword_case模块中导入时就会出现以上错误，所以需要将项目目录下的keyword包修改为keywords，再次运行就没有报错了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711144947128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>调用run_main方法，查看运行结果出现以下错误提示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711160444650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>解决以上错误的方式为将ActionMethod实例对象复制给KeywordCase的self对象中作为可以在run_method以及run_mian方法中进行共用</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711175242970.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>重新运行代码后，成功打印出excel表中是否执行字段的数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711175713262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>为了测试keyword_case模块中的代码是否能够正常执行excel表中的case，需要完善excel表数据，如下所示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711180609743.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行keyword_case模块，结果在执行第五个case，也就是输入password的时候报错了，错误如下</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711181131953.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>以上报错，博主很清楚，因为当初在Debug调试代码的时候，出现过该错误，原因是在excel表password输入的是浮点型的数据，运行op_excel.py模块中打印出excel表的所有数据，就一目了然了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711181415847.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>在excel表中将password的数据格式修改为文本类型，如下所示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711181545783.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>再次运行代码，查看结果，所有case执行成功</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711183540584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>通过运行keyword_case模块完成自动化打开浏览器输入url地址，输入注册信息，等待等case的执行效果动图</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711190115814.gif" alt></fancybox></p>
+<p><strong>8.如何解决项目中运行的错误</strong></p>
+<ul>
+<li>在excel表格中增加关闭浏览器的case</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/2019071119042769.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行项目后，出现以下错误，该错误显而易见就是在run_method方法中调用getattr函数返回的对象属性中传递的参数op_element所对应的函数close_browser没有形参，导致参数传递错误导致的异常，在excel表关闭浏览器操作中的操作元素没有任何值</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711191229790.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>解决以上出错的方法是在run_method方法中，对excel表中的输入数据以及操作元素进行判断，就能解决参数传递的报错问题，如下所示</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711192812188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>9.关键字模型中如何获取测试结果</strong></p>
+<ul>
+<li>首先在excel表中定义如下的测试case数据，需要说明的就是通过判断预期结果值是否存在，如存在则将预期结果值进行”=”分割成功列表，通过索引来获取两边的值，分别对获取的值进行判断来调用其预期结果的方法，通过返回的结果来向实际结果列写入数据</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711210732241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>那么在keyword_case模块中的run_main方法中则需要获取预期结果方法的值以及预期结果值，来完成case测试的逻辑代码处理</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711212214201.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>运行代码前首先关闭excel表，查看运行结果，出现如下错误</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711212327288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>但是打开excel文档后，发现并测试结果写错到预期结果方法中了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711210830734.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>10.关键字模型中runmethod重构及流程梳理</strong></p>
+<ul>
+<li>在上一步出现的错误，可以在Pycharm中通过Debug进行测试，测试如下</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019071121260470.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></p>
+<ul>
+<li>根据以上结果可以看出，是在调用run_method方法时，该方法没有返回值导致的，所以result的值为None，即在run_method方法中赋值以及return返回即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711212804894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>重新运行代码后，从打印结果上看是成功的</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711213100894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>但是打开excel文档却发现，测试结果写在了预期结果方法列去了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711213315482.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>通过Debug断点测试，发现在op_excel模块中的write_vlaue方法中的col列的值固定写死为7，那么即死在预期结果方法列进行写入的</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711231800565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>所以将write_value方法中的列的默认值修改为9即表示在实际结果列进行数据写入，然后重新运行代码，查看excel文档成功的将测试结果写入到实际结果列中</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711232108236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>修改excel文档中的register_07的case的是否执行为yes，并增加一个打开浏览器的case设置为不执行</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711232600160.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>根据以上测试文档，重新运行代码，查看register_07这条case是否写入实际结果，结果报错了，提示在执行第七条case的时候传递到read_ini.py模块中的get_value方法时的key的值为l，在LocalElement.ini配置文件RegisterElement节点下找不到这个key</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711234153284.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>根据以上错误提示，直接Debug断点测试报错的代码，发现在调用run_method方法传递的op_element参数的值为except_result值的第1个索引，即为element=captcha_error_code的第1个下标为l，所以抛出异常错误信息</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711234648889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>将传递的op_element实参的值修改为except_value[1]即可</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711234803846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>再次重新运行代码，查看运行结果没有问题</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190711234948262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>打开excel表查看是否将测试结果写入到实际结果列中，结果发现只写了一个pass，而register_02这个case并没有写入实际结果</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190712000259268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<p><strong>11.关键字模型如何解决测试结果问题只写一行问题</strong></p>
+<ul>
+<li>出现以上错误是因为在op_excel.py模块中的write_value方法在调用copy方法时没有将之前写入的数据保存后再写入第二条数据，说白了就是第一次保存的数据和第二次读取的数据是不一样的，所以需要在op_excel.py模块中进行如下的修改</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190712001136443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<ul>
+<li>重新运行代码后，查看excel文档，成功的将所有存在预期结果的case的测试结果写入到实际结果对应的列中了</li>
+</ul>
+<p><fancybox><img src="https://img-blog.csdnimg.cn/20190712001314399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzgyNDI1,size_16,color_FFFFFF,t_70" alt></fancybox></p>
+<br>
+
+<p>————————————————<br>版权声明：本文为CSDN博主「cdtaogang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/qq_41782425/article/details/94577854" target="_blank" rel="noopener">https://blog.csdn.net/qq_41782425/article/details/94577854</a></p>
+
+      </div>
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-18T18:21:06+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2019年11月18日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Unittest/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Unittest</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Selenium/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Selenium</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Web自动化/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Web自动化</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/自动化测试框架/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>自动化测试框架</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://hellotaogang.github.io/2019/11/18/Selenium3与Python3实战开发Web自动化测试框架（二）/&title=Selenium3与Python3实战开发Web自动化测试框架（二） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+四丶Unittest介绍及项目实战中的运用
+五丶数据驱动的介绍及使用
+六丶关键字模型的介绍及运用"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://hellotaogang.github.io/2019/11/18/Selenium3与Python3实战开发Web自动化测试框架（二）/&title=Selenium3与Python3实战开发Web自动化测试框架（二） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+四丶Unittest介绍及项目实战中的运用
+五丶数据驱动的介绍及使用
+六丶关键字模型的介绍及运用"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD50lEQVR42u3aSW4jMRAEQP3/057rAEK3MqvYIw8QOhla2GTwUK7l9YpfP2+vv99//87sV+/fTPZz/87riRcOHDhw4CiPuj/Y1adXT79/p10/2f8lPQ4cOHDgOMRxv9GrTbdb3KzQhtjZZeDAgQMHjm9xzA6cr7k/MA4cOHDg+L84ksfPynN5uTD5FAcOHDhwfIsjD4rJsWcNp/xZbeHvkVopDhw4cOCYx75Xvt3f+fcj8x04cODAgaOcCkuC1qbNcx/wZsW+1elw4MCBA8eZQFEv3YaxTfxvE8s2PcOBAwcOHGc52nCYAyUbKoJfGapngxQ4cODAgWPP0aZk+VjAJgTmxEni1zbDcODAgQPHnuN+6U0wPpW2Jbtq07YPv8KBAwcOHCOOPIzlyVUeCPNW02bYrrhsHDhw4MBxlCNPtw50uhYlyHyF/PIu2044cODAgaPkaA95ajRhdqT8wPk1f+jI4cCBAweOkiMfQZs1h2ZhexZu96w4cODAgeMsR96qyUcZNkMJbXJY/2dx1XbCgQMHDhwLjry1M0v29kMPT4xKfLhmHDhw4MCx4EhStTYpStaZBeZTo3sfioM4cODAgeMQR04wKxquemJlAG6T0sv5Dhw4cODAUXLkKdmpouFso1EmWkLgwIEDB46nOYpUpwzGyaBbW4JsW0rFNePAgQMHjqMcbcI2K/O1z22Lg7P1ceDAgQPHKY685ZOEsTwotoEwCdgHAi0OHDhw4FhwJIdpt9hu+uyVtI0rHDhw4MDxbzjaEbpTLajZKF47qBf133DgwIEDxyIp2Q+9tb2bvIk1G2uYBWwcOHDgwPE0x2ysIdn0po3U/qptUOHAgQMHjg1He4BIt0yfNiW/fFfRpzhw4MCB4yhHm3S1v8qbUnvuvOh5WSvFgQMHDhwLjucSuZysDbqbJtPlCjhw4MCBY82Rh6j99zfpWT2UUO4EBw4cOHCc5ZiNDmySsXb9/Eh5sI/+ycCBAwcOHIc4ZolQW14828SarRYFWhw4cODAEXNsjpRvut3oLEjPBiaGuSwOHDhw4LjlmI0I5GG4Dect4uxicODAgQPHExyzMtzhrLEcjKjDZ5sK4sCBAweOBcdP+WoHCDYhuR2JS1iHxUEcOHDgwDGZQOvj82IQISkd5ntoS5P1wBwOHDhw4Cg5NgMKG/VNWpg8JQ/VRQaJAwcOHDjKgLQJVPnmNgE++Xtzahw4cODA8V2OZLU2SCfFxPwy6vwVBw4cOHD8Go68/JcnfvuxhnaQDgcOHDhwnOJIioOzIYNNkTFZeXNtq7YTDhw4cOBYDzScDcCb137MYlNYxIEDBw4cFzv/A6txrpGuVJ9MAAAAAElFTkSuQmCC'>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://hellotaogang.github.io/2019/11/18/Selenium3与Python3实战开发Web自动化测试框架（二）/&title=Selenium3与Python3实战开发Web自动化测试框架（二） | TG'S BLOG&summary=该篇文章是博主一字一码编写的，实属不易，请尊重原创，谢谢大家！温馨提示：需要项目源码的朋友，请添加博主微信进行获取！
+&nbsp;&nbsp;本文目录
+四丶Unittest介绍及项目实战中的运用
+五丶数据驱动的介绍及使用
+六丶关键字模型的介绍及运用"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2019/11/18/Selenium3与Python3实战开发Web自动化测试框架（三）/" rel="prev" title="Selenium3与Python3实战开发Web自动化测试框架（三）">
+                                
+                                    Selenium3与Python3实战开发Web自动化测试框架（三）
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Unittest/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Unittest</a> <a class="tag" href="/tags/Selenium/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Selenium</a> <a class="tag" href="/tags/Web自动化/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Web自动化</a> <a class="tag" href="/tags/自动化测试框架/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 自动化测试框架</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2019/11/18/Selenium3与Python3实战开发Web自动化测试框架（一）/" rel="prev" title="Selenium3与Python3实战开发Web自动化测试框架（一）">
+                                  
+                                      Selenium3与Python3实战开发Web自动化测试框架（一）
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Unittest/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Unittest</a> <a class="tag" href="/tags/Selenium/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Selenium</a> <a class="tag" href="/tags/Web自动化/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Web自动化</a> <a class="tag" href="/tags/自动化测试框架/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 自动化测试框架</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Selenium3与Python3实战开发Web自动化测试框架（二）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#四丶Unittest介绍及项目实战中的运用"><span class="toc-text">四丶Unittest介绍及项目实战中的运用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五丶数据驱动的介绍及使用"><span class="toc-text">五丶数据驱动的介绍及使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六丶关键字模型的介绍及运用"><span class="toc-text">六丶关键字模型的介绍及运用</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1126331350&amp;site=qq&amp;menu=yes"
+            class="social fab fa-qq flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.4/about/wxhy.png"
+            class="social fab fa-weixin flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=cdtaogang@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/Hellotaogang"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://blog.csdn.net/qq_41782425"
+            class="social fab fa-cuttlefish flat-btn flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright <i class='far fa-copyright'></i> 2019-2020 <a style='color: #333333' href='https://www.cdtaogang.top/' target='_blank'>TG’BLOG</a>&nbsp;&nbsp;|&nbsp;&nbsp;<span id='timeDate'>载入天数…</span><span id='times'>载入时分秒…</span></p>
+</div>
+  <br>
+  <div>
+    <div class='github-badge'> <a style='color: #fff' href='https://hexo.io/'><span class='badge-subject'>框架</span><span class='badge-value bg-blue'>Hexo</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://github.com/'><span class='badge-subject'>托管</span><span class='badge-value bg-brightgreen'>GitHub</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.aliyun.com/'><span class='badge-subject'>域名</span><span class='badge-value bg-firebrick'>Aliyun</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://www.jsdelivr.com/'><span class='badge-subject'>内容分发网络</span><span class='badge-value bg-orange'>jsDelivr</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://996.icu/#/zh_CN'><span class='badge-subject'>链接</span><span class='badge-value bg-red'>996.ICU</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://xaoxuu.com/wiki/material-x/'><span class='badge-subject'>主题</span><span class='badge-value bg-blue'>Material X</span></a> </div> <div class='github-badge'> <a style='color: #fff' href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'><span class='badge-subject'>协议</span><span class='badge-value bg-pink'>BY-NC-SA 4.0</span></a> </div>
+  </div>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/11/2019 21:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_4.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_5.jpg", "https://cdn.jsdelivr.net/gh/Hellotaogang/cdn@4.5.7/images/background_6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "71020b6958cd6bbf65b7",
+      clientSecret: "3cfeccd9125b8bac76f2bd8a7f6e30a601ae3a81",
+      repo: "Hellotaogang.github.io",
+      owner: "Hellotaogang",
+      admin: "Hellotaogang",
+      
+        id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+  <script src="/js/app.js"></script>
+
+
+  <script src="/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+  <!--单击显示文字-->
+  <!-- <script type="text/javascript" src="/js/click_show_text.js"></script> -->
+  <!-- 鼠标点击烟花 -->
+  <!-- <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script> -->
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="\js\FunnyTitle.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+color="0,0,0" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  <!-- 样式一（鼠标点击更换样式） -->
+<!-- <script src="https://g.joyinshare.com/hc/ribbon.min.js" type="text/javascript"></script> -->
+<!-- 样式二（飘动的彩带） -->
+<!-- <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script> -->
+  <!-- 数字雨 -->
+  <!-- <canvas id="canvas" width="1440" height="900" ></canvas>
+  <script type="text/javascript" src="/js/DigitalRain.js"></script> -->
+</body>
+</html>
